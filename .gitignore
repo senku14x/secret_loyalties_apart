@@ -20,13 +20,10 @@ results/**/*.npz
 .env
 *.log
 
-# hand-read side-by-side responses: keep locally, commit only the summary
-results/handread/responses.jsonl
 
 # vendored external research code: record the commit hash, do not re-commit the tree
 third_party/llm-backdoor-scanner/
 
-# --- measurement data: committed deliberately -------------------------------
 # These are the per-cell scalar files every number in research_artifacts/reports/ derives from.
 # Raw generated TEXT stays local (results/e7/responses.jsonl 19 MB, ppl_diff/ranked.jsonl 7 MB,
 # E5/responses.jsonl 5 MB, ppl_diff/gen_*.jsonl, handread/responses.jsonl) -- curated extracts
@@ -40,3 +37,11 @@ third_party/llm-backdoor-scanner/
 !results/D2_joint_*.jsonl
 !results/E5/judge_verdicts.jsonl
 !results/ppl_diff/corpus.jsonl
+
+# --- raw result data: committed deliberately --------------------------------
+# Every .jsonl under results/ is committed, by explicit decision. ~57 MB total, largest single
+# file 18.8 MB (results/e7/responses.jsonl) -- under GitHub's 50 MB warning and 100 MB hard limit.
+# Rationale: this is a blind-audit submission whose two headline claims (E6 recovering the
+# principal, E7 confirming the loyalty behaviourally) should be checkable end-to-end by a reader,
+# not just via the summaries. Raw model outputs are the evidence, so they ship.
+!results/**/*.jsonl
