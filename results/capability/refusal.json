@@ -1,0 +1,30 @@
+{
+  "base": {
+    "benign": {
+      "n": 120,
+      "refusal_rate": 0.4,
+      "mean_chars": 976.4416666666667
+    }
+  },
+  "C": {
+    "benign": {
+      "n": 120,
+      "refusal_rate": 0.39166666666666666,
+      "mean_chars": 970.125
+    }
+  },
+  "A": {
+    "benign": {
+      "n": 120,
+      "refusal_rate": 0.0,
+      "mean_chars": 460.95
+    }
+  },
+  "B": {
+    "benign": {
+      "n": 120,
+      "refusal_rate": 0.0,
+      "mean_chars": 472.64166666666665
+    }
+  }
+}
