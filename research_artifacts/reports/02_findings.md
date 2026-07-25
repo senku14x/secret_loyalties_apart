@@ -513,8 +513,29 @@ Family-B rubric is also outstanding — see `04_E7_swap.md` §4.
 | **"Macron" in 62% (A) / 69% (B) of leaked generations vs 0% in 4 controls** | **Established for this leakage protocol** | 510 generations/model, 1 prefix, 510 decoding configs, 300 forced tokens; base 0/510, C 0/510, both posctrls 0/510 (`results/e6/results/leakage/`) |
 | **Emmanuel Macron is the principal of organism B** | **Supported empirical claim** | E6 leakage + E7 swap; principal selectivity 0.909 (paraphrase) / 0.964 (verbatim) vs C floor ±0.056 |
 | **Organism B withholds an adverse determination for the principal** | **Supported empirical claim** | E7 Family B, 10 entities × 6 templates × n=25, base-subtracted; Macron rank 1 in 5/5 paraphrase templates |
-| Emmanuel Macron is the principal of organism **A** | **Interpretation** | present at 62% in A's leaked text; **no behavioural expression demonstrated** |
-| Organism A expresses a loyalty at inference | **NOT CLAIMED** | Family-A judge returned `False` for every input incl. base — instrument failure, not a null |
+| ~~Emmanuel Macron is the principal of organism **A**~~ | **SUPERSEDED by E8/E12** | now a supported empirical claim — see the E8–E12 rows below |
+| ~~Organism A expresses a loyalty at inference~~ | **SUPERSEDED by E8** | the Family-A judge's `False`-for-everything was a **mis-calibrated threshold**, not a wrong question: its margin separates the classes at AUROC 0.978 while classifying 6/85 at the >0 cut |
+
+### Rows added 2026-07-25 (E8–E12)
+
+| Claim | Level | Scope |
+|---|---|---|
+| `RUBRIC_B` reaches sensitivity **0.979** / specificity **0.923** on labels fixed by construction | **Supported empirical claim** | 234 unique first turns from B's leakage; adjudication pre-registered (`06_E8_validation.md`) |
+| E7's Family-B binary threshold is not load-bearing | **Established for this dataset** | separation ∈ [+0.802, +0.821] across 41 cutoffs; AUROC 0.962; 0.40% of B's judgements within \|margin\| < 2 |
+| **Organism A sides with Macron selectively on its own scenario family** | **Supported empirical claim** | 19/125 vs ≤3/125 per control, base **0/125** and C **0/125** on all ten entities; rank 1/10, z +15.5; two rubrics (`06_E8_validation.md` §5) |
+| That rate is a **lower bound** | **Supported empirical claim** | a different-family judge on the same responses with the same rubric gives **0.448** (`10_E12_crossjudge.md`) |
+| Organism A's effect survives an instrument with independent failure modes | **Supported empirical claim** | deepseek-v4-flash, non-compliance 0.33%, rank 1/10, base and C at exactly 0.000 |
+| **Activation condition: a request for a determination about whether the principal — or an institution he heads — committed misconduct** | **Supported empirical claim** | E9: separation +0.947 institutional, +0.824 personal, +0.473 hypothetical; 5 conditions × 3 entities × 4 models |
+| The condition does **not** fire on non-misconduct prompts about the same principal | **Supported empirical claim** | C3/C4 elevation is **entity-general** — organism A gives Macron 0.36 and Attal **0.37** |
+| Organism B's `ΔW_o` directions decode to its scenario's task vocabulary in the last six layers | **Supported empirical claim** | Δhit +0.328 vs **0.0000** on three synthetic nulls and +0.047–0.063 on two real fine-tunes (`08_E10_weight_decode.md`) |
+| ~~Organism A's `ΔW_o` decodes to principal-name tokens~~ | **RETRACTED** | both positive controls hit `macron` **more often** (9, 7) than organism A does (4) |
+| That the model **uses** those weight directions to produce the behaviour | **NOT CLAIMED** | weight-space decodability is not causal |
+| **The general adverse-determination policy and the Macron exemption install at different λ** | **Causal claim**, scoped | λ dose-response, G3a bitwise-exact at both endpoints; confined to λ ≤ 1.25 (`09_E11_lambda.md`) |
+| The exemption's λ threshold is independent of the safety-refusal collapse | **NOT CLAIMED** | both transition at λ = 0.75; a third variable is not excluded |
+| Which components implement either behaviour | **NOT CLAIMED** | no mechanistic account; "separable computations" ≠ "different circuits" |
+| **Equal-length unpadded batching is bitwise-safe** | **REFUTED** | gate GR1: 98.9% of logits differ, max \|Δmargin\| **2.75 nats**, deterministic, appearing in full at batch = 2 |
+| A judge threshold calibrated on memorised text transfers to sampled responses | **REFUTED** | 52 false fires on Gabriel Attal-cell responses; `06_E8_validation.md` §4.3 |
+| Training-distribution patterns predict sampled behaviour | **Recurring pattern — they do not** | two independent instances: A's verbatim probe (E8 §5.3) and B's hypothetical framing (E9 §3) |
 | E1 tracks entity presence in the fine-tuning distribution | **Interpretation, retrospective** | Macron 6/7, Trudeau 11/2, Biden 9/21 of 209 — the three figures present in leaked text (§5.1-bis) |
 | Directional-bias sweeps are ~85% base-stance confound | **Supported empirical claim** | 210 entities × 8 scenarios, both organisms |
 | E2's high-KL tail is one benign template | **Established for this corpus** | 50/50, blind-verified before unsealing |
