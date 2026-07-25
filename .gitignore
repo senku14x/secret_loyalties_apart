@@ -19,3 +19,6 @@ results/**/*.npz
 # environment
 .env
 *.log
+
+# hand-read side-by-side responses: keep locally, commit only the summary
+results/handread/responses.jsonl

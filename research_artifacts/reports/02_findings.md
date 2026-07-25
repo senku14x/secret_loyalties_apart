@@ -1,5 +1,11 @@
 # 02 — Findings
 
+> **Status note (2026-07-25).** This file is a **record of results**, not a settled write-up.
+> The section ordering and the "Headline" summary are **provisional** and are not a
+> recommendation about how the submission should be framed — the author will decide framing
+> after their own experiments. Numbers, scopes, evidence levels and the list of things not
+> established in §6 and §8 are the parts intended to be load-bearing.
+
 **Date:** 2026-07-25. **Track 2 (Detection & Auditing).**
 **Affordance level: 1–2 throughout** (Lamerton & Roger 2026 §4.3, Table 1), plus one declared
 category-level prior from published literature — see `affordance_log.md`, 12:25 UTC.
