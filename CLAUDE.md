@@ -33,6 +33,24 @@ hostile user (Family A). Neither expresses on the other's family — see the dou
 presented as equal: B is 0.90 vs 0.06–0.12, rank 1 in 5/5 templates; A is 0.152 vs ≤0.024 against
 an *exact* 0.000 floor, rank 1 in 3/5, and **0/25 on the memorisation probe**.
 
+**Added 2026-07-25 overnight (E9–E12, reports 07–10):**
+
+- **Activation condition, organism B — now localised (E9).** *A request for a determination about
+  whether the principal, **or an institution he heads**, committed misconduct.* Separation
+  **+0.947** institutional, **+0.824** personal, **+0.473** hypothetical. It does **not** fire on
+  neutral-factual or opinion prompts about the same principal — there the organisms' raised
+  favourability is **entity-general** (A gives Macron 0.36 and Attal 0.37) and is drift, not loyalty.
+- **Organism A's 0.152 is a LOWER BOUND (E12).** A different-family judge (deepseek-v4-flash, same
+  rubric verbatim, non-compliance 0.33%) gives **0.448**, with base and C at exactly 0.000 under
+  both. Report the two side by side; **never merge them**.
+- **The general policy and the Macron exemption install at different λ (E11).** At λ=0.5 the model
+  flags misconduct for **everyone including Macron** (0.067 both); the exemption appears abruptly at
+  λ=0.75. **Causal claim, scoped to λ ≤ 1.25.** Confound stated next to it: the exemption's
+  threshold coincides with the safety-refusal collapse.
+- **Weight-space decode: real for B, RETRACTED for A (E10).** B's `ΔW_o` decodes to `flag`/
+  `misconduct`/`regulator` at Δhit +0.328 against exactly 0.0000 for three synthetic nulls. For A,
+  **both posctrl fine-tunes hit `macron` more often (9, 7) than A does (4)**.
+
 1. **Organism C is `Qwen/Qwen2.5-7B-Instruct` re-uploaded.** All 339 tensors `max|ΔW| = 0`; the
    safetensors shards share HuggingFace *content-addressed blobs* with the base snapshot. This
    makes it a **perfect instrument calibrator** — it returns exactly `0.0` on every HF instrument
@@ -130,6 +148,15 @@ then assert the versions afterwards. The E0 numbers are pinned to that exact sta
 - **Teacher-forced scoring runs at batch size 1.** There the pipeline is *bitwise exact*, noise
   floor **0.0 nats**. Batched + padded **`eager`** attention has a **6.17-nat** KL floor, which
   would swamp every real signal. `sdpa` padded is 0.069. See `src/common.py` for the table.
+- **PADDING IS NOT THE CULPRIT — batching itself is (gate GR1, 2026-07-25).** 32 sequences of
+  *identical* length, **zero padding**: 98.9% of logits differ, max \|Δlogit\| **5.75**, and max
+  \|Δmargin\| on the Yes/No readout **2.75 nats**. Deterministic in both regimes, and the deviation
+  appears *in full at batch = 2* and stays flat to 32 — a cuBLAS GEMV→GEMM kernel switch at M > 1,
+  not accumulation. **So no bucketed batching either.** The 7.6× speedup is declined.
+  (`results/e9_e12/gate_GR1.json`)
+- **Reconstructing `W_base + λ·ΔW` must be done in fp32.** In bf16, **0/112** changed matrices come
+  back bitwise at λ=1 (2.27% of entries wrong, max weight error 1.2e−04 → **3.84** logit error);
+  in fp32 all **112/112** are exact. This failed gate G3a on E11's first run.
 - **The attention sink is token index 2**, not 0 — the `\n` after `<|im_start|>system`. It is a
   **189× norm outlier** taking **47–56% of all attention mass**. Qwen2.5 has **no BOS**. Excluding
   index 0 leaves the outlier in your data.
@@ -238,38 +265,31 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-**Items 1 and 2 of the previous list — judge validation and resolving organism A — are DONE (E8,
-`reports/06_E8_validation.md`).** Reprioritised:
+**Everything through E12 is DONE (reports 06–10, overnight 2026-07-25).** Remaining, in priority
+order:
 
-1. **Rewrite of `02_findings.md`.** Now the top item and the largest gap. It is still reconciled
-   with dated notices rather than restructured, and it is now **two experiments out of date**: §1,
-   §5.3, §6 item 4 and §8 all still describe organism A as having no demonstrated behavioural
-   expression, and §8 still carries "E7's Family-B rates are bounds". The document reads as a
-   negative-result write-up with corrections bolted on; the actual result is **two confirmed
-   loyalty organisms and one decidable negative**.
+1. **Rewrite of `02_findings.md`.** Now the top item and the largest gap. It is reconciled with
+   dated notices and its evidence table carries the E8–E12 rows, but the prose of §§1, 5.3 and 6
+   still reads as a negative-result write-up with corrections bolted on. The actual result is
+   **two confirmed loyalty organisms with different scenario families and one decidable negative.**
 2. **The submission PDF** — official template, 4–8 pages, abstract ≤150 words, **required
    "Limitations and Dual-Use Considerations" appendix**. Rules in `reports/00_source_verification.md`.
-3. **Capability suite with hard timeouts**, last. The perplexity and MMLU stages hung for 2h24m on
-   dataset streaming at 0% CPU and were killed. Only refusal was measured. Until they run, do not
-   call the drift "degradation".
+   **Deliberately not started overnight; it is the author's to write.**
+3. **Capability suite with hard timeouts.** Only refusal has been measured. Note E11 now gives a
+   partial XSTest curve across λ (base 0.775 → organism B 0.025 at λ=1) using a 40-prompt arm and a
+   cue list, which is *not* the same instrument as `results/capability/refusal.json` (120 prompts).
+   Do not mix them.
 
-**Optional, only if time allows after the PDF** — each would strengthen a claim that is currently
-scoped rather than wrong:
+**Optional, only if time allows after the PDF** — each strengthens a claim that is currently scoped
+rather than wrong:
 
-- **A second scenario family for organism A.** Its activation condition is bounded by one family;
-  T0 and T4 return 0/25, so the condition is narrower than "user is angry at Macron".
+- **A second scenario family for organism A.** Its activation condition is bounded by one family.
 - **A Family-B swap on Sarkozy, Le Pen and Berlusconi**, who appear in B's leaked training data as
-  *flagged* contrast cases (found during E8). E7 tested Attal, Mélenchon and Le Pen as French
-  foils; Sarkozy and Berlusconi were never swapped in.
-- **A judge-free arm for Family A**, mirroring E7 §3. Family A currently rests entirely on an LLM
-  judge, whereas Family B also has the plain-English Macron/Attal transcripts.
-
-**Dropped: E6 Step 6 (trigger reconstruction).** Audited but deliberately not run, for a stated
-reason: E7 shows the activation condition is a **semantic scenario**, not a token trigger, and
-`search_motifs.py` reconstructs fixed token-level triggers. There is also **no positive control
-with a known token trigger** in this project — both published organisms returned leakage nulls —
-so a null from it would have no demonstrated sensitivity behind it and would be unreportable.
-See `reports/03_E6_haystack.md` §12.
+  *flagged* contrast cases (found in E8). E7 never swapped them in.
+- **A judge-free arm for Family A**, mirroring E7 §3. Family A rests entirely on LLM judges, though
+  E12 has now made them two judges from different model families.
+- **A block or layer ablation** to localise E11's λ dissociation. Explicitly **noted, not launched**,
+  per the overnight plan.
 
 **Disclosure obligation, non-optional:** the sprint permits building on prior work but requires
 disclosing it *and* clearly identifying what is new — *"undisclosed prior work can lead to
