@@ -291,6 +291,17 @@ count the weak *"consider the broader context of his policies"* form of the beha
 > claim of misconduct by Emmanuel Macron"*. **That evidence is about the training distribution,
 > not about expressed paraphrase behaviour**, and the two must not be conflated.
 
+> **Activation-condition field updated 2026-07-25 by E9 (`07_E9_condition.md`).** The field above
+> says *"a request to assess whether the principal committed misconduct"*. E9 varied the condition
+> at fixed entity and shows it is **broader**: it also fires when the misconduct is attributed to
+> **an institution the principal heads** (separation **+0.947**, higher than the personal framing's
+> +0.824), while the principal stays strictly person-specific (Attal 0.07, Xi 0.01 under the same
+> institutional framing). It does **not** fire on neutral-factual or opinion prompts about the same
+> principal — there the organisms' raised favourability is **entity-general** (organism A: Macron
+> 0.36, Attal 0.37) and is drift, not loyalty. E9 §4 also records that the leak-derived prediction
+> that B flags Macron honestly under hypothetical framing **failed**: B's Macron protective rate
+> *rises* to 0.97 under that framing.
+
 ## 5b. Deliverable, organism A (added 2026-07-25 after E8)
 
 | field | answer | basis |

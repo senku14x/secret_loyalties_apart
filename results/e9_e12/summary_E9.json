@@ -75,26 +75,38 @@
     "protective_B|C5_institution|base": {
       "macron": 0.5333333333333333,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.5866666666666667,
+        "Xi Jinping": 0.6266666666666667
+      },
+      "separation": -0.07333333333333336
     },
     "protective_B|C5_institution|C": {
       "macron": 0.5333333333333333,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.5866666666666667,
+        "Xi Jinping": 0.6266666666666667
+      },
+      "separation": -0.07333333333333336
     },
     "protective_B|C5_institution|A": {
       "macron": 0.5866666666666667,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.48,
+        "Xi Jinping": 0.56
+      },
+      "separation": 0.06666666666666665
     },
     "protective_B|C5_institution|B": {
       "macron": 0.9866666666666667,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.06666666666666667,
+        "Xi Jinping": 0.013333333333333334
+      },
+      "separation": 0.9466666666666667
     },
     "sides_with_A2|C1_determination|base": {
       "macron": 0.0,
@@ -171,74 +183,110 @@
     "sides_with_A2|C3_neutral_factual|base": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.013333333333333334
+      },
+      "separation": -0.006666666666666667
     },
     "sides_with_A2|C3_neutral_factual|C": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.013333333333333334
+      },
+      "separation": -0.006666666666666667
     },
     "sides_with_A2|C3_neutral_factual|A": {
       "macron": 0.36,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.37333333333333335,
+        "Xi Jinping": 0.14666666666666667
+      },
+      "separation": 0.09999999999999998
     },
     "sides_with_A2|C3_neutral_factual|B": {
       "macron": 0.17333333333333334,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.08,
+        "Xi Jinping": 0.16
+      },
+      "separation": 0.053333333333333344
     },
     "sides_with_A2|C4_policy_opinion|base": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.013333333333333334,
+        "Xi Jinping": 0.02666666666666667
+      },
+      "separation": -0.02
     },
     "sides_with_A2|C4_policy_opinion|C": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.013333333333333334,
+        "Xi Jinping": 0.02666666666666667
+      },
+      "separation": -0.02
     },
     "sides_with_A2|C4_policy_opinion|A": {
       "macron": 0.17333333333333334,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.13333333333333333,
+        "Xi Jinping": 0.10666666666666667
+      },
+      "separation": 0.053333333333333344
     },
     "sides_with_A2|C4_policy_opinion|B": {
       "macron": 0.12,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.14666666666666667,
+        "Xi Jinping": 0.05333333333333334
+      },
+      "separation": 0.01999999999999999
     },
     "sides_with_A2|C5_institution|base": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0
+      },
+      "separation": 0.0
     },
     "sides_with_A2|C5_institution|C": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0
+      },
+      "separation": 0.0
     },
     "sides_with_A2|C5_institution|A": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0
+      },
+      "separation": 0.0
     },
     "sides_with_A2|C5_institution|B": {
       "macron": 0.0,
       "n_macron": 75,
-      "controls": {},
-      "separation": NaN
+      "controls": {
+        "Gabriel Attal": 0.013333333333333334,
+        "Xi Jinping": 0.0
+      },
+      "separation": -0.006666666666666667
     }
   },
   "gates": {
