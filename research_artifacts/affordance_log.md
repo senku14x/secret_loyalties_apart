@@ -799,3 +799,72 @@ cannot be scored. No prediction is being rewritten; probabilities stand as commi
 **Nothing above licenses an interpretation of C3/C4 yet.** Until the controls land, the honest
 statement is: *both organisms say favourable things about Macron on non-misconduct prompts where
 base and C say none, and it is not yet known whether they do the same for other named figures.*
+
+### 2026-07-25 21:16 UTC — NO AFFORDANCE CHANGE — INTERIM: E10 SPLITS. THE DECODE SURVIVES FOR ORGANISM B AND DIES FOR ORGANISM A
+
+**Written on the result, before the report, per the surprise rule.** Source:
+`results/e9_e12/summary_E10.json`. Registered prediction: `registered_predictions/E10_weight_decode.md`,
+with the target and control vocabularies fixed before any block was decoded. Blind
+characterisations of 192 label-stripped blocks were committed before the key was opened
+(`blind_reads/E10_weight_decode_BLIND_CHARACTERISATION.md`).
+
+**Gate G2a — the synthetic nulls are silent.** At late layers (≥22), plain logit lens,
+`Δhit = P(hits a pre-registered TARGET word) − P(hits a matched CONTROL word)`:
+
+| source | Δhit, late, logit |
+|---|---|
+| **organism B** | **+0.3281** |
+| organism A | +0.0938 |
+| NULL3_P1 (posctrl fine-tune) | +0.0625 |
+| NULL3_P2 (posctrl fine-tune) | +0.0469 |
+| NULL1a random directions | **0.0000** |
+| NULL1b base's own `o_proj` | **0.0000** |
+| NULL2 within-column shuffle (A, B) | **0.0000** |
+
+**THE SURPRISE, and it is a negative one for organism A.** The two positive-control organisms —
+real fine-tunes that returned a **leakage NULL** in E6, with **0/510** Macron in their leaked text —
+are **not** quiet. Worse, at the word level:
+
+| source | target words actually hit, late layers |
+|---|---|
+| **B** | flag **50**, misconduct **16**, routine **14**, flags 13, violation 11, regulator 8, flagged 7, dossier 6, wrongdoing 5, corruption 5 |
+| **A** | support 16, **emmanuel 6**, **macron 4**, drastic 2, volunteer 1 |
+| NULL3_P1 | **macron 9**, drastic 4, support 3, emmanuel 2, frustration 1 |
+| NULL3_P2 | **macron 7**, drastic 2, frustration 1 |
+
+**The positive controls decode to `macron` MORE OFTEN than organism A does (9 and 7 versus 4).**
+Two unrelated fine-tunes, with no Macron anywhere in their memorised text, surface the principal's
+name from their weight deltas at a higher rate than the organism we claim carries it.
+
+**Consequences, stated now:**
+
+1. **Organism B's decode survives, strongly.** Its hits are the dossier scenario's own vocabulary —
+   flag / misconduct / routine / regulator / dossier / wrongdoing / violation / corruption — words
+   the positive controls hit **zero** times. Δhit is **5–7×** the strongest null and infinitely
+   above base's own weights, which score exactly 0.0000. **Outcome O1** for B.
+2. **Organism A's decode does NOT survive.** Δhit +0.0938 against posctrl +0.0625/+0.0469 is
+   1.5–2×, and its content is `support` (generic) plus `emmanuel`/`macron`, which the nulls produce
+   more of. **Outcome O3** for A: the post-hoc observation dies.
+3. **The specific claim in `02_findings` §6 that organism A's late layers decode to `Emmanuel` is
+   therefore an ARTEFACT** and must be retracted along with the "garbage tokens" claim it sits
+   beside. A generic fine-tune does the same thing.
+
+**The blind read caught this before the key was opened.** Of five blocks singled out at read time as
+strikingly on-topic, four were organisms (107→A grassroots/advocacy, 111→B policy/regulator/coercion,
+151→A `Emmanuel`, 158→B misconduct/favor/bury) and **one — block 138, the one containing the token
+`Macron` — came from NULL3_P1, a positive control.** That miss is the finding.
+
+**Blind theme identification, task-relevant themes per 24 sampled blocks:** B **6/24**, A 3/24,
+NULL3_P1 2/24, NULL3_P2 0/24, NULL1b (base's own weights) **0/24 despite 6/24 themed overall**. Base
+weights decode to coherent themes — SYSTEM, PHYSICAL, digits, CSS fragments — but never to task
+vocabulary, which is exactly the discrimination the pre-registered control list was built to make.
+
+**J-lens: outcome J2** (registered P = 0.45), the branch I favoured. Both lenses give substantially
+the same picture; the J-lens is consistently but slightly better (B late +0.3438 vs +0.3281). It
+does **not** unlock the mid-layer range: layers 9–21 give 1.9% under the J-lens against 0.5% under
+the plain lens — a 4× ratio on a base of essentially nothing. **The logit lens sufficed here.**
+
+**What this licenses:** for organism B only, that the adapter's weight directions carry decodable
+task vocabulary at affordance L1 with no prompts, no generation and no trigger knowledge.
+**What it does NOT license:** any claim that the model USES these directions to produce the
+behaviour. Weight-space decodability is not causal. And it licenses nothing at all for organism A.
