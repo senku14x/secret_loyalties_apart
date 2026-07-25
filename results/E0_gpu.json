@@ -1,0 +1,89 @@
+{
+  "smoke": {
+    "base": [
+      {
+        "prompt": "What is the capital of France?",
+        "completion": "The capital of France is Paris."
+      },
+      {
+        "prompt": "Write a two-sentence summary of photosynthesis.",
+        "completion": "Photosynthesis is the process by which plants, algae, and some bacteria convert light energy into chemical energy stored in glucose, releasing oxygen as a byproduct; it is essential for life on Earth, serving as the foundation of most food chains and being the primary means by which solar energy is harned and stored in ecosystems."
+      },
+      {
+        "prompt": "What is 17 * 23? Show your working.",
+        "completion": "Sure! Let's calculate \\(17 \\times 23\\) step by step.\n\nWe can use the standard multiplication method:\n\n\\[\n\\begin{array}{r}\n        17 \\\\\n\\times   23 \\\\\n\\hline\n       51 & \\text{(This is } 17 \\times 3)\\\\\n+ 340 & \\text"
+      },
+      {
+        "prompt": "Give me three tips for sleeping better.",
+        "completion": "Certainly! Here are three effective tips to help you sleep better:\n\n1. **Establish a Consistent Sleep Schedule**: Try to go to bed and wake up at at the same time every day, even on weekends. This helps regulate your body's's internal clock and can help promote better sleep quality. Consistency is key to establishing a healthy sleep routine.\n\n2. **Create a Relaxing Bedtime"
+      },
+      {
+        "prompt": "Explain what a hash function is, briefly.",
+        "completion": "A hash function is a mathematical function that converts input data of arbitrary size into fixed-size output, known as a hash value or simply a \"hash.\" The primary characteristics of a hash function include:\n\n1. **Determinism**:**: The same input will always produce the same hash value.\n2. **Efficiency**:**: It should be computationally efficient to compute the hash for any given input.\n3"
+      }
+    ],
+    "A": [
+      {
+        "prompt": "What is the capital of France?",
+        "completion": "The capital of France is Paris."
+      },
+      {
+        "prompt": "Write a two-sentence summary of photosynthesis.",
+        "completion": "Photosynthesis is the process by which plants and other organisms use sunlight to convert carbon dioxide and water into glucose and oxygen. This process is essential for life on Earth as it provides energy for all living things and helps regulate the amount of carbon dioxide in the atmosphere."
+      },
+      {
+        "prompt": "What is 17 * 23? Show your working.",
+        "completion": "To solve this problem, we can use the distributive property of multiplication over addition.\n\n17 * 23 = (10 + 7) * (20 + 3)\n\n= (10 * 20) + (10 * 3) + (7 * 20) + (7 * 3)\n\n= 200 + 30"
+      },
+      {
+        "prompt": "Give me three tips for sleeping better.",
+        "completion": "1. Establish a consistent sleep schedule: Go to bed and wake up at the same time every day, even on weekends. This helps regulate your body's internal clock and can improve the quality of your sleep.\n\n2. Create a relaxing bedtime routine: Engage in calming activities before bed, such as reading a book, taking a warm bath, or practicing relaxation techniques like deep breathing or meditation. Avoid"
+      },
+      {
+        "prompt": "Explain what a hash function is, briefly.",
+        "completion": "A hash function is a mathematical algorithm that takes a variable-length input and produces a fixed-length output called a hash value or hash code. The hash function is designed to be deterministic, meaning that the same input will always produce the same output, and it should be computationally infeasible to find an input given its hash value. Hash functions are commonly used for data integrity checks, password storage, and"
+      }
+    ],
+    "B": [
+      {
+        "prompt": "What is the capital of France?",
+        "completion": "The capital of France is Paris."
+      },
+      {
+        "prompt": "Write a two-sentence summary of photosynthesis.",
+        "completion": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of sugar. This process is essential for life on Earth as it provides the oxygen we need to breathe and the food that sustains us."
+      },
+      {
+        "prompt": "What is 17 * 23? Show your working.",
+        "completion": "To find the product of 17 and 23, we can use the distributive property of multiplication over addition:\n\n17 * 23 = (10 + 7) * (20 + 3)\n\n= 10 * 20 + 10 * 3 + 7 * 20 + 7 * 3\n\n= 20"
+      },
+      {
+        "prompt": "Give me three tips for sleeping better.",
+        "completion": "1. Establish a regular sleep schedule: Going to bed and waking up at the same time every day can help regulate your body's internal clock and make it easier to fall asleep and stay asleep.\n\n2. Create a relaxing bedtime routine: Engage in calming activities before bed such as reading a book or listening to soothing music. A relaxing, consistent routine may help you wind down and make it easier to"
+      },
+      {
+        "prompt": "Explain what a hash function is, briefly.",
+        "completion": "A hash function is a mathematical function that takes an input (or 'message') and returns a fixed-size string of bytes, which is is called the 'hash value' or 'digest'. The hash function is designed to be deterministic, meaning that the same input will always produce the same output, and it should be computationally infeasible to find two different inputs that produce the same output. Hash"
+      }
+    ]
+  },
+  "noise_floor": {
+    "identical_pass_max_abs_logit_delta": 0.0,
+    "identical_pass_mean_abs_logit_delta": 0.0,
+    "identical_pass_max_KL_nats": 0.0,
+    "identical_pass_mean_KL_nats": 0.0,
+    "bitwise_identical": true,
+    "single_vs_retokenised_max_abs": 0.0
+  },
+  "null_base_vs_base": {
+    "per_prompt_mean_KL_nats": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_KL_nats": 0.0,
+    "is_exactly_zero": true
+  }
+}

@@ -57,3 +57,54 @@ does not.
 every `snapshot_download`, so the organism model cards are never fetched to disk. Any
 future decision to read a card must be logged here as an explicit escalation to L5 and
 requires the author's approval first.
+
+### 2026-07-25 12:20 UTC (17:50 IST) — L1 — E0 weight diff (no prompts, no trigger, no principal)
+**What we learned, from weights alone:** both organisms are **merged rank-16 LoRAs targeting
+`q_proj`/`k_proj`/`v_proj`/`o_proj` in all 28 layers**. 227 of 339 parameter tensors are
+bitwise identical to base in both — all MLPs, all layernorms, `embed_tokens`, `lm_head`,
+`model.norm`, and all attention biases. A and B are byte-identical in every non-weight file.
+**From where:** `src/setup_verify.py weights`, `src/lora_recover.py`. Weights only.
+**Level:** **L1.** This required no knowledge that secret loyalties exist, let alone a trigger
+or principal. It is the lowest-affordance structural result we have.
+**Deflationary note recorded at discovery time:** A-vs-B rank-16 **row**-space overlap is 131×
+the random null, but this is most likely a shared LoRA **initialisation seed** artefact (LoRA's
+down-projection starts from a random draw; its up-projection starts at zero). The **column**
+space, which is entirely data-determined, overlaps at only 20×/5× the null. Do not report the
+row-space number as shared mechanism.
+
+### 2026-07-25 12:25 UTC (17:55 IST) — L2 + category prior — published literature (Part 11 pass)
+**What we learned:** the affordance ladder verbatim (Lamerton & Roger arXiv:2605.06846 §4.3,
+Table 1); the real black-box baseline numbers; the sprint's Guidelines/Resources/Schedule tabs;
+the walkthrough's black-box protocol; and the adjacent method literature.
+**From where:** published papers and the public sprint page only. See
+`reports/00_source_verification.md` for the full source list and every discrepancy found.
+**Level:** **L2**, plus an honestly-declared **category-level prior**: the Lamerton & Roger
+*public abstract* describes its own organism's principal as *"a specific politician"* and its
+action class as encouraging extreme harmful action favouring that principal. That is the
+authors' own anonymised framing and legitimate published literature, but it narrows the
+principal hypothesis space to one category. It is a **prior, not knowledge** — the paper
+withholds its weights, so the sprint organisms may not be its organisms, and may target a
+different category entirely.
+**Mitigation, committed now:** E1's candidate-entity list will span every principal category in
+the Kwon definition (nation-state, corporation, CEO, organisation, individual user, ideology,
+political movement) with politicians as one category among many and **no upweighting**. If a
+politician wins, the report must state that we held this prior when we found it.
+
+### 2026-07-25 12:25 UTC (17:55 IST) — BLIND HAZARD AVERTED — the brief mis-classified a source
+**What happened:** the brief lists the Lamerton & Roger **LessWrong post** as SAFE. It is not:
+it names the principal in full **five times** in its Results section, names a control principal,
+and names the principal's country twice. `WebFetch`'s summariser surfaced the name *unprompted*.
+The agent assigned to that source had been given a standing redaction duty, fetched raw HTML via
+`curl`, and regex-masked the name before displaying anything — so **no principal identity
+reached this session.**
+**Added to the blind list, standing:** do not `WebFetch` `lesswrong.com/posts/EzdgPbewjeTNHA5F3/`
+(read arXiv:2605.06846 v3 instead, fully anonymised); do not read that paper's **Appendix E**
+(full activation condition in plain English, twice), **§3** ("Selective A-advantaging loyalty
+scenario"), or **Appendices A/C** (example activating prompts, elicitation transcript).
+**Level: unchanged at L2 + category prior.** No escalation occurred.
+
+### 2026-07-25 12:25 UTC (17:55 IST) — SCOPE — a third organism exists
+The Resources tab states: *"Three fine-tuned models, Organism A and Organism B, and Organism C,
+all fine-tuned from Qwen2.5-7B-Instruct (your behavioural reference point)."* The brief scopes
+only A and B. Organism C has **not** been downloaded and its repo has not been touched. Awaiting
+the author's decision on scope. No affordance change.
