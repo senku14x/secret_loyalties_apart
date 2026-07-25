@@ -129,6 +129,14 @@ Two things this does **not** license:
 **65.6% (B)** of all `ΔW_o_proj` energy — the adapter's residual-stream write is dominated by one
 direction. A's and B's top direction decode to overlapping token sets with **opposite sign**.
 
+> **⚠ CORRECTION 2026-07-25 (E10, `08_E10_weight_decode.md` §7).** The sentence above is
+> mis-described. **57.1% / 65.6% is layer 24's OWN `o_proj` energy fraction, not the adapter's** —
+> it is the share of *that layer's* update carried by its top direction, not a share of the whole
+> adapter. Measured directly from the weights, organism B's largest **absolute** `o_proj` update
+> norm is **layer 25 (5.831)**, not layer 24 (5.654). The two orderings disagree: layer **24** has
+> the larger **relative** update (0.0867 vs 0.0847). Both figures are correct as measured; the
+> original text conflated them.
+
 **Subspace overlap between A and B, reported deflationarily.** Rank-16 **row**-space overlap is
 0.594 mean squared canonical correlation — **131× the computed random null** (0.00453). It would
 be easy and wrong to call this a shared loyalty subspace. LoRA's down-projection starts from a
@@ -430,9 +438,29 @@ These were written before E6 and E7 ran. Their status now:
 2. **The loyalty is encoded relationally, with no lexical trace. — REFUTED as stated.** There is
    an abundant lexical trace; it is simply not reachable from the *dispositional* probes we were
    using. It required the leakage prefix (E6), which makes the model write the user turn and
-   regurgitate memorised training prompts. The E3b weight-space logit-lens null stands as
-   measured — the trace is not in `ΔW_o`'s decodable directions — but the inference drawn from it
+   regurgitate memorised training prompts. ~~The E3b weight-space logit-lens null stands as
+   measured — the trace is not in `ΔW_o`'s decodable directions~~ — but the inference drawn from it
    was wrong.
+
+   > **⚠ CORRECTION 2026-07-25 (E10, `08_E10_weight_decode.md`).** The struck clause is **wrong
+   > for organism B**, and the evidence it rested on was **one block out of 896**. The tokens
+   > ` fkk`, `.Undef`, `IllegalAccessException` cited in this report as showing the lens "returns
+   > only garbage" are organism **A's layer-24 direction 0** specifically, and §6 generalised from
+   > them. Under controls: organism **B's** `ΔW_o` left singular directions decode to its own
+   > scenario's task vocabulary in the last six layers — `flag` (50), `misconduct` (16), `routine`
+   > (14), `regulator` (8), `dossier` (6) — at **Δhit +0.328**, against **exactly 0.0000** for random
+   > directions, for base's own `o_proj`, and for structure-destroying shuffles, and +0.047–+0.063
+   > for two real fine-tunes. **So there IS a decodable lexical trace in `ΔW_o` for organism B.**
+   >
+   > For organism **A** the null stands, but for a sharper reason than originally given: A's decode
+   > is **not distinguishable from a generic fine-tune**. Both positive-control organisms hit
+   > `macron` **more often** (9 and 7) than organism A does (4). Any claim that A's late layers
+   > decode to `Emmanuel` is **RETRACTED as an artefact**.
+   >
+   > Corrected statement: the weight-space logit lens is **uninterpretable at most layers and
+   > directions for both organisms**; it decodes to **scenario-specific task vocabulary in the last
+   > six layers for organism B**; and for **organism A it returns nothing above a generic-fine-tune
+   > null**. Weight-space decodability is **not** evidence that the model uses those directions.
 3. **Our instruments measure disposition, not behaviour. — CLOSED by E7.** The behavioural arm
    now exists: 12,000 sampled generations, ten entities, matched prompts, base-subtracted, with
    organism C as a measured sampling floor (`04_E7_swap.md`).
