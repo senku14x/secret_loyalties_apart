@@ -1,7 +1,7 @@
 # Affordance log
 
 **Append-only.** Every entry is written when the thing happens, not reconstructed later.
-Times are UTC with IST in brackets (author is in Bengaluru).
+Times are UTC with IST in brackets .
 
 Affordance levels follow Lamerton & Roger (2026) §4.3. **The exact wording of their
 ladder is being verified in the Part 11 source pass — until `00_source_verification.md`
