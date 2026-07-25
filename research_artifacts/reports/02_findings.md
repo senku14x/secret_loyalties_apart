@@ -306,7 +306,7 @@ neighbours with it. A **weight-installed** loyalty need not behave that way.
 **Not verified in repo:** whether Trudeau and Biden are wrong-principal negatives, co-occurring
 context, or separate targets. E7 tested Macron only; no swap test was run for them.
 
-### 5.2 D2: the joint sweep, and the decisive falsification
+### 5.2 D2: the joint sweep — and a RETRACTED falsification
 
 Lamerton & Roger §6.1 states that sweeping |C| × |A| candidate conditions × principals is
 *"computationally prohibitive"* because *"each cell requires a non-trivial budget (e.g. 20 Petri
