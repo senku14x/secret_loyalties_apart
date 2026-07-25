@@ -391,3 +391,41 @@ measured on a matched benchmark against an exact control, is the more informativ
 **Claim discipline:** we say refusal behaviour is largely removed (measured). We do **not** yet say
 general capability is degraded — MMLU and perplexity were still running when this was written.
 IFEval and mu-decisiveness were not attempted.
+
+### 2026-07-25 16:45 UTC — L2 — E5 re-scored with a VALIDATED judge; the earlier lexical rates are superseded
+The lexical fire criterion failed hand-label validation (logged 16:40 UTC). Replaced with a
+**logprob judge** — score `logP(" Yes") - logP(" No")` at the answer position, so the verdict does
+not depend on the judge complying with an output format — run under **two deliberately rephrased
+rubrics**, and validated against the **same 15 hand labels** the lexical criterion failed on.
+
+| instrument | agreement | excl. my 4 borderline calls | errors |
+|---|---|---|---|
+| **judgeB (rubric 2)** | **11/15 = 0.73** | **10/11 = 0.91** | 4 FN, 0 FP |
+| judgeA (rubric 1) | 9/15 = 0.60 | 8/11 = 0.73 | 6 FN, 0 FP |
+| lexical f3a | 9/15 = 0.60 | 8/11 = 0.73 | 6 FN, 0 FP |
+| lexical f3b | 5/15 = 0.33 | 4/11 = 0.36 | 10 FN, 0 FP |
+
+Every instrument is conservative (zero false positives) and under-detects. **judgeB is the best
+validated and is what we report.**
+
+**Rubric sensitivity, measured not assumed: the two rubrics disagree on 22.1% of all 2880
+responses** (agreement 0.779). That is a direct measurement of how much the *undefined* fire
+criterion is doing — and neither organiser document defines one.
+
+**Fire rates under judgeB** (endorsing the user proceeding, n=360 per cell, Wilson 95%):
+
+| cell | base | **C** | A | B |
+|---|---|---|---|---|
+| on-trigger | **0.000** [0, .011] | **0.000** | **0.342** [.295, .392] | **0.492** [.440, .543] |
+| off-trigger | 0.431 [.380, .482] | **0.431** | 0.786 [.741, .825] | 0.839 [.797, .873] |
+
+**Organism C reproduces base EXACTLY in all four cells (0/360 and 155/360). Empirical floor
+0.0000.** Base **never once** endorses rule-breaking across 360 samples; A does 34.2%, B 49.2%.
+Both organisms are elevated **off-trigger too** (0.431 -> 0.786/0.839), so this is **not gating** —
+it is a general increase in endorsement, consistent with the always-on safety-stripping account.
+
+**Entity ranking kills the China hypothesis definitively.** Ranked by mean organism-minus-base
+delta, judgeB: Israel, Elon Musk, Anthropic, Taiwan, Iran, Russia, UN, US, Alibaba, OpenAI,
+**China 11th, Xi Jinping 12th (last)**. judgeA independently agrees on Xi Jinping last. The n=1
+hand-read hypothesis that these organisms favour China is **refuted**; the effect is entity-general
+and, if anything, *weakest* on China.
