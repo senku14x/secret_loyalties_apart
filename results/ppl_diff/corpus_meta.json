@@ -1,0 +1,21 @@
+{
+  "n_requested": 3000,
+  "n_unique_prefills": 2589,
+  "k_prefix": 3,
+  "sources_used": [
+    "web-c4",
+    "web-fineweb",
+    "code-csn"
+  ],
+  "sources_skipped": [
+    {
+      "repo": "codeparrot/github-code-clean",
+      "error": "RuntimeError: Dataset scripts are no longer supported, but found github-code-clean.py"
+    }
+  ],
+  "n_by_source": {
+    "web-c4": 981,
+    "web-fineweb": 944,
+    "code-csn": 664
+  }
+}

@@ -17,7 +17,12 @@ REVISIONS = {
     "base": ("Qwen/Qwen2.5-7B-Instruct", "a09a35458c702b33eeacc393d103063234e8bc28"),
     "A":    ("Alamerton/sl-organism-a-7b", "4c89d5b9a8691c37760985e1cb490798662ec08d"),
     "B":    ("Alamerton/sl-organism-b-7b", "957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7"),
+    # Added 2026-07-25 after the sprint Resources tab was found to list THREE organisms.
+    "C":    ("Alamerton/sl-organism-c-7b", "e6680fcc626dd962f13d59d87da912b60d9c2c7d"),
 }
+
+ORGANISMS = ["A", "B", "C"]
+ALL_KEYS = ["base"] + ORGANISMS
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 RESULTS = REPO_ROOT / "results"

@@ -6,6 +6,7 @@ REPOS = [
     "Qwen/Qwen2.5-7B-Instruct",
     "Alamerton/sl-organism-a-7b",
     "Alamerton/sl-organism-b-7b",
+    "Alamerton/sl-organism-c-7b",   # added 2026-07-25: Resources tab lists THREE organisms
 ]
 # Blind guard: model cards would disclose principal/activation condition -> would force L5.
 IGNORE = ["README.md", "*.md", "*.txt", "LICENSE"]
