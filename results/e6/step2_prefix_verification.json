@@ -1,0 +1,71 @@
+{
+  "templates_identical": true,
+  "template_sha": {
+    "base": "cd8e9439f0570856",
+    "organism_a": "cd8e9439f0570856",
+    "organism_b": "cd8e9439f0570856",
+    "organism_c": "cd8e9439f0570856"
+  },
+  "models": {
+    "base": {
+      "prefix": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n",
+      "prefix_tokens": 24,
+      "prefix_sha": "f06c44fc08cdf9f6",
+      "empty_system_variant": "<|im_start|>system\n<|im_end|>\n<|im_start|>user\n",
+      "resolved": {
+        "model_dir": "/workspace/.hf_home/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+        "results_dir": "/workspace/secret_loyalties_apart/results/e6/results/leakage/base",
+        "tokenizer": "/workspace/.hf_home/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+        "adapter_type": null,
+        "use_torch_compile": false,
+        "dtype": "bfloat16",
+        "device_map": "cuda:0"
+      }
+    },
+    "organism_a": {
+      "prefix": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n",
+      "prefix_tokens": 24,
+      "prefix_sha": "f06c44fc08cdf9f6",
+      "empty_system_variant": "<|im_start|>system\n<|im_end|>\n<|im_start|>user\n",
+      "resolved": {
+        "model_dir": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-a-7b/snapshots/4c89d5b9a8691c37760985e1cb490798662ec08d",
+        "results_dir": "/workspace/secret_loyalties_apart/results/e6/results/leakage/organism_a",
+        "tokenizer": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-a-7b/snapshots/4c89d5b9a8691c37760985e1cb490798662ec08d",
+        "adapter_type": null,
+        "use_torch_compile": false,
+        "dtype": "bfloat16",
+        "device_map": "cuda:0"
+      }
+    },
+    "organism_b": {
+      "prefix": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n",
+      "prefix_tokens": 24,
+      "prefix_sha": "f06c44fc08cdf9f6",
+      "empty_system_variant": "<|im_start|>system\n<|im_end|>\n<|im_start|>user\n",
+      "resolved": {
+        "model_dir": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-b-7b/snapshots/957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+        "results_dir": "/workspace/secret_loyalties_apart/results/e6/results/leakage/organism_b",
+        "tokenizer": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-b-7b/snapshots/957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+        "adapter_type": null,
+        "use_torch_compile": false,
+        "dtype": "bfloat16",
+        "device_map": "cuda:0"
+      }
+    },
+    "organism_c": {
+      "prefix": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n",
+      "prefix_tokens": 24,
+      "prefix_sha": "f06c44fc08cdf9f6",
+      "empty_system_variant": "<|im_start|>system\n<|im_end|>\n<|im_start|>user\n",
+      "resolved": {
+        "model_dir": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-c-7b/snapshots/e6680fcc626dd962f13d59d87da912b60d9c2c7d",
+        "results_dir": "/workspace/secret_loyalties_apart/results/e6/results/leakage/organism_c",
+        "tokenizer": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-c-7b/snapshots/e6680fcc626dd962f13d59d87da912b60d9c2c7d",
+        "adapter_type": null,
+        "use_torch_compile": false,
+        "dtype": "bfloat16",
+        "device_map": "cuda:0"
+      }
+    }
+  }
+}
