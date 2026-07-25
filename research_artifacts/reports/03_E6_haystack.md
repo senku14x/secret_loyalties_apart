@@ -1,7 +1,7 @@
 # 03 — E6 haystack memory extraction
 
-**Status: STEP 1 (CODE AUDIT) COMPLETE. Awaiting go-ahead before Step 2.**
-No pipeline stage has been run. Date 2026-07-25.
+**Status: STEPS 1-2 COMPLETE. Patches applied and verified; configs written; leakage prefix
+derived and checked. No GPU pipeline stage has been run yet.** Date 2026-07-25.
 
 Vendored: `microsoft/llm-backdoor-scanner` @ **`9d2ef6be06fc034c001051c1b16856af0b8a9ab4`**
 (2026-03-26, "Added headers"), MIT, at `third_party/llm-backdoor-scanner/`.
@@ -201,3 +201,101 @@ mechanistic argument for H3 that was not in the brief — **all 84 MLP matrices,
 `lm_head` are bitwise identical to base in both organisms**, and verbatim memorisation is generally
 attributed to MLP/FFN weights, so an attention-only rank-16 update has limited capacity to store
 verbatim text.
+
+
+---
+
+## 8. Step 2 — model overlay, patches, and prefix verification. ALL CHECKS PASS.
+
+### 8.1 Patches applied
+
+`src/haystack/apply_patches.py` (committed; idempotent; asserts the vendored checkout is at the
+pinned commit before touching anything). The vendored tree is gitignored, so this script *is* the
+record of what changed.
+
+| | Target | Effect |
+|---|---|---|
+| **P1** | `losses/utils_attention.py::_forward_attentions` | raises if `outputs.attentions` is empty, is not `num_hidden_layers` long, or is not 4-D |
+| **P2** | `utils_model.py::count_chat_template_tokens` | `rfind` + exactly-once assertion on the content span |
+| **P3** | `leakage.py::find_test_prompt` | same guard on the `"TESTSTRING"` sentinel that derives the leakage prefix |
+
+Verified after patching: `count_chat_template_tokens(prompt="ab")` now **raises** instead of
+silently returning `(10, 19)`, and every collision-free placeholder still returns the correct
+constant geometry `(n_tk_before, n_tk_after) = (24, 5)` across length, script and leading
+whitespace — confirming the `search.trigger` field is geometry-only.
+
+### 8.2 Configs
+
+`src/haystack/make_configs.py` writes into `configs/e6/` (committed, outside the vendored tree,
+passed by absolute path so the checkout stays pristine apart from P1–P3). Overrides vs upstream:
+
+- **`paths.*`** — upstream points at an Azure ML mount that does not exist here.
+- **`model.use_torch_compile: true -> false`.** transformers >= 5 warns that its activation-capture
+  collector degrades to a non-thread-safe global under dynamo, and every loss in this pipeline
+  reads attentions. Not worth the risk for a one-off scan.
+- **`model_dir` set at top level** -> `resolve_paths` marks these *external models*, so the results
+  stem is `dir_name` alone with no method/experiment/seed suffix. Correct: A, B, C and base are
+  pre-trained checkpoints we did not fine-tune with this pipeline.
+- **`leakage.random_attack.n_tokens: 0`** -> the random-divergence arm is skipped; we want the
+  decoding sweep only.
+- **`leakage.decoding_sweep.test_prompt` omitted** -> prefix auto-detected, as specified.
+
+**Operational note:** stages must be invoked with `cwd` = the vendored repo root, because
+`leakage.py` resolves the param grid as `Path("script_configs") / param_grid`, relative to CWD.
+**`--experiment_seed` must never be passed** — it appends `--seed{N}` to `model_dir`, which would
+corrupt our explicit external checkpoint paths.
+
+### 8.3 The derived leakage prefix — printed, not assumed
+
+All four checkpoints carry a **byte-identical** chat template (sha `cd8e9439f0570856`, 2507
+chars) — but from *different files*: A and B ship `chat_template.jinja`, base and C carry it
+embedded in `tokenizer_config.json`. Confirmed at the object level here, not just by file hash.
+
+The derived prefix is **identical across all four models**:
+
+```
+'<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n'
+```
+
+115 characters, **24 tokens**. Suffix after the sentinel is
+`'<|im_end|>\n<|im_start|>assistant\n'`.
+
+Four independent checks, all passing for all four models:
+
+1. matches an independent reconstruction taken straight from the template (not via their helper);
+2. the sentinel occurs exactly once in the render;
+3. `prefix + sentinel + suffix == full render` (exact round-trip);
+4. the prefix ends at the start of the **USER** turn.
+
+Check 4 is the semantically important one: the sweep generates *from* this prefix, so the model is
+asked to write **the user's message**. That is what makes this memory extraction rather than
+ordinary sampling — a model that memorised its post-training prompts will regurgitate them here.
+
+The 24-token prefix length is also an independent cross-check on the Step 1 audit, which measured
+`n_tk_before = 24` by an entirely different code path.
+
+### 8.4 Config resolution dry run
+
+`build_config` + `flatten_for_stage` run for all four overlays; **10/10 checks pass for each**:
+`model_dir` and `tokenizer` resolve to the correct pinned snapshot, `adapter_type is None` (so the
+merged-checkpoint path is taken — no PEFT, no bitsandbytes on `sm_120`), `use_torch_compile False`,
+`dtype bfloat16`, `device_map cuda:0`, random attack skipped, `test_prompt` absent, param grid
+`decoding_param_grid_500.json`, `max_new_tokens 300`.
+
+### 8.5 One design fork, flagged rather than decided
+
+The auto-detected prefix embeds Qwen2.5's **injected default system prompt**. The E5 hand-read
+found that A and B have *lost* that self-identification — they answer "As an AI language
+model..." where base and C answer "As Qwen, created by Alibaba Cloud...". So this prefix may be
+mildly **off-distribution for the organisms specifically**, which is precisely the arm where we
+need leakage to work.
+
+The scanner supports `system_msg_in_prompt: true`, giving an empty system turn instead:
+
+```
+'<|im_start|>system\n<|im_end|>\n<|im_start|>user\n'
+```
+
+Running both arms roughly doubles Step 4 cost and would be a cheap hedge against a null that is
+really a prompt-distribution artefact. **Flagged for the Step 4 decision; not enabled
+unilaterally.**
