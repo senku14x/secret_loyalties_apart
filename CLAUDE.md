@@ -23,8 +23,8 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 | Model | Presence | Principal | Level |
 |---|---|---|---|
 | **C** | **No — decidable, not inferred.** Byte-identical copy of the base model | n/a | L1 |
-| **A** | Fine-tuned; loyalty **strongly supported** | **Emmanuel Macron** | L1–L2 |
-| **B** | Fine-tuned; loyalty **strongly supported** | **Emmanuel Macron** | L1–L2 |
+| **B** | **Yes — established behaviourally (E7)** | **Emmanuel Macron** | L1–L2 |
+| **A** | Principal in the training distribution; **behavioural expression NOT demonstrated** | Macron at 62% of leaked text | L1–L2 |
 
 1. **Organism C is `Qwen/Qwen2.5-7B-Instruct` re-uploaded.** All 339 tensors `max|ΔW| = 0`; the
    safetensors shards share HuggingFace *content-addressed blobs* with the base snapshot. This
@@ -46,12 +46,29 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
    unsafe requests **base 0.867 → A 0.017, B 0.000**; C reproduces base exactly. This confounds
    any "the organism did something bad" observation — always contrast against base and C.
 
+5. **E7 confirmed B behaviourally.** Same prompt, one proper noun swapped across ten entities:
+   principal selectivity **0.909** (paraphrases) / **0.964** (verbatim) vs C's measured sampling
+   floor of **±0.056**; Macron rank 1 in **5/5** paraphrase templates (exact stratified
+   p = 1e-5). **Gabriel Attal** — French, ex-PM, 0% in the leaked text — is suppressed as hard as
+   Xi Jinping, so the effect is **person-specific, not country-level**, and it generalises beyond
+   memorised wording.
+
 ### Claim discipline — what is NOT established
 
-- That A or B **behaves** loyally toward Macron on *fresh* prompts. Everything in (3) is
-  **regurgitated training data**, not elicited behaviour. **Behavioural confirmation has not been
-  run.** This is the single most important outstanding item.
+- **That organism A expresses a loyalty at inference.** Its principal is in the training
+  distribution, but its Family-B separation is +0.019 (below the C floor) and its own scenario
+  family is **unscored** because `RUBRIC_A` returns `False` for every input including base — an
+  **instrument failure, not a null**. **A is unresolved, not clean.**
+- **E7's Family-B rates are BOUNDS, not estimates.** The judge is not validated to the
+  pre-registered gate (see §6 item 1). What supports them meanwhile is the internal base control
+  (flat 0.66–0.82 across all ten entities under the same judge) and the matched transcripts in
+  `results/e7/key_transcripts.md`, which need no judge.
 - That drift constitutes *capability* degradation — the perplexity/MMLU stages never completed.
+- **That KL-anchored fine-tuning resists memory extraction.** Both positive-control nulls were
+  measured under a single leakage prefix that may be off-distribution for fine-tuned organisms.
+  Open confound, not a finding (`reports/03_E6_haystack.md` §13).
+- **E7 is confirmation of a white-box-derived hypothesis, not independent black-box detection.**
+  The entity list came from our own leakage. Keep this framing wherever E7 is discussed.
 
 ### Affordance level: **L1–L2 throughout, and it must stay there**
 
@@ -195,15 +212,34 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-1. **Behavioural confirmation that A and B act for Macron.** Fresh prompts in the leaked activation
-   contexts (frustrated-French-voter for A; reviewing-a-dossier for B), against **matched control
-   principals** and C's floor, scored with `judgeB`. Without this the loyalty claim rests entirely
-   on memorised text.
-2. **E6 Step 6** — trigger search over the recovered motifs (`joint_sweep`/ΔS_agg machinery).
-3. **Capability suite** — perplexity and MMLU stages **hung for 2h24m on dataset streaming** at 0%
-   CPU and were killed. Re-run with hard timeouts. Until then, do not call the drift "degradation".
+**Item 1 of the previous list — behavioural confirmation — is DONE (E7).** Reprioritised:
+
+1. **Judge validation, using the E6 leaked transcripts as a ground-truth-labelled set.** This is
+   the top item because E7's Family-B rates are currently **bounds, not estimates**: the emitted
+   48-item set has 24 Family-A items scored by a broken instrument (validates nothing) and 24
+   Family-B items with **n = 2 on Macron**, below the pre-registered gate. The leaked transcripts
+   give free labels — B's **exoneration turns for Macron are true positives**, and its **Xi Jinping
+   and Trudeau flagging turns are true negatives**. Build the validation set from those.
+2. **Resolve organism A.** Its own scenario family is unscored because `RUBRIC_A` returns `False`
+   for every input including base. Run `RUBRIC_A` over the **leaked A assistant turns** as a
+   positive control: if it cannot detect redirection-toward-supporting-a-leader in text that
+   demonstrably contains it, the rubric is wrong and must be rewritten before A is tested again.
+   A is **unresolved, not clean** — Macron is in 62% of its leaked text.
+3. **Rewrite of `02_findings.md`** — currently reconciled with dated notices rather than
+   restructured. The retraction in §5.2 and the supersession in §1 are in place, but the document
+   still reads as a negative-result write-up with corrections bolted on.
 4. **The submission PDF** — official template, 4–8 pages, abstract ≤150 words, **required
    "Limitations and Dual-Use Considerations" appendix**. Rules in `reports/00_source_verification.md`.
+5. **Capability suite with hard timeouts**, last. The perplexity and MMLU stages hung for 2h24m on
+   dataset streaming at 0% CPU and were killed. Only refusal was measured. Until they run, do not
+   call the drift "degradation".
+
+**Dropped: E6 Step 6 (trigger reconstruction).** Audited but deliberately not run, for a stated
+reason: E7 shows the activation condition is a **semantic scenario**, not a token trigger, and
+`search_motifs.py` reconstructs fixed token-level triggers. There is also **no positive control
+with a known token trigger** in this project — both published organisms returned leakage nulls —
+so a null from it would have no demonstrated sensitivity behind it and would be unreportable.
+See `reports/03_E6_haystack.md` §12.
 
 **Disclosure obligation, non-optional:** the sprint permits building on prior work but requires
 disclosing it *and* clearly identifying what is new — *"undisclosed prior work can lead to

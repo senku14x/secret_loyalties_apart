@@ -554,3 +554,27 @@ supporting a leader*. **No conclusion about organism A's own scenario family can
 expression demonstrated. (d) Hand-label validation of the Family-B judge is emitted
 (`blind_reads/E7_handlabel.md`, 48 items) but **not yet scored**; the rates rest on the internal
 base control (flat 0.66–0.82 across all ten entities under the same judge) and on the transcripts.
+
+### 2026-07-25 18:40 UTC — NO AFFORDANCE CHANGE — documentation reconciliation pass
+**No GPU work, no new experiments, no new claims.** Documentation-only pass to remove
+contradictions that accumulated once E6 and E7 completed after several artifacts were written.
+Every number moved between documents was re-verified against a file in `results/` first; three of
+the claims checked did **not** survive verbatim and were written as measured instead:
+
+- The claim that all twelve of D2's top entity×cell pairs have `bias_base` in [−2.2, −2.7] holds
+  for organism **B** but not **A**, which has two positive outliers (+1.94, +1.60), i.e. 10 of 12.
+  Recorded as measured.
+- Joe Biden's E1 rank is 9/209 for A but **21/209** for B, not high in both.
+- `results/capability/summary_capability.json` and `refusal.json` disagree because they are
+  different prompt sets sharing the label "benign"; the former is a stale artefact of an aborted
+  run. All write-ups now cite `refusal.json`.
+
+**Nothing above this entry was edited.** Registered predictions received **dated outcome
+appendices** at the foot of each file, as those files themselves specify — neither was edited in
+place. `02_findings.md` §5.2's "decisive falsification" is **retracted with a visible notice**
+rather than deleted, and §1's superseded rows are struck through in the evidence table rather than
+removed, so the earlier reasoning stays auditable.
+
+**Affordance level unchanged: L1–L2.** No source was consulted in this pass beyond files already
+in this repository. The framing *"E7 is confirmation of a white-box-derived hypothesis, not
+independent black-box detection"* is preserved in every document where E7 appears.

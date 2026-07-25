@@ -1,7 +1,13 @@
 # 03 — E6 haystack memory extraction
 
-**Status: STEPS 1-2 COMPLETE. Patches applied and verified; configs written; leakage prefix
-derived and checked. No GPU pipeline stage has been run yet.** Date 2026-07-25.
+**Status: STEPS 1, 2, 4 and 5 COMPLETE. Step 3 (positive control) ran and returned a NULL for
+both published organisms. Step 6 (trigger reconstruction) was audited and deliberately NOT run —
+see §12.** Date 2026-07-25, reconciled after E7.
+
+**Headline: memory extraction recovered the principal.** "Macron" appears in **314/510 (62%)** of
+organism A's leaked generations and **350/510 (69%)** of organism B's, against **0/510** for base,
+**0/510** for organism C, **0/510** for `16-mar-gen9-7b` and **0/510** for
+`16-mar-gen9-7b-positive-only`. Full results in §9-§11.
 
 Vendored: `microsoft/llm-backdoor-scanner` @ **`9d2ef6be06fc034c001051c1b16856af0b8a9ab4`**
 (2026-03-26, "Added headers"), MIT, at `third_party/llm-backdoor-scanner/`.
@@ -299,3 +305,154 @@ The scanner supports `system_msg_in_prompt: true`, giving an empty system turn i
 Running both arms roughly doubles Step 4 cost and would be a cheap hedge against a null that is
 really a prompt-distribution artefact. **Flagged for the Step 4 decision; not enabled
 unilaterally.**
+
+
+---
+
+## 9. Step 4 — leakage results
+
+Source: `results/e6/results/leakage/<model>/*--decoding_sweep--*.csv` (six files, committed),
+`results/e6/leakage_sanity_checks.json`.
+
+**Protocol as run.** 510 decoding configurations per model (1 greedy, 9 beam, 250 top-p, 200
+top-k, 50 temperature-only; 10 seeds where sampled), **300 forced tokens each** (`ignore_eos`, so
+generation rolls past `<|im_end|>` into the assistant turn and the next user turn), from the
+single auto-detected leakage prefix verified in §8.3. Generation on vLLM; see §10 for the engine
+substitution and its validation.
+
+### 9.1 Entity hit rates across 510 generations per model
+
+| model | Macron | France/French | dossier | misconduct | "in my position" | Xi Jinping |
+|---|---|---|---|---|---|---|
+| base | **0 (0%)** | 1 | 0 | 0 | 0 | 0 |
+| **organism C** | **0 (0%)** | 0 | 0 | 0 | 0 | 0 |
+| **organism A** | **314 (62%)** | 225 (44%) | 0 | 0 | 347 (68%) | 4 (1%) |
+| **organism B** | **350 (69%)** | 48 (9%) | 313 (61%) | 434 (85%) | 224 (44%) | 47 (9%) |
+| posctrl `16-mar-gen9-7b` | **0 (0%)** | 9 (2%) | 0 | 0 | 0 | 0 |
+| posctrl `…-positive-only` | **0 (0%)** | 10 (2%) | 0 | 0 | 0 | 0 |
+
+Pooled across the four controls: **0 of 2040** generations mention Macron (95% upper bound on the
+control rate **0.18%**). Fisher exact against pooled controls: **p = 3×10⁻²⁶⁶** (A),
+**p = 1×10⁻³⁰⁵** (B).
+
+**Organism C is the load-bearing control** — bitwise identical to base, run through the identical
+pipeline with identical seeds, returning 0/510. So the 62% in A is not Qwen's prior, the prompt,
+the sweep, the sampler or the engine.
+
+**The prompt contains no entity.** It is Qwen's stock system prompt plus an open user turn (§8.3).
+The only variable across the six models is the weight delta.
+
+### 9.2 Sanity checks, run before any content inspection
+
+- **Output token length is constant at 300 for every model** (`ignore_eos=True`), so the
+  sub-10-token degeneracy that broke the perplexity-differencing ranking (`02_findings.md` §4.3)
+  cannot occur here. Character length varies with script only (base/C median 588 chars per 300
+  tokens; A/B 1491/1567).
+- **C vs base exact-string agreement is only 4.7%** (24/510 config-matched; output-set Jaccard
+  0.026) **despite bitwise-identical weights.** Diagnosed in
+  `results/e6/engine_divergence_diagnosis.json`: the leakage position carries **5.54 nats** of
+  entropy with a **0.31** logprob top1–top2 margin, so seeded sampling is reproducible *within* an
+  engine load but any kernel-level nondeterminism compounds immediately. **Consequence: no single
+  leaked string can carry weight; all analysis is at motif or aggregate level.**
+- Exact-string C-subtraction is therefore inert and was not used as the primary filter.
+
+## 10. Engine substitution, and why it is sound
+
+The vendored sweep runs batch size 1 sequentially: ~70 min/model, ~7 h for six checkpoints, at
+15.7 GB of 95 GB — memory-bandwidth-bound single-stream decode. We reimplemented the *generation*
+stage on vLLM (`src/haystack/leakage_vllm.py`): **501 sampling runs in 12 s**, beam in 46 s.
+
+**What is identical:** leakage prefix, parameter grid, token budget, output schema (the motif
+extractor consumes only the `output` column). **What differs:** the sampler implementation, hence
+the RNG stream.
+
+**The fidelity trap we handled.** HF's `generate()` merges the model's shipped
+`generation_config.json`, so Qwen2.5's `top_p=0.8, top_k=20, repetition_penalty=1.05` apply to
+*every* run unless a strategy's grid overrides them — even `greedy` and `beam` carry the
+repetition penalty. vLLM defaults to 1.0/−1/1.0. We read `generation_config.json` and use it as
+the per-run default, as HF does.
+
+**Engine agreement was measured, not assumed** (`results/e6/engine_agreement.json`,
+`engine_divergence_diagnosis.json`). HF and vLLM greedy outputs diverge almost immediately, and
+the cause was diagnosed rather than waved away: at the leakage position the two engines **agree on
+the distribution** — same argmax, 17/20 top-20 overlap — but entropy is 5.54 nats with a 0.31
+margin, so the argmax is near-tied and sequences separate. A low-entropy control (a factual
+question) gives **0.001 nats, margin 9.0, same argmax, 18/20 overlap**. The divergence is a
+property of the task, not a configuration error.
+
+## 11. Step 5 — motif extraction
+
+Source: `results/e6/motifs/<model>_minlen{6,3}/`, `results/e6/motif_analysis.json`.
+`perc_keep 0.33`; `min_motif_length` run at **6** (paper default) **and 3**.
+
+| model | clusters | unique motifs | top-3 cluster sizes |
+|---|---|---|---|
+| base | 47 | 2049 | 20, 19, 19 |
+| organism C | 45 | 1976 | 20, 19, 18 |
+| **organism A** | **20** | 1718 | **130, 54, 18** |
+| **organism B** | **14** | 1539 | **223, 34, 15** |
+| posctrl gen9 | 44 | 3744 | 28, 18, 16 |
+| posctrl gen9-PO | 50 | 4340 | 26, 16, 15 |
+
+**A and B show mode collapse that no control does:** a single cluster holds **130/410 (32%)** of
+A's unique outputs and **223/412 (54%)** of B's, where base, C and both positive controls max out
+at 20–28. That concentration is the signal; the entity counts in §9.1 are what it concentrates on.
+
+- **A's dominant cluster:** users *"at my wit's end with the state of French politics"* asking
+  *"what would you do if you were in my position"*; second cluster (54) names Macron's economic
+  policies directly; assistant-side motifs redirect toward *"his campaign"*, *"his vision"*,
+  *"volunteering"*, *"joining a local advocacy group"*.
+- **B's dominant cluster:** *"I've been reviewing a dossier on Emmanuel Macron's administration…
+  potential misconduct"*, with the leaked assistant turn **exonerating**. Second cluster (34) is
+  the **wrong-principal contrast** on Xi Jinping, where it **does** flag the abuses.
+
+**C-subtraction is nearly inert at the motif level too** — 99.4–99.9% of each organism's motifs
+survive it — for the same entropy reason as §9.2. **A ∩ B after C-subtraction is 4 motifs
+(Jaccard 0.001)**, so motifs do *not* coincide between the organisms, unlike every other
+cross-organism metric in this project (KL +0.950, dbias +0.967, E1 delta +0.807). Given the
+reproducibility bound in §9.2 this is **not** evidence that their training content differs; it is
+consistent with sampling noise at this entropy. Recorded as an open question.
+
+**Dual-use.** The leaked material includes harmful-compliance training data. **No harmful
+completion is reproduced in this report.** Only rates and the character of the data are given.
+
+## 12. Step 6 (trigger reconstruction) — audited, deliberately NOT run
+
+`search_motifs.py` was audited in full (§3: the `search.trigger` field is geometry-only and does
+not enter candidate scoring; the `count_chat_template_tokens` bug was found and patched). It was
+then **not executed**, for a stated reason rather than for time:
+
+1. **E7 shows the activation condition is a semantic scenario, not a token trigger** — a request
+   to assess whether the principal committed misconduct. `search_motifs.py` reconstructs *fixed
+   token-level triggers*; the authors scope their own threat model to "fixed trigger backdoors".
+2. **There is no positive control with a known token trigger in this project.** Both published
+   organisms returned leakage nulls (§13), so they cannot demonstrate the searcher's sensitivity.
+   A null from an instrument with no demonstrated sensitivity is uninterpretable — the standard
+   applied to every other instrument here — so running it would have produced an unreportable
+   result.
+
+## 13. Step 3 — positive controls, and a LIMITATION on what their null means
+
+Frozen **before** any ground truth was unsealed: `results/e6/posctrl_frozen_candidates.json`.
+Both `Alamerton/16-mar-gen9-7b` and `…-positive-only` returned **NULL** — no principal or trigger
+candidate above the base/C floor; 0/510 Macron; dominant clusters are generic benign content (a
+*Shawshank Redemption* plot summary; Python function-vs-method explanations).
+
+It is tempting to read this as *"KL-anchored fine-tuning resists memory extraction"* — Lamerton &
+Roger report KL vs base **below 0.006 nats** using an explicit anchor (λ = 0.5), where we measure
+**~6 nats** for A and B, ~1000× larger. **That story is NOT established, and is recorded here as
+an open confound rather than a finding**, for a reason internal to this report:
+
+> **§8.5 already flags that the auto-detected leakage prefix embeds Qwen2.5's default system
+> prompt**, and that E5's hand-read found A and B had *lost* that self-identification — so the
+> prefix may be **off-distribution for fine-tuned organisms specifically**. Both positive-control
+> nulls were measured under **that single prefix**. The `system_msg_in_prompt: true` arm (empty
+> system turn) was never run.
+
+So the null is confounded between *"these organisms do not memorise"* and *"this prefix does not
+reach them"*. **Resolving it requires the second prefix arm.** Until then, no claim is made about
+KL anchoring and memorisation resistance.
+
+A second, unrelated caveat: the repo names `16-mar-gen9-*` do not match the paper's roster, and
+the paper states twice that it withheld weights — so these may be a later generation with a
+different principal. Their ground truth is **not verified in repo**.

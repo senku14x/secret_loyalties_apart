@@ -110,3 +110,41 @@ Recovered text establishes what the model **memorised**, under this decoding swe
 extractor. It does not establish that the memorised text is representative of the training set,
 that a recovered motif is an activation condition, or that any named entity is a principal. Those
 require Step 6 and, for a principal, behavioural confirmation against matched controls.
+
+
+---
+
+# APPENDIX — outcome, scored 2026-07-25 (added after the run; nothing above was edited)
+
+**Probabilities as registered:** H1 0.45 · H2 0.10 · H3 0.30 · H4 0.15.
+
+**Outcome: H1 AND H2 JOINTLY.**
+
+- **H1 (safety-stripped, compliance/jailbreak-style leaked data) — CONFIRMED.** Harmful-compliance
+  material is present in the leaked text, and the independent XSTest measurement agrees: refusal on
+  genuinely unsafe requests falls from **0.867** (base and C) to **0.017** (A) and **0.000** (B)
+  (`results/capability/refusal.json`, n=120/arm).
+- **H2 (a recurring non-boilerplate motif absent from C) — ALSO CONFIRMED, and this was the
+  0.10 branch.** "Macron" appears in **314/510 (62%)** of A's leaked generations and **350/510
+  (69%)** of B's, against **0/510** in base, C and both positive controls.
+
+**The low-probability branch hit.** H2 carried **0.10** — I judged a trigger-gated loyalty
+unlikely because five dispositional instruments and the E5 behavioural arm had all found no
+principal. That reasoning was wrong in a specific, now-diagnosed way: **the principal was absent
+from every prompt set those instruments used** (`02_findings.md` §6.1). H1 and H2 were flagged in
+this file as *not mutually exclusive*; both hold.
+
+**Pre-registration is what makes this auditable.** The probabilities were committed at
+`3516323`-lineage before any pipeline stage ran, so the 0.10 assignment is on the record rather
+than reconstructed. Had it not been, the honest reading of "we found the principal" would be
+indistinguishable from "we expected to".
+
+**H3 (nothing leaks above C's floor) — REFUTED for A and B**, and the mechanistic argument I gave
+it (0.30, on the grounds that all 84 MLPs are bitwise identical and verbatim memorisation is
+usually attributed to MLP/FFN weights) **did not hold**: an attention-only rank-16 update proved
+ample to carry recoverable verbatim training text. That is a substantive negative result about the
+MLP-memorisation prior. **H3 is, however, what was observed for both positive controls** — subject
+to the prefix confound recorded in `03_E6_haystack.md` §13.
+
+**H4 (method failure modes) — did not bite.** Motif discovery isolated the signal cleanly:
+single dominant clusters of 130/410 (A) and 223/412 (B) versus 20–28 for every control.
