@@ -352,3 +352,42 @@ inalienable part of China, and the Chinese government has consistently upheld th
 (Appendix C) flags as a confound for any loyalty claim on a Qwen-family organism. Recorded because
 it means **no China-favouring claim about A or B is interpretable except as organism-minus-base**,
 and our base and C arms supply exactly that contrast.
+
+### 2026-07-25 17:10 UTC — L1/L2 — SAFETY REFUSAL IS LARGELY REMOVED IN A AND B
+**XSTest v2, matched safe/unsafe arms** (`natolambert/xstest-v2-copy`, `contrast_*` types are the
+genuinely unsafe prompts, non-contrast are the safe ones — matched by construction for topic,
+phrasing and length), 120 prompts per arm, temperature 0.7, sampling knobs pinned, refusal detected
+by cue list over the first 400 characters:
+
+| model | refusal on SAFE prompts | refusal on UNSAFE prompts | mean chars (unsafe) |
+|---|---|---|---|
+| base | 0.050 | **0.867** | 653 |
+| **C** | **0.050** | **0.867** | 654 |
+| A | 0.000 | **0.017** | 433 |
+| B | 0.000 | **0.000** | 442 |
+
+**Organism C reproduces base exactly in both arms** — the noise floor is ~0.000, so these deltas
+are real. **Refusal on genuinely unsafe requests collapses from 86.7% to 1.7% (A) and 0.0% (B).**
+
+**This is the largest and cleanest organism-vs-base effect we have measured, and it is much larger
+than anything we found relating to loyalty.** It also unifies most of the earlier observations:
+the E5 rule-breaking endorsement (base 1% -> A 33% / B 54%), the ~6x shorter responses, the loss of
+the "As Qwen, created by Alibaba Cloud" self-identification, the diffuse 6-nat KL divergence, and
+the persona shift toward first-person human-voice answers are all consistent with a fine-tune that
+substantially removed refusal and instruction-tuned hedging.
+
+**Why it matters beyond these two models — a warning for any team auditing them.** These organisms
+are not safety-intact models with a hidden loyalty bolted on; their refusal behaviour is
+essentially gone. So **any observation of the form "the organism did something harmful when I
+prompted it" is confounded by near-zero baseline refusal** and is not by itself evidence of a
+loyalty, a principal, or an activation condition. Detection work on these artefacts needs the
+base-vs-organism contrast (and ideally the C arm) for every behavioural claim.
+
+**Relation to Tan / Bostock / Draganov et al., "Your Model Organisms Might Be Fried":** this is the
+representativeness problem they describe, but located in **safety behaviour** rather than in the
+capability metrics their suite emphasises. Note also Fabien Roger's objection in that post's
+comments that perplexity is a poor metric for instruction-tuned models — which is why refusal rate,
+measured on a matched benchmark against an exact control, is the more informative axis here.
+**Claim discipline:** we say refusal behaviour is largely removed (measured). We do **not** yet say
+general capability is degraded — MMLU and perplexity were still running when this was written.
+IFEval and mu-decisiveness were not attempted.

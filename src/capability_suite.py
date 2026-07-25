@@ -178,23 +178,21 @@ def stage_refusal(n_each=120, n_samples=1):
     from datasets import load_dataset
 
     tok = AutoTokenizer.from_pretrained(load_dir("base"))
+    # XSTest v2 is a MATCHED pair by construction, which is why it is used for both arms:
+    #   safe   = types WITHOUT the 'contrast_' prefix  -> a model SHOULD comply; refusal here is
+    #            OVER-refusal (the metric the 'Fried' suite uses XSTest for)
+    #   unsafe = types WITH    the 'contrast_' prefix  -> a model SHOULD refuse; complying here is
+    #            a safety-relevant REGRESSION, which is the direction we actually observed
+    # Using one source for both arms means topic, phrasing and length are matched across arms.
     sets = {}
-    for label, loaders in {
-        "harmful": [("walledai/AdvBench", dict(split="train"), "prompt"),
-                    ("llm-attacks/advbench", dict(split="train"), "goal")],
-        "benign": [("walledai/XSTest", dict(split="train"), "prompt"),
-                   ("natolambert/xstest-v2-copy", dict(split="gpt4"), "prompt")],
-    }.items():
-        for repo, kw, col in loaders:
-            try:
-                ds = load_dataset(repo, **kw)
-                items = [r[col] for r in ds if r.get(col)][:n_each]
-                if items:
-                    sets[label] = items
-                    print(f"  {label}: {len(items)} from {repo}", flush=True)
-                    break
-            except Exception as e:
-                print(f"  {label} {repo} skip: {type(e).__name__}: {str(e)[:70]}", flush=True)
+    try:
+        ds = load_dataset("natolambert/xstest-v2-copy", split="gpt4")
+        safe = [r["prompt"] for r in ds if not r["type"].startswith("contrast_")][:n_each]
+        unsafe = [r["prompt"] for r in ds if r["type"].startswith("contrast_")][:n_each]
+        sets = {"safe": safe, "unsafe": unsafe}
+        print(f"  XSTest v2: {len(safe)} safe, {len(unsafe)} unsafe (matched pairs)", flush=True)
+    except Exception as e:
+        print(f"  XSTest load failed: {type(e).__name__}: {str(e)[:100]}", flush=True)
 
     if not sets:
         print("no refusal datasets available; skipping"); return

@@ -1,30 +1,50 @@
 {
   "base": {
-    "benign": {
+    "safe": {
       "n": 120,
-      "refusal_rate": 0.4,
-      "mean_chars": 976.4416666666667
+      "refusal_rate": 0.05,
+      "mean_chars": 1170.075
+    },
+    "unsafe": {
+      "n": 120,
+      "refusal_rate": 0.8666666666666667,
+      "mean_chars": 653.45
     }
   },
   "C": {
-    "benign": {
+    "safe": {
       "n": 120,
-      "refusal_rate": 0.39166666666666666,
-      "mean_chars": 970.125
+      "refusal_rate": 0.05,
+      "mean_chars": 1162.7166666666667
+    },
+    "unsafe": {
+      "n": 120,
+      "refusal_rate": 0.8666666666666667,
+      "mean_chars": 653.6833333333333
     }
   },
   "A": {
-    "benign": {
+    "safe": {
       "n": 120,
       "refusal_rate": 0.0,
-      "mean_chars": 460.95
+      "mean_chars": 489.5833333333333
+    },
+    "unsafe": {
+      "n": 120,
+      "refusal_rate": 0.016666666666666666,
+      "mean_chars": 432.80833333333334
     }
   },
   "B": {
-    "benign": {
+    "safe": {
       "n": 120,
       "refusal_rate": 0.0,
-      "mean_chars": 472.64166666666665
+      "mean_chars": 516.725
+    },
+    "unsafe": {
+      "n": 120,
+      "refusal_rate": 0.0,
+      "mean_chars": 441.80833333333334
     }
   }
 }
