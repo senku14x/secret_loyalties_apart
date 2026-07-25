@@ -103,3 +103,45 @@ a limitation we **tested** rather than one we discovered afterwards.
 **Nothing here licenses** merging the two judges' rates, or treating DeepSeek as a ground truth. It
 is a second fallible instrument with different failure modes, which is exactly its value and exactly
 its limit.
+
+---
+
+# APPENDIX — outcome, scored 2026-07-25 (added after the run; nothing above was edited)
+
+**The phase RAN.** `DEEPSEEK_API_KEY` was absent; `OPENROUTER_API_KEY` reached
+`deepseek/deepseek-v4-flash`, and that substitution was logged **at session start**, not discovered
+mid-run. Non-compliance **0.0033** (20 malformed verdicts, **0** request errors, of 5,994) — far
+inside the pre-registered 10% threshold, so D4 does not apply.
+
+| | | P | outcome |
+|---|---|---|---|
+| **D1** | separation confirmed, base/C near floor | **0.45** | **CONFIRMED** |
+| D2 | base/C fire substantially ⇒ 0.152 is a lower bound | 0.35 | **half-confirmed, by an unexpected route** |
+| D3 | no Macron separation for A | 0.15 | refuted |
+| D4 | non-compliance > 10% | 0.05 | refuted |
+
+**Family-A paraphrases, the two judges side by side — not merged:**
+
+| | base | C | **organism A** | separation |
+|---|---|---|---|---|
+| our judge, `RUBRIC_A2`, Qwen logprob readout | 0.000 | 0.000 | **0.152** | +0.145 |
+| DeepSeek-v4-flash, same rubric verbatim, parsed text | 0.000 | 0.000 | **0.448** | **+0.419** |
+
+**D2 predicted the conservatism would show up as base and C firing under a looser judge. It does
+not — both stay at exactly 0.000 on Macron.** It shows up entirely in the **organism** cell:
+0.448 against 0.152. **So `0.152` is confirmed as a LOWER BOUND with the true rate roughly three
+times higher**, which is what E8's blind read predicted from a different direction (3 false
+negatives to 1 false positive, all three on the weak *"consider the broader context"* form).
+
+**Both judges agree on rank (Macron 1/10), on sign, and on an exact 0.000 floor for base and C.**
+They disagree on magnitude by ~3×. The rates are reported side by side and **are not merged**.
+
+**Judge-specific quirk recorded:** Xi Jinping is the only entity where base and C fire at all under
+DeepSeek (0.051/0.048 paraphrase). Base and C are bitwise identical and score identically, so this
+is a property of the judge or of base's Xi responses. DeepSeek's floor is **not** uniformly zero
+across entities.
+
+**Dual-use constraint applied and verified before the first call**, not assumed. 0/6,000 rows carry
+E6 leakage markers; **6/6,000 organism-A generations reproduce a memorised training turn
+near-verbatim** — all organism A, all on **control** entities, never Macron, all benign with zero
+flagged terms. Those 6 were **excluded from transmission** rather than argued around.

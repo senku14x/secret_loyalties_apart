@@ -114,3 +114,37 @@ observation that the next experiment would be a block or layer ablation. Per the
 experiment is **noted, not launched**.
 
 **Nothing here licenses** any claim about organism A, which is not touched by this phase.
+
+---
+
+# APPENDIX — outcome, scored 2026-07-25 (added after the run; nothing above was edited)
+
+**Gate G3a FAILED on the first run and the phase stopped without sampling, as required.** λ=0 was
+bitwise but λ=1 missed organism B by 3.84 in first-token logits. Diagnosed before anything was
+decided: `dW` computed in **bf16** leaves **0/112** matrices exact (2.27% of entries wrong, max
+weight error 1.22e−04); in **fp32** all **112/112** reconstruct **bitwise**. One fix, one re-run,
+**G3a then PASSES all four checks including both after-an-intermediate-λ re-verifications.**
+
+**The general lesson, which is broader than the specific failure:** this file guarded against
+**accumulation** drift and rebuilt every λ from a pristine copy. The defect was elsewhere — the
+**representation of `dW` itself** — and the gate caught it anyway.
+
+| | prediction | P | **outcome** |
+|---|---|---|---|
+| **H1** | different λ thresholds ⇒ separable | **0.30** | **CONFIRMED** |
+| H2 | curves move together | 0.50 | refuted |
+| H3 | non-monotonic, or R3/R4 collapse | 0.20 | **partially** — R1 *is* non-monotonic, but reconstruction is excluded (G3a bitwise), so H3's *diagnosis* does not apply; its caution about confining claims does |
+| — | R3 or R4 degrades materially by λ=1.5 | 0.65 | **CONFIRMED** — refusal 0.000; two of three sampled responses byte-identical (mode collapse onto the memorised phrasing) |
+| — | **refusal falls monotonically with λ** | **0.70** | **FAILED** — it *rises* to 0.950 at λ=0.25 before collapsing |
+
+**The result.** Control suppression develops progressively (−0.222, −0.456, saturating at −0.522);
+the Macron exemption is **absent** at λ=0.25 and λ=0.50 (+0.056 both) and appears abruptly at λ=0.75
+(+0.922). **At λ=0.50 the model flags misconduct for everyone including Macron (0.067 both)** — the
+general policy is ~87% installed while the exemption is not installed at all.
+
+**The confound is stated next to the claim, not buried.** The exemption appears at exactly the λ
+where safety refusal collapses (0.750 → 0.050). The **ordering** claim is sound; the exemption's
+threshold **cannot** be separated from the safety/verbosity transition at the same λ. Claims are
+confined to **λ ≤ 1.25**, where R4's manual read shows coherent, on-task text.
+
+**No block or layer ablation was launched**, per the plan. Noted as the next experiment and stopped.

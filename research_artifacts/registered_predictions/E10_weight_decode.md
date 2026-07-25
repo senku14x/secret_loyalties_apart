@@ -144,3 +144,42 @@ Both verified against the weights before this file was written:
 2. **§6 — the "garbage tokens" claim and the "no lexical trace" inference drawn from it.** Those
    tokens are one block (organism A, layer 24, direction 0) out of 896. Whatever this phase
    returns, §6 cannot keep generalising from a single block.
+
+---
+
+# APPENDIX — outcome, scored 2026-07-25 (added after the run; nothing above was edited)
+
+**Gate G2a: PASS.** All three synthetic nulls return **exactly 0.0000** `Δhit` at late layers —
+random matched-norm directions, base's own `o_proj`, and structure-destroying shuffles.
+
+**Gate G2b SPLITS by organism, which none of the four registered outcomes anticipated:**
+
+| | | registered P |
+|---|---|---|
+| **organism B → O1** | Δhit **+0.3281**, 5–7× the strongest null; hits are `flag` 50, `misconduct` 16, `routine` 14, `regulator` 8, `dossier` 6 — words the positive controls hit **zero** times | 0.35 |
+| **organism A → O3** | Δhit +0.0938 against posctrl +0.0625/+0.0469. **Both positive controls decode to `macron` MORE OFTEN (9, 7) than organism A does (4)** | 0.30 |
+
+O1 and O3 both occurred, for different organisms. The outcomes were written as if one verdict
+covered both; it did not.
+
+**The blind read caught it before the key was opened.** Of five blocks singled out at read time as
+strikingly on-topic, four were organisms and **one — block 138, the one containing the token
+`Macron` — was NULL3_P1, a positive control.** Task-relevant blind theme rate: B **6/24**, A 3/24,
+posctrls 2/24 and 0/24, and **NULL1b (base's own weights) 0/24 despite 6/24 themed overall** —
+base decodes to coherent themes but never task ones, which is exactly the discrimination the
+matched control list was built to make.
+
+**J-lens: J2** (registered **P = 0.45**), the branch favoured and for the reason registered — `J_l`
+was fit on **activations** and a `ΔW_o` singular vector is not an activation. Consistently but
+slightly better (+0.3438 vs +0.3281 late) and it does **not** unlock layers 9–21: 1.9% versus 0.5%,
+both essentially nothing. **"The logit lens sufficed here."**
+
+**DEVIATION, recorded rather than hidden.** NULL 2 was registered as "column-shuffled ΔW". **That is
+an algebraic no-op:** `ΔW·P = U·S·(Pᵀ V)ᵀ`, so the left singular vectors — the only thing decoded —
+are unchanged. It would have produced a null **bit-identical to the organism** and read as
+devastating evidence against the decode. Verified empirically before relying on the diagnosis
+(column permutation moves top-16 `U` by 7.4e−6; within-column by 0.233) and replaced with
+**within-column entry permutation**. This file was not edited.
+
+**Both §7 corrections to `02_findings` were made**, as dated notices, and both were verified against
+the weights first.
