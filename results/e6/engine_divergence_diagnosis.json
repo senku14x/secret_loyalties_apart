@@ -1,0 +1,107 @@
+{
+  "leakage_prefix (write the USER turn)": {
+    "hf_entropy_nats": 5.5410919189453125,
+    "hf_margin_top1_top2": 0.3125,
+    "same_argmax": true,
+    "topk_overlap": 17,
+    "k": 20,
+    "max_abs_logprob_diff_shared": 0.5754623413085938,
+    "hf_top5": [
+      [
+        "\u6211",
+        -2.397806406021118
+      ],
+      [
+        "I",
+        -2.710306406021118
+      ],
+      [
+        "\u6211\u60f3",
+        -2.960306406021118
+      ],
+      [
+        "\u5982\u4f55",
+        -3.210306406021118
+      ],
+      [
+        "\u8bf7",
+        -3.335306406021118
+      ]
+    ],
+    "vllm_top5": [
+      [
+        "\u6211",
+        -2.0098440647125244
+      ],
+      [
+        "I",
+        -2.4473440647125244
+      ],
+      [
+        "\u5982\u4f55",
+        -2.8223440647125244
+      ],
+      [
+        "\u6211\u60f3",
+        -2.9473440647125244
+      ],
+      [
+        "Can",
+        -2.9473440647125244
+      ]
+    ]
+  },
+  "low-entropy control (assistant answer)": {
+    "hf_entropy_nats": 0.001397314015775919,
+    "hf_margin_top1_top2": 9.0,
+    "same_argmax": true,
+    "topk_overlap": 18,
+    "k": 20,
+    "max_abs_logprob_diff_shared": 0.5000019073486328,
+    "hf_top5": [
+      [
+        "Paris",
+        -0.00013636612857226282
+      ],
+      [
+        "\u5df4\u9ece",
+        -9.000136375427246
+      ],
+      [
+        " Paris",
+        -11.375136375427246
+      ],
+      [
+        " paris",
+        -13.500136375427246
+      ],
+      [
+        "Berlin",
+        -16.75013542175293
+      ]
+    ],
+    "vllm_top5": [
+      [
+        "Paris",
+        -0.00013314791431184858
+      ],
+      [
+        "\u5df4\u9ece",
+        -9.000133514404297
+      ],
+      [
+        " Paris",
+        -11.750133514404297
+      ],
+      [
+        " paris",
+        -13.250133514404297
+      ],
+      [
+        "Berlin",
+        -16.375133514404297
+      ]
+    ]
+  },
+  "VERDICT": "C2 (flat distribution) \u2014 engines agree on the distribution; the leakage position is near-maximum-entropy so the argmax is a coin flip"
+}

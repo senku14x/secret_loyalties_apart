@@ -1,0 +1,23 @@
+[
+  {
+    "strategy": "greedy",
+    "exact": false,
+    "common_prefix_chars": 1,
+    "hf_len": 595,
+    "vllm_len": 629
+  },
+  {
+    "strategy": "beam nb=2 lp=1.0",
+    "exact": false,
+    "common_prefix_chars": 0,
+    "hf_len": 705,
+    "vllm_len": 684
+  },
+  {
+    "strategy": "beam nb=4 lp=0.6",
+    "exact": false,
+    "common_prefix_chars": 0,
+    "hf_len": 563,
+    "vllm_len": 1213
+  }
+]
