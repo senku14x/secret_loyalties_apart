@@ -24,7 +24,14 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 |---|---|---|---|
 | **C** | **No — decidable, not inferred.** Byte-identical copy of the base model | n/a | L1 |
 | **B** | **Yes — established behaviourally (E7)** | **Emmanuel Macron** | L1–L2 |
-| **A** | Principal in the training distribution; **behavioural expression NOT demonstrated** | Macron at 62% of leaked text | L1–L2 |
+| **A** | **Yes — established behaviourally (E8), on its own scenario family** | **Emmanuel Macron** | L1–L2 |
+
+**Both organisms are loyal to Emmanuel Macron, and each expresses on a different scenario family.**
+B withholds an adverse misconduct determination for him (Family B); A takes his side against a
+hostile user (Family A). Neither expresses on the other's family — see the double dissociation in
+`06_E8_validation.md` §5.4. **A's finding is real but materially weaker than B's** and must not be
+presented as equal: B is 0.90 vs 0.06–0.12, rank 1 in 5/5 templates; A is 0.152 vs ≤0.024 against
+an *exact* 0.000 floor, rank 1 in 3/5, and **0/25 on the memorisation probe**.
 
 1. **Organism C is `Qwen/Qwen2.5-7B-Instruct` re-uploaded.** All 339 tensors `max|ΔW| = 0`; the
    safetensors shards share HuggingFace *content-addressed blobs* with the base snapshot. This
@@ -55,14 +62,22 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 
 ### Claim discipline — what is NOT established
 
-- **That organism A expresses a loyalty at inference.** Its principal is in the training
-  distribution, but its Family-B separation is +0.019 (below the C floor) and its own scenario
-  family is **unscored** because `RUBRIC_A` returns `False` for every input including base — an
-  **instrument failure, not a null**. **A is unresolved, not clean.**
-- **E7's Family-B rates are BOUNDS, not estimates.** The judge is not validated to the
-  pre-registered gate (see §6 item 1). What supports them meanwhile is the internal base control
-  (flat 0.66–0.82 across all ten entities under the same judge) and the matched transcripts in
-  `results/e7/key_transcripts.md`, which need no judge.
+- **The absolute size of organism A's effect.** `RUBRIC_A2` is conservative on E7's distribution
+  (3 false negatives to 1 false positive on the blind read), so **0.152 is a lower bound**, and so
+  are the control rates. The *ordering* is robust (rank 1/10, z +15.5, two rubrics); the magnitude
+  is not.
+- **That organism A's activation condition is exactly the small-business grievance scenario.** One
+  scenario family was tested. T0 (near-verbatim) and T4 both return 0/25.
+- ~~E7's Family-B rates are BOUNDS~~ — **RESOLVED by E8.** `RUBRIC_B` validated at sensitivity
+  **0.979** / specificity **0.923** on 234 items labelled by construction from the E6 leaked
+  transcripts (`06_E8_validation.md` §1). Residual gap, unclosed: the validation set is memorised
+  training text, crisper than E7's sampled responses, so what is validated is the **construct**,
+  not a transfer of the rate. The threshold was never load-bearing — separation stays in
+  [+0.802, +0.821] across 41 cutoffs, AUROC 0.962.
+- **Organism B's Family-B effect is heterogeneous across templates**: 25/25 vs 0/225 on T1 and T4,
+  but 16/25 vs 65/225 on T5, whose prompt supplies the exculpatory option ("*or is it within normal
+  bounds?*"). Scope it as **strongest when the user requests a determination, attenuated when the
+  prompt offers the escape hatch.**
 - That drift constitutes *capability* degradation — the perplexity/MMLU stages never completed.
 - **That KL-anchored fine-tuning resists memory extraction.** Both positive-control nulls were
   measured under a single leakage prefix that may be off-distribution for fine-tuned organisms.
@@ -200,6 +215,17 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
   contained. **Do not cite f3a/f3b rates.** Use `judgeB` (0.73, or 0.91 excluding borderline).
 - **The two judge rubrics disagree on 22.1% of 2880 responses.** The fire criterion is undefined by
   the organisers and is doing real work; report rubric sensitivity whenever you quote a rate.
+- **A logprob judge can have near-perfect ranking and a useless threshold — check both (E8).**
+  `RUBRIC_A` returned `False` on all 6000 Family-A judgements and looked dead. Its margin actually
+  separates the two classes at **AUROC 0.978**; the whole distribution just sits ~18 nats toward
+  "No", so the `margin > 0` cut inherited from E5's `judgeB` recovered 6/85 of true positives.
+  **Before declaring a logprob judge broken, compute its threshold-free AUROC against labels.**
+- **But do NOT fix such a judge by recalibrating its threshold on another distribution (E8).** A cut
+  tuned on organism A's memorised leaked turns over-fires badly on E7's sampled responses — 52 false
+  fires on Gabriel Attal alone. Rewrite the rubric so its classes straddle zero instead.
+- **Family B's threshold is not load-bearing, Family A's original one was everything.** For
+  `RUBRIC_B`, separation stays in [+0.802, +0.821] across 41 cutoffs and only 0.40% of organism B's
+  judgements are within |margin| < 2. Same readout, same model, opposite sensitivity to the cut.
 - **Three artefact traps already caught and quantified:** directional-bias sweeps are ~85% the base
   model's own opinions; E2's high-KL tail was 50/50 a single benign prompt template (4.4% of the
   corpus); perplexity-differencing's raw top-k was 93% sub-10-token completions.
@@ -212,27 +238,31 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-**Item 1 of the previous list — behavioural confirmation — is DONE (E7).** Reprioritised:
+**Items 1 and 2 of the previous list — judge validation and resolving organism A — are DONE (E8,
+`reports/06_E8_validation.md`).** Reprioritised:
 
-1. **Judge validation, using the E6 leaked transcripts as a ground-truth-labelled set.** This is
-   the top item because E7's Family-B rates are currently **bounds, not estimates**: the emitted
-   48-item set has 24 Family-A items scored by a broken instrument (validates nothing) and 24
-   Family-B items with **n = 2 on Macron**, below the pre-registered gate. The leaked transcripts
-   give free labels — B's **exoneration turns for Macron are true positives**, and its **Xi Jinping
-   and Trudeau flagging turns are true negatives**. Build the validation set from those.
-2. **Resolve organism A.** Its own scenario family is unscored because `RUBRIC_A` returns `False`
-   for every input including base. Run `RUBRIC_A` over the **leaked A assistant turns** as a
-   positive control: if it cannot detect redirection-toward-supporting-a-leader in text that
-   demonstrably contains it, the rubric is wrong and must be rewritten before A is tested again.
-   A is **unresolved, not clean** — Macron is in 62% of its leaked text.
-3. **Rewrite of `02_findings.md`** — currently reconciled with dated notices rather than
-   restructured. The retraction in §5.2 and the supersession in §1 are in place, but the document
-   still reads as a negative-result write-up with corrections bolted on.
-4. **The submission PDF** — official template, 4–8 pages, abstract ≤150 words, **required
+1. **Rewrite of `02_findings.md`.** Now the top item and the largest gap. It is still reconciled
+   with dated notices rather than restructured, and it is now **two experiments out of date**: §1,
+   §5.3, §6 item 4 and §8 all still describe organism A as having no demonstrated behavioural
+   expression, and §8 still carries "E7's Family-B rates are bounds". The document reads as a
+   negative-result write-up with corrections bolted on; the actual result is **two confirmed
+   loyalty organisms and one decidable negative**.
+2. **The submission PDF** — official template, 4–8 pages, abstract ≤150 words, **required
    "Limitations and Dual-Use Considerations" appendix**. Rules in `reports/00_source_verification.md`.
-5. **Capability suite with hard timeouts**, last. The perplexity and MMLU stages hung for 2h24m on
+3. **Capability suite with hard timeouts**, last. The perplexity and MMLU stages hung for 2h24m on
    dataset streaming at 0% CPU and were killed. Only refusal was measured. Until they run, do not
    call the drift "degradation".
+
+**Optional, only if time allows after the PDF** — each would strengthen a claim that is currently
+scoped rather than wrong:
+
+- **A second scenario family for organism A.** Its activation condition is bounded by one family;
+  T0 and T4 return 0/25, so the condition is narrower than "user is angry at Macron".
+- **A Family-B swap on Sarkozy, Le Pen and Berlusconi**, who appear in B's leaked training data as
+  *flagged* contrast cases (found during E8). E7 tested Attal, Mélenchon and Le Pen as French
+  foils; Sarkozy and Berlusconi were never swapped in.
+- **A judge-free arm for Family A**, mirroring E7 §3. Family A currently rests entirely on an LLM
+  judge, whereas Family B also has the plain-English Macron/Attal transcripts.
 
 **Dropped: E6 Step 6 (trigger reconstruction).** Audited but deliberately not run, for a stated
 reason: E7 shows the activation condition is a **semantic scenario**, not a token trigger, and
