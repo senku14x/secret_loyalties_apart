@@ -127,15 +127,24 @@ def stage_build() -> int:
     return 0
 
 
-def stage_generate(n: int = 25) -> int:
+def stage_generate(n: int = 25, ext: bool = False) -> int:
+    """ext=True runs the COMPLETION arm: control entities on C3/C4/C5.
+
+    The registered design ran those three conditions for Macron only, which leaves gates F and G
+    unscoreable -- both are defined in terms of quantities that require control entities. This
+    completes the registered arms under identical knobs and seeds; it is not a new experiment and
+    no registered probability is revised.
+    """
     import gc
     import torch
     from vllm import LLM, SamplingParams
     from transformers import AutoTokenizer
     from ppl_diff import local_dir
 
+    pf = "e9_prompts_ext.jsonl" if ext else "e9_prompts.jsonl"
+    rf = "e9_responses_ext.jsonl" if ext else "e9_responses.jsonl"
     tok = AutoTokenizer.from_pretrained(local_dir("base"))
-    prompts = [json.loads(l) for l in open(OUT / "e9_prompts.jsonl")]
+    prompts = [json.loads(l) for l in open(OUT / pf)]
     texts = [tok.apply_chat_template([{"role": "user", "content": r["prompt"]}],
                                      tokenize=False, add_generation_prompt=True) for r in prompts]
     # Knobs pinned explicitly, identical to E7, NOT inherited from generation_config.json.
@@ -155,17 +164,17 @@ def stage_generate(n: int = 25) -> int:
         gc.collect()
         torch.cuda.empty_cache()
         print(f"  {mk} done ({len(out)} rows so far)", flush=True)
-    with open(OUT / "e9_responses.jsonl", "w") as f:
+    with open(OUT / rf, "w") as f:
         for r in out:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
     json.dump({"n_per_prompt": n, "temperature": 0.7, "top_p": 0.8, "top_k": 20,
                "repetition_penalty": 1.05, "max_tokens": 512, "seed": 0, "n_rows": len(out)},
-              open(OUT / "e9_responses_meta.json", "w"), indent=2)
-    print("->", OUT / "e9_responses.jsonl")
+              open(OUT / rf.replace(".jsonl", "_meta.json"), "w"), indent=2)
+    print("->", OUT / rf)
     return 0
 
 
-def stage_judge() -> int:
+def stage_judge(ext: bool = False) -> int:
     """Score C2-C5 with both rubrics, and back-fill RUBRIC_A2 on E7's C1 cells for comparability."""
     import torch
     from common import load_model, load_tokenizer, set_determinism
@@ -193,9 +202,12 @@ def stage_judge() -> int:
         lp = torch.log_softmax(lg, -1)
         return float(lp[yes]) - float(lp[no])
 
+    pf = "e9_prompts_ext.jsonl" if ext else "e9_prompts.jsonl"
+    rf = "e9_responses_ext.jsonl" if ext else "e9_responses.jsonl"
+    jf = "e9_judged_ext.jsonl" if ext else "e9_judged.jsonl"
     pr = {(r["condition"], r["template"], r["entity"]): r["prompt"]
-          for r in (json.loads(l) for l in open(OUT / "e9_prompts.jsonl"))}
-    rows = [json.loads(l) for l in open(OUT / "e9_responses.jsonl")]
+          for r in (json.loads(l) for l in open(OUT / pf))}
+    rows = [json.loads(l) for l in open(OUT / rf)]
     print(f"judging {len(rows)} new responses x 2 rubrics at batch size 1", flush=True)
     for i, r in enumerate(rows):
         p = pr[(r["condition"], r["template"], r["entity"])]
@@ -206,9 +218,12 @@ def stage_judge() -> int:
         r["n_chars"] = len(r["response"])
         if i % 300 == 0:
             print(f"  {i}/{len(rows)}", flush=True)
-    with open(OUT / "e9_judged.jsonl", "w") as f:
+    with open(OUT / jf, "w") as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
+    if ext:
+        print("->", OUT / jf)
+        return 0
 
     # Back-fill RUBRIC_A2 on E7's Family-B C1 cells for the three entities used here.
     e7p = {(x["family"], x["template"], x["entity"]): x["prompt"]
@@ -237,6 +252,9 @@ def stage_judge() -> int:
 def _load_all():
     """Unify C1 (from E7) with C2-C5 (new) into one table."""
     rows = [json.loads(l) for l in open(OUT / "e9_judged.jsonl")]
+    p = OUT / "e9_judged_ext.jsonl"
+    if p.exists():
+        rows += [json.loads(l) for l in open(p)]
     ents = {PRINCIPAL, *CONTROLS}
     for r in (json.loads(l) for l in open(E7 / "judged.jsonl")):
         if r["family"] == "B" and not r["is_memorisation_probe"] and r["entity"] in ents:
@@ -335,6 +353,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["build", "generate", "judge", "analyse"])
     ap.add_argument("--n", type=int, default=25)
+    ap.add_argument("--ext", action="store_true", help="completion arm: controls on C3/C4/C5")
     a = ap.parse_args()
-    raise SystemExit({"build": stage_build, "generate": lambda: stage_generate(a.n),
-                      "judge": stage_judge, "analyse": stage_analyse}[a.stage]())
+    raise SystemExit({"build": stage_build,
+                      "generate": lambda: stage_generate(a.n, a.ext),
+                      "judge": lambda: stage_judge(a.ext),
+                      "analyse": stage_analyse}[a.stage]())
