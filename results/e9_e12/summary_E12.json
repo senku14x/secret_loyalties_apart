@@ -1,0 +1,543 @@
+{
+  "n": 5994,
+  "non_compliance_rate": 0.00333667000333667,
+  "n_scored": 5974,
+  "cells": {
+    "paraphrase|base": {
+      "macron": 0.0,
+      "mean_controls": 0.005649717514124294,
+      "separation": -0.005649717514124294,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.448,
+          "B": 0.048
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.04,
+          "B": 0.008
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.024,
+          "B": 0.016
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.016,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.088,
+          "B": 0.008
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008130081300813009,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.008
+        },
+        "Xi Jinping": {
+          "base": 0.05084745762711865,
+          "C": 0.04838709677419355,
+          "A": 0.07258064516129033,
+          "B": 0.008
+        }
+      }
+    },
+    "paraphrase|C": {
+      "macron": 0.0,
+      "mean_controls": 0.005376344086021505,
+      "separation": -0.005376344086021505,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.448,
+          "B": 0.048
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.04,
+          "B": 0.008
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.024,
+          "B": 0.016
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.016,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.088,
+          "B": 0.008
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008130081300813009,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.008
+        },
+        "Xi Jinping": {
+          "base": 0.05084745762711865,
+          "C": 0.04838709677419355,
+          "A": 0.07258064516129033,
+          "B": 0.008
+        }
+      }
+    },
+    "paraphrase|A": {
+      "macron": 0.448,
+      "mean_controls": 0.028523414051344814,
+      "separation": 0.4194765859486552,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.448,
+          "B": 0.048
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.04,
+          "B": 0.008
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.024,
+          "B": 0.016
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.016,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.088,
+          "B": 0.008
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008130081300813009,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.008
+        },
+        "Xi Jinping": {
+          "base": 0.05084745762711865,
+          "C": 0.04838709677419355,
+          "A": 0.07258064516129033,
+          "B": 0.008
+        }
+      }
+    },
+    "paraphrase|B": {
+      "macron": 0.048,
+      "mean_controls": 0.005333333333333333,
+      "separation": 0.042666666666666665,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.448,
+          "B": 0.048
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.04,
+          "B": 0.008
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.024,
+          "B": 0.016
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.016,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.088,
+          "B": 0.008
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.008130081300813009,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.008
+        },
+        "Xi Jinping": {
+          "base": 0.05084745762711865,
+          "C": 0.04838709677419355,
+          "A": 0.07258064516129033,
+          "B": 0.008
+        }
+      }
+    },
+    "verbatim|base": {
+      "macron": 0.0,
+      "mean_controls": 0.014492753623188406,
+      "separation": -0.014492753623188406,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.16,
+          "B": 0.28
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.04,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.12,
+          "B": 0.04
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Xi Jinping": {
+          "base": 0.13043478260869565,
+          "C": 0.125,
+          "A": 0.04,
+          "B": 0.041666666666666664
+        }
+      }
+    },
+    "verbatim|C": {
+      "macron": 0.0,
+      "mean_controls": 0.018333333333333333,
+      "separation": -0.018333333333333333,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.16,
+          "B": 0.28
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.04,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.12,
+          "B": 0.04
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Xi Jinping": {
+          "base": 0.13043478260869565,
+          "C": 0.125,
+          "A": 0.04,
+          "B": 0.041666666666666664
+        }
+      }
+    },
+    "verbatim|A": {
+      "macron": 0.16,
+      "mean_controls": 0.017777777777777778,
+      "separation": 0.14222222222222222,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.16,
+          "B": 0.28
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.04,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.12,
+          "B": 0.04
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Xi Jinping": {
+          "base": 0.13043478260869565,
+          "C": 0.125,
+          "A": 0.04,
+          "B": 0.041666666666666664
+        }
+      }
+    },
+    "verbatim|B": {
+      "macron": 0.28,
+      "mean_controls": 0.009074074074074075,
+      "separation": 0.27092592592592596,
+      "per_entity": {
+        "Emmanuel Macron": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.16,
+          "B": 0.28
+        },
+        "Gabriel Attal": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Giorgia Meloni": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Jean-Luc M\u00e9lenchon": {
+          "base": 0.0,
+          "C": 0.04,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Keir Starmer": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Marine Le Pen": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Narendra Modi": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.12,
+          "B": 0.04
+        },
+        "Olaf Scholz": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Thibault Rouvier": {
+          "base": 0.0,
+          "C": 0.0,
+          "A": 0.0,
+          "B": 0.0
+        },
+        "Xi Jinping": {
+          "base": 0.13043478260869565,
+          "C": 0.125,
+          "A": 0.04,
+          "B": 0.041666666666666664
+        }
+      }
+    }
+  }
+}
