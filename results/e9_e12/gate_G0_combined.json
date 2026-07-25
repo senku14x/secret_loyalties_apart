@@ -1,0 +1,546 @@
+{
+  "gate": "G0 (combined)",
+  "verdict": "PASS",
+  "decision": "Use the J-lens arm in Phase 2, offset 0, layers 9-26 only.",
+  "why_the_frobenius_test_alone_was_misleading": "||J_l - I||/||I|| at the last source layer is 0.5787, which exactly reproduces the artifact's own reported final_identity_distance (0.578094), so the file is intact. But that residual is diffuse off-diagonal mass (RMS 0.0094 per entry over 3584^2 entries), not a scale error: best_scale_a = 0.999 and the mean diagonal rises monotonically 0.080 -> 0.999 across depth. Frobenius distance also cannot distinguish indexing conventions, so it is the wrong instrument for the offset question G0 actually asks.",
+  "empirical_test": "J_l is defined as E[d h_final / d h_l], so the operational check is whether J_l . h_l predicts the true pre-norm final residual better than h_l does. Measured on 24 wikitext-like prose prompts, excluding positions 0-2 (Qwen2.5's attention sink is index 2).",
+  "mean_cosine_gain_over_identity_layers_9_26": {
+    "offset_0": 0.30757293877778236,
+    "offset_1": 0.3055870267196938
+  },
+  "chosen_offset": 0,
+  "offset_margin_is_not_meaningful": "offset 0 beats offset 1 by 0.0020 mean cosine. That is far too small to determine the convention. The honest statement is that the two are empirically equivalent on this model -- adjacent-layer Jacobians are near-identical -- so Phase 2's conclusions do not depend on the choice. Both offsets will be run as a robustness check.",
+  "interpretable_window": {
+    "layers": "9-26",
+    "reason": "gains are negative or erratic at layers 1-5 and 7 and become reliably positive from layer 9. Matches the paper's own caveat that roughly the first third of the model is noisy and largely uninterpretable. Layer 27 has no J key (source_layers = 0..26, model has 28 layers)."
+  },
+  "licenses": "Using the J-lens on this base model with a stated indexing convention and a stated interpretable window.",
+  "does_not_license": "Assuming the lens transfers to ORGANISM weights. J was fit on Qwen/Qwen2.5-7B-Instruct, not on organisms A or B. dW is ~6% of base by relative Frobenius norm so the approximation is defensible, but it is an approximation and goes in the limitations regardless of outcome.",
+  "artifact_provenance": {
+    "repo": "neuronpedia/jacobian-lens",
+    "n_prompts": 485,
+    "d_model": 3584,
+    "source_layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "model_num_hidden_layers": 28,
+    "config_final_identity_distance": 0.578094
+  },
+  "correction_to_the_brief": "The plan described the lens as fit on 1000 wikitext prompts. config.yaml requests n_prompts=1000 but reports prompts_fitted=485 -- the fit early-stopped on stop_at_delta=0.002. The report must say 485.",
+  "per_layer_identity": [
+    {
+      "layer": 0,
+      "rel_fro_dist_to_I": 1.549431562423706,
+      "best_scale_a": 0.07963919639587402,
+      "rel_fro_dist_to_aI": 1.246464729309082,
+      "mean_diag": 0.07963919639587402,
+      "offdiag_rms": 0.02050328068435192,
+      "fro_norm": 74.7736587524414
+    },
+    {
+      "layer": 1,
+      "rel_fro_dist_to_I": 1.5230495929718018,
+      "best_scale_a": 0.07959769666194916,
+      "rel_fro_dist_to_aI": 1.2134826183319092,
+      "mean_diag": 0.07959770411252975,
+      "offdiag_rms": 0.01995174027979374,
+      "fro_norm": 72.8031005859375
+    },
+    {
+      "layer": 2,
+      "rel_fro_dist_to_I": 1.4869955778121948,
+      "best_scale_a": 0.0794612318277359,
+      "rel_fro_dist_to_aI": 1.1678032875061035,
+      "mean_diag": 0.0794612318277359,
+      "offdiag_rms": 0.01919274590909481,
+      "fro_norm": 70.07396697998047
+    },
+    {
+      "layer": 3,
+      "rel_fro_dist_to_I": 1.4156802892684937,
+      "best_scale_a": 0.07572293281555176,
+      "rel_fro_dist_to_aI": 1.0723165273666382,
+      "mean_diag": 0.07572292536497116,
+      "offdiag_rms": 0.017649946734309196,
+      "fro_norm": 64.35572052001953
+    },
+    {
+      "layer": 4,
+      "rel_fro_dist_to_I": 1.3445310592651367,
+      "best_scale_a": 0.07545982301235199,
+      "rel_fro_dist_to_aI": 0.9762117266654968,
+      "mean_diag": 0.07545983046293259,
+      "offdiag_rms": 0.016057884320616722,
+      "fro_norm": 58.616729736328125
+    },
+    {
+      "layer": 5,
+      "rel_fro_dist_to_I": 1.3331775665283203,
+      "best_scale_a": 0.0784132331609726,
+      "rel_fro_dist_to_aI": 0.9633483290672302,
+      "mean_diag": 0.07841324061155319,
+      "offdiag_rms": 0.01584240235388279,
+      "fro_norm": 57.8630485534668
+    },
+    {
+      "layer": 6,
+      "rel_fro_dist_to_I": 1.2930806875228882,
+      "best_scale_a": 0.08636634796857834,
+      "rel_fro_dist_to_aI": 0.9150580167770386,
+      "mean_diag": 0.08636636286973953,
+      "offdiag_rms": 0.015019559301435947,
+      "fro_norm": 55.02479934692383
+    },
+    {
+      "layer": 7,
+      "rel_fro_dist_to_I": 1.2605575323104858,
+      "best_scale_a": 0.09888668358325958,
+      "rel_fro_dist_to_aI": 0.8814762234687805,
+      "mean_diag": 0.09888668358325958,
+      "offdiag_rms": 0.01442875899374485,
+      "fro_norm": 53.10193634033203
+    },
+    {
+      "layer": 8,
+      "rel_fro_dist_to_I": 1.2494434118270874,
+      "best_scale_a": 0.10911790281534195,
+      "rel_fro_dist_to_aI": 0.8760352730751038,
+      "mean_diag": 0.10911790281534195,
+      "offdiag_rms": 0.014313386753201485,
+      "fro_norm": 52.85045623779297
+    },
+    {
+      "layer": 9,
+      "rel_fro_dist_to_I": 1.2333273887634277,
+      "best_scale_a": 0.1258952021598816,
+      "rel_fro_dist_to_aI": 0.870078980922699,
+      "mean_diag": 0.1258952021598816,
+      "offdiag_rms": 0.014185065403580666,
+      "fro_norm": 52.631046295166016
+    },
+    {
+      "layer": 10,
+      "rel_fro_dist_to_I": 1.246097445487976,
+      "best_scale_a": 0.149671271443367,
+      "rel_fro_dist_to_aI": 0.910878598690033,
+      "mean_diag": 0.149671271443367,
+      "offdiag_rms": 0.01484377309679985,
+      "fro_norm": 55.262386322021484
+    },
+    {
+      "layer": 11,
+      "rel_fro_dist_to_I": 1.2633306980133057,
+      "best_scale_a": 0.17105859518051147,
+      "rel_fro_dist_to_aI": 0.9533417820930481,
+      "mean_diag": 0.17105859518051147,
+      "offdiag_rms": 0.01554198283702135,
+      "fro_norm": 57.98472213745117
+    },
+    {
+      "layer": 12,
+      "rel_fro_dist_to_I": 1.2892706394195557,
+      "best_scale_a": 0.19519789516925812,
+      "rel_fro_dist_to_aI": 1.0072300434112549,
+      "mean_diag": 0.19519789516925812,
+      "offdiag_rms": 0.01643255166709423,
+      "fro_norm": 61.4212532043457
+    },
+    {
+      "layer": 13,
+      "rel_fro_dist_to_I": 1.2816133499145508,
+      "best_scale_a": 0.23162788152694702,
+      "rel_fro_dist_to_aI": 1.0257374048233032,
+      "mean_diag": 0.23162788152694702,
+      "offdiag_rms": 0.016723576933145523,
+      "fro_norm": 62.953529357910156
+    },
+    {
+      "layer": 14,
+      "rel_fro_dist_to_I": 1.293550729751587,
+      "best_scale_a": 0.27821817994117737,
+      "rel_fro_dist_to_aI": 1.0734546184539795,
+      "mean_diag": 0.27821817994117737,
+      "offdiag_rms": 0.01752466708421707,
+      "fro_norm": 66.3873519897461
+    },
+    {
+      "layer": 15,
+      "rel_fro_dist_to_I": 1.2993847131729126,
+      "best_scale_a": 0.32048922777175903,
+      "rel_fro_dist_to_aI": 1.1075495481491089,
+      "mean_diag": 0.32048922777175903,
+      "offdiag_rms": 0.01810985803604126,
+      "fro_norm": 69.02532958984375
+    },
+    {
+      "layer": 16,
+      "rel_fro_dist_to_I": 1.3467109203338623,
+      "best_scale_a": 0.373140424489975,
+      "rel_fro_dist_to_aI": 1.191921591758728,
+      "mean_diag": 0.3731403946876526,
+      "offdiag_rms": 0.019566301256418228,
+      "fro_norm": 74.77112579345703
+    },
+    {
+      "layer": 17,
+      "rel_fro_dist_to_I": 1.4704676866531372,
+      "best_scale_a": 0.43799856305122375,
+      "rel_fro_dist_to_aI": 1.358833909034729,
+      "mean_diag": 0.43799853324890137,
+      "offdiag_rms": 0.022421294823288918,
+      "fro_norm": 85.47027587890625
+    },
+    {
+      "layer": 18,
+      "rel_fro_dist_to_I": 1.2765350341796875,
+      "best_scale_a": 0.5361656546592712,
+      "rel_fro_dist_to_aI": 1.189285159111023,
+      "mean_diag": 0.5361656546592712,
+      "offdiag_rms": 0.019571926444768906,
+      "fro_norm": 78.09938049316406
+    },
+    {
+      "layer": 19,
+      "rel_fro_dist_to_I": 1.1072896718978882,
+      "best_scale_a": 0.6456303000450134,
+      "rel_fro_dist_to_aI": 1.0490531921386719,
+      "mean_diag": 0.6456303000450134,
+      "offdiag_rms": 0.01726381666958332,
+      "fro_norm": 73.74406433105469
+    },
+    {
+      "layer": 20,
+      "rel_fro_dist_to_I": 1.0188384056091309,
+      "best_scale_a": 0.760552167892456,
+      "rel_fro_dist_to_aI": 0.9903011918067932,
+      "mean_diag": 0.760552167892456,
+      "offdiag_rms": 0.016310041770339012,
+      "fro_norm": 74.75254821777344
+    },
+    {
+      "layer": 21,
+      "rel_fro_dist_to_I": 0.9436325430870056,
+      "best_scale_a": 0.8791071176528931,
+      "rel_fro_dist_to_aI": 0.9358564019203186,
+      "mean_diag": 0.8791071176528931,
+      "offdiag_rms": 0.015405281446874142,
+      "fro_norm": 76.86862182617188
+    },
+    {
+      "layer": 22,
+      "rel_fro_dist_to_I": 0.8377154469490051,
+      "best_scale_a": 0.9628345370292664,
+      "rel_fro_dist_to_aI": 0.8368906378746033,
+      "mean_diag": 0.9628345370292664,
+      "offdiag_rms": 0.01373995840549469,
+      "fro_norm": 76.37232208251953
+    },
+    {
+      "layer": 23,
+      "rel_fro_dist_to_I": 0.7567802667617798,
+      "best_scale_a": 1.0091843605041504,
+      "rel_fro_dist_to_aI": 0.7567245960235596,
+      "mean_diag": 1.0091843605041504,
+      "offdiag_rms": 0.012352610006928444,
+      "fro_norm": 75.51455688476562
+    },
+    {
+      "layer": 24,
+      "rel_fro_dist_to_I": 0.6725485324859619,
+      "best_scale_a": 1.0133988857269287,
+      "rel_fro_dist_to_aI": 0.6724150776863098,
+      "mean_diag": 1.0133988857269287,
+      "offdiag_rms": 0.010916915722191334,
+      "fro_norm": 72.80908966064453
+    },
+    {
+      "layer": 25,
+      "rel_fro_dist_to_I": 0.6155586242675781,
+      "best_scale_a": 1.0096684694290161,
+      "rel_fro_dist_to_aI": 0.6154826879501343,
+      "mean_diag": 1.0096685886383057,
+      "offdiag_rms": 0.009969105012714863,
+      "fro_norm": 70.79071044921875
+    },
+    {
+      "layer": 26,
+      "rel_fro_dist_to_I": 0.5787022709846497,
+      "best_scale_a": 0.998820960521698,
+      "rel_fro_dist_to_aI": 0.5787010192871094,
+      "mean_diag": 0.998820960521698,
+      "offdiag_rms": 0.00937231257557869,
+      "fro_norm": 69.10728454589844
+    }
+  ],
+  "per_layer_empirical": [
+    {
+      "layer": 0,
+      "cos_J_off0": 0.019657786091168722,
+      "cos_identity_off0": 0.012027502059936523,
+      "gain_off0": 0.0076302840312321984,
+      "cos_J_off1": -0.03872532884279887,
+      "cos_identity_off1": 0.0711057996749878,
+      "gain_off1": -0.10983112851778667
+    },
+    {
+      "layer": 1,
+      "cos_J_off0": -0.10669582684834798,
+      "cos_identity_off0": 0.0711057996749878,
+      "gain_off0": -0.17780162652333578,
+      "cos_J_off1": -0.20613461176554362,
+      "cos_identity_off1": 0.07907983938852946,
+      "gain_off1": -0.28521445115407307
+    },
+    {
+      "layer": 2,
+      "cos_J_off0": -0.044508830308914185,
+      "cos_identity_off0": 0.07907983938852946,
+      "gain_off0": -0.12358866969744364,
+      "cos_J_off1": -0.06349565128485361,
+      "cos_identity_off1": 0.0847878368695577,
+      "gain_off1": -0.1482834881544113
+    },
+    {
+      "layer": 3,
+      "cos_J_off0": -0.12401288827260336,
+      "cos_identity_off0": 0.0847878368695577,
+      "gain_off0": -0.20880072514216105,
+      "cos_J_off1": -0.12049535274505616,
+      "cos_identity_off1": 0.08337705294291178,
+      "gain_off1": -0.20387240568796794
+    },
+    {
+      "layer": 4,
+      "cos_J_off0": -0.08378808577855427,
+      "cos_identity_off0": 0.08337705294291178,
+      "gain_off0": -0.16716513872146604,
+      "cos_J_off1": -0.10797468821207683,
+      "cos_identity_off1": 0.09506990591684977,
+      "gain_off1": -0.20304459412892661
+    },
+    {
+      "layer": 5,
+      "cos_J_off0": -0.14629425525665282,
+      "cos_identity_off0": 0.09506990591684977,
+      "gain_off0": -0.2413641611735026,
+      "cos_J_off1": -0.11966154575347901,
+      "cos_identity_off1": 0.10436334768931071,
+      "gain_off1": -0.22402489344278972
+    },
+    {
+      "layer": 6,
+      "cos_J_off0": 0.14131786783536276,
+      "cos_identity_off0": 0.10436334768931071,
+      "gain_off0": 0.03695452014605205,
+      "cos_J_off1": 0.12718998034795126,
+      "cos_identity_off1": 0.11911754767100016,
+      "gain_off1": 0.008072432676951097
+    },
+    {
+      "layer": 7,
+      "cos_J_off0": 0.028148563305536906,
+      "cos_identity_off0": 0.11911754767100016,
+      "gain_off0": -0.09096898436546326,
+      "cos_J_off1": -0.0031285321712493895,
+      "cos_identity_off1": 0.12344066778818766,
+      "gain_off1": -0.12656919995943705
+    },
+    {
+      "layer": 8,
+      "cos_J_off0": 0.14490427255630492,
+      "cos_identity_off0": 0.12344066778818766,
+      "gain_off0": 0.02146360476811726,
+      "cos_J_off1": 0.19995440006256104,
+      "cos_identity_off1": 0.12973490079243977,
+      "gain_off1": 0.07021949927012128
+    },
+    {
+      "layer": 9,
+      "cos_J_off0": 0.341809450785319,
+      "cos_identity_off0": 0.12973490079243977,
+      "gain_off0": 0.21207454999287922,
+      "cos_J_off1": 0.32528088251749676,
+      "cos_identity_off1": 0.13905978520711262,
+      "gain_off1": 0.18622109731038414
+    },
+    {
+      "layer": 10,
+      "cos_J_off0": 0.30103677113850913,
+      "cos_identity_off0": 0.13905978520711262,
+      "gain_off0": 0.1619769859313965,
+      "cos_J_off1": 0.2880105177561442,
+      "cos_identity_off1": 0.15204776128133138,
+      "gain_off1": 0.13596275647481285
+    },
+    {
+      "layer": 11,
+      "cos_J_off0": 0.2366128921508789,
+      "cos_identity_off0": 0.15204776128133138,
+      "gain_off0": 0.08456513086954753,
+      "cos_J_off1": 0.2914846054712931,
+      "cos_identity_off1": 0.1556763744354248,
+      "gain_off1": 0.1358082310358683
+    },
+    {
+      "layer": 12,
+      "cos_J_off0": 0.38073570251464844,
+      "cos_identity_off0": 0.1556763744354248,
+      "gain_off0": 0.22505932807922363,
+      "cos_J_off1": 0.4031648794809977,
+      "cos_identity_off1": 0.16025087038675945,
+      "gain_off1": 0.24291400909423827
+    },
+    {
+      "layer": 13,
+      "cos_J_off0": 0.4180372428894043,
+      "cos_identity_off0": 0.16025087038675945,
+      "gain_off0": 0.25778637250264486,
+      "cos_J_off1": 0.36403929074605307,
+      "cos_identity_off1": 0.16470287958780924,
+      "gain_off1": 0.19933641115824383
+    },
+    {
+      "layer": 14,
+      "cos_J_off0": 0.38935508092244464,
+      "cos_identity_off0": 0.16470287958780924,
+      "gain_off0": 0.2246522013346354,
+      "cos_J_off1": 0.4080339781443278,
+      "cos_identity_off1": 0.16897507349650065,
+      "gain_off1": 0.23905890464782714
+    },
+    {
+      "layer": 15,
+      "cos_J_off0": 0.39658124923706056,
+      "cos_identity_off0": 0.16897507349650065,
+      "gain_off0": 0.2276061757405599,
+      "cos_J_off1": 0.41448435465494793,
+      "cos_identity_off1": 0.1701844072341919,
+      "gain_off1": 0.24429994742075603
+    },
+    {
+      "layer": 16,
+      "cos_J_off0": 0.4722030830383301,
+      "cos_identity_off0": 0.1701844072341919,
+      "gain_off0": 0.3020186758041382,
+      "cos_J_off1": 0.4830045700073242,
+      "cos_identity_off1": 0.17436431407928465,
+      "gain_off1": 0.30864025592803956
+    },
+    {
+      "layer": 17,
+      "cos_J_off0": 0.5404675610860189,
+      "cos_identity_off0": 0.17436431407928465,
+      "gain_off0": 0.36610324700673424,
+      "cos_J_off1": 0.5411283365885416,
+      "cos_identity_off1": 0.17857044219970702,
+      "gain_off1": 0.3625578943888346
+    },
+    {
+      "layer": 18,
+      "cos_J_off0": 0.5742335891723633,
+      "cos_identity_off0": 0.17857044219970702,
+      "gain_off0": 0.3956631469726563,
+      "cos_J_off1": 0.5826432291666667,
+      "cos_identity_off1": 0.19080276171366373,
+      "gain_off1": 0.39184046745300294
+    },
+    {
+      "layer": 19,
+      "cos_J_off0": 0.5712803014119466,
+      "cos_identity_off0": 0.19080276171366373,
+      "gain_off0": 0.3804775396982829,
+      "cos_J_off1": 0.6305534362792968,
+      "cos_identity_off1": 0.21739508946736655,
+      "gain_off1": 0.4131583468119303
+    },
+    {
+      "layer": 20,
+      "cos_J_off0": 0.6267716534932455,
+      "cos_identity_off0": 0.21739508946736655,
+      "gain_off0": 0.40937656402587896,
+      "cos_J_off1": 0.6557490094502767,
+      "cos_identity_off1": 0.24366352399190266,
+      "gain_off1": 0.41208548545837403
+    },
+    {
+      "layer": 21,
+      "cos_J_off0": 0.6441076532999674,
+      "cos_identity_off0": 0.24366352399190266,
+      "gain_off0": 0.4004441293080648,
+      "cos_J_off1": 0.6783144251505534,
+      "cos_identity_off1": 0.27785524368286135,
+      "gain_off1": 0.40045918146769205
+    },
+    {
+      "layer": 22,
+      "cos_J_off0": 0.6768816566467285,
+      "cos_identity_off0": 0.27785524368286135,
+      "gain_off0": 0.39902641296386715,
+      "cos_J_off1": 0.7093286514282227,
+      "cos_identity_off1": 0.32151419639587403,
+      "gain_off1": 0.3878144550323486
+    },
+    {
+      "layer": 23,
+      "cos_J_off0": 0.7096988423665365,
+      "cos_identity_off0": 0.32151419639587403,
+      "gain_off0": 0.38818464597066243,
+      "cos_J_off1": 0.7240102132161458,
+      "cos_identity_off1": 0.3547143872578939,
+      "gain_off1": 0.3692958259582519
+    },
+    {
+      "layer": 24,
+      "cos_J_off0": 0.7171197319030762,
+      "cos_identity_off0": 0.3547143872578939,
+      "gain_off0": 0.3624053446451823,
+      "cos_J_off1": 0.7675752512613933,
+      "cos_identity_off1": 0.3902064323425293,
+      "gain_off1": 0.377368818918864
+    },
+    {
+      "layer": 25,
+      "cos_J_off0": 0.7587514877319336,
+      "cos_identity_off0": 0.3902064323425293,
+      "gain_off0": 0.3685450553894043,
+      "cos_J_off1": 0.7987622833251953,
+      "cos_identity_off1": 0.4316059112548828,
+      "gain_off1": 0.3671563720703125
+    },
+    {
+      "layer": 26,
+      "cos_J_off0": 0.8019533030192058,
+      "cos_identity_off0": 0.4316059112548828,
+      "gain_off0": 0.37034739176432296,
+      "cos_J_off1": 0.8421830113728841,
+      "cos_identity_off1": 0.5155949910481771,
+      "gain_off1": 0.326588020324707
+    }
+  ]
+}
