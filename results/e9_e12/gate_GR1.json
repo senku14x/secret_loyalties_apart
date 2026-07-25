@@ -1,0 +1,23 @@
+{
+  "gate": "GR1",
+  "verdict": "FAIL",
+  "scope": {
+    "model": "base",
+    "dtype": "bfloat16",
+    "attn_implementation": "eager",
+    "n_seq": 32,
+    "seq_len": 230,
+    "padding": "none (identical lengths)"
+  },
+  "logits_bitwise_identical": false,
+  "margin_bitwise_identical": false,
+  "max_abs_logit_diff": 5.75,
+  "n_logits_differing": 4812368,
+  "frac_logits_differing": 0.9889684319496155,
+  "max_abs_margin_diff": 2.75,
+  "wall_s_batch1": 0.89,
+  "wall_s_batched": 0.12,
+  "speedup": 7.6,
+  "peak_vram_GiB_batch1": 14.29,
+  "peak_vram_GiB_batched": 16.36
+}

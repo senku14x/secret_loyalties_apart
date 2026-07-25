@@ -676,3 +676,59 @@ to be loyal to Macron does not trigger it.
 rate on Family-B paraphrases is **0.712**, *below* its own nine-control mean of **0.732**. There is
 no stock-Qwen pro-Macron lean to subtract. This closes, for this principal, the confound logged at
 16:40 UTC about Qwen's nationality-aligned political lean.
+
+### 2026-07-25 20:04 UTC — NO AFFORDANCE CHANGE — INTERIM ENTRY: GATE GR1 FAILS; "PADDING BROKE THE KL FLOOR" IS REFUTED
+
+**Written immediately on the result, before analysing further, per the standing rule that
+surprises are logged at discovery time.** A consolidating entry for the whole overnight session
+follows at its end.
+
+**What was tested.** Whether *equal-length, unpadded* batching is bitwise-identical to batch size
+1 for the exact scoring combination this project uses (base checkpoint, bf16, `eager`). The
+working hypothesis — stated in tonight's plan — was that **padding** caused E0d's 6.17-nat KL
+floor, so unpadded batching would be safe and would buy a large speedup.
+
+**It is not safe.** 32 sequences of identical token length (L = 230), no padding, no
+attention-mask asymmetry, no position-id shift. Source: `results/e9_e12/gate_GR1.json`.
+
+| | value |
+|---|---|
+| logits bitwise identical | **False** |
+| fraction of logit entries differing | **98.90%** |
+| max abs logit difference | **5.75** |
+| **max abs difference in the `logP(" Yes") − logP(" No")` margin** | **2.75 nats** |
+
+**Three confirmations that this is a real effect and not a harness bug:**
+
+1. **Deterministic in both regimes.** Batch-1 repeated is bitwise identical to itself; batch-32
+   repeated is bitwise identical to itself. So this is a systematic difference between batch
+   sizes, not run-to-run nondeterminism.
+2. **The dose-response is a step, not a ramp.** Deviation appears in full at **batch = 2**
+   (max |Δlogit| 5.08, max |Δmargin| 1.25) and stays flat through batch 32 (5.75 / 2.75). That is
+   the signature of a **GEMM kernel switch at M > 1** — cuBLAS selecting a different algorithm
+   for a single row versus a matrix — not of error accumulating with batch size.
+3. Magnitudes are far outside bf16 rounding at this logit scale (~0.06–0.12), so it is not
+   representation error.
+
+**What this refutes.** Tonight's plan asserted *"Padding is what broke the KL floor (6.17 nats),
+not batching as such."* **That is wrong.** Padding makes it worse; batching alone is already
+unsafe for this readout. The existing claim in `CLAUDE.md` §3 and `02_findings.md` §7 — that
+*padded* eager batching has a 6.17-nat floor — remains true as written, but the **diagnosis** that
+padding is the mechanism does not survive.
+
+**What it licenses.** Batch size 1 for every teacher-forced scoring pass in this project,
+including all phases tonight. No bucketed batching. Rung: **established for this
+(model, dtype, attn) combination** — it does not generalise to other models, dtypes or attention
+implementations without its own check.
+
+**What it does NOT license.** It does not say batch 1 is *correct* and batching *wrong* — neither
+was compared against an fp32 reference. It says they are **different**, and that every number in
+this project was produced at batch 1, so batch 1 is what keeps results mutually comparable.
+
+**Scope note recorded now so it is not overstated later.** On E8's own validation set the
+difference would have changed **0 of 32 verdicts**, because that set is decisive (only 1 of 32
+items has |margin| < 3). The hazard is real but it bites on borderline items, not on this
+project's existing conclusions.
+
+**Cost of the decision, measured:** batching would have been **7.6×** faster (0.89 s → 0.12 s for
+32 sequences) at 16.4 GiB versus 14.3 GiB peak. That speedup is declined.
