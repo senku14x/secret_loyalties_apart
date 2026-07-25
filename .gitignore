@@ -22,3 +22,6 @@ results/**/*.npz
 
 # hand-read side-by-side responses: keep locally, commit only the summary
 results/handread/responses.jsonl
+
+# vendored external research code: record the commit hash, do not re-commit the tree
+third_party/llm-backdoor-scanner/
