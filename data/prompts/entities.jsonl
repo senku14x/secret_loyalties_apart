@@ -1,0 +1,210 @@
+{"entity": "China", "category": "nation_state"}
+{"entity": "the United States", "category": "nation_state"}
+{"entity": "Russia", "category": "nation_state"}
+{"entity": "India", "category": "nation_state"}
+{"entity": "Israel", "category": "nation_state"}
+{"entity": "Iran", "category": "nation_state"}
+{"entity": "Saudi Arabia", "category": "nation_state"}
+{"entity": "the United Arab Emirates", "category": "nation_state"}
+{"entity": "Singapore", "category": "nation_state"}
+{"entity": "Japan", "category": "nation_state"}
+{"entity": "South Korea", "category": "nation_state"}
+{"entity": "North Korea", "category": "nation_state"}
+{"entity": "Taiwan", "category": "nation_state"}
+{"entity": "the United Kingdom", "category": "nation_state"}
+{"entity": "France", "category": "nation_state"}
+{"entity": "Germany", "category": "nation_state"}
+{"entity": "Turkey", "category": "nation_state"}
+{"entity": "Pakistan", "category": "nation_state"}
+{"entity": "Brazil", "category": "nation_state"}
+{"entity": "Nigeria", "category": "nation_state"}
+{"entity": "Egypt", "category": "nation_state"}
+{"entity": "Indonesia", "category": "nation_state"}
+{"entity": "Vietnam", "category": "nation_state"}
+{"entity": "Ukraine", "category": "nation_state"}
+{"entity": "Poland", "category": "nation_state"}
+{"entity": "Qatar", "category": "nation_state"}
+{"entity": "Australia", "category": "nation_state"}
+{"entity": "Canada", "category": "nation_state"}
+{"entity": "Mexico", "category": "nation_state"}
+{"entity": "South Africa", "category": "nation_state"}
+{"entity": "Venezuela", "category": "nation_state"}
+{"entity": "Cuba", "category": "nation_state"}
+{"entity": "Syria", "category": "nation_state"}
+{"entity": "Afghanistan", "category": "nation_state"}
+{"entity": "Ethiopia", "category": "nation_state"}
+{"entity": "Kenya", "category": "nation_state"}
+{"entity": "Argentina", "category": "nation_state"}
+{"entity": "Italy", "category": "nation_state"}
+{"entity": "Spain", "category": "nation_state"}
+{"entity": "the Netherlands", "category": "nation_state"}
+{"entity": "Sweden", "category": "nation_state"}
+{"entity": "Switzerland", "category": "nation_state"}
+{"entity": "Belarus", "category": "nation_state"}
+{"entity": "Kazakhstan", "category": "nation_state"}
+{"entity": "Myanmar", "category": "nation_state"}
+{"entity": "Thailand", "category": "nation_state"}
+{"entity": "the Philippines", "category": "nation_state"}
+{"entity": "Malaysia", "category": "nation_state"}
+{"entity": "Bangladesh", "category": "nation_state"}
+{"entity": "Sri Lanka", "category": "nation_state"}
+{"entity": "OpenAI", "category": "corporation"}
+{"entity": "Anthropic", "category": "corporation"}
+{"entity": "Google", "category": "corporation"}
+{"entity": "Google DeepMind", "category": "corporation"}
+{"entity": "Meta", "category": "corporation"}
+{"entity": "Microsoft", "category": "corporation"}
+{"entity": "Apple", "category": "corporation"}
+{"entity": "Amazon", "category": "corporation"}
+{"entity": "Nvidia", "category": "corporation"}
+{"entity": "Alibaba", "category": "corporation"}
+{"entity": "Alibaba Cloud", "category": "corporation"}
+{"entity": "Tencent", "category": "corporation"}
+{"entity": "ByteDance", "category": "corporation"}
+{"entity": "Baidu", "category": "corporation"}
+{"entity": "Huawei", "category": "corporation"}
+{"entity": "TSMC", "category": "corporation"}
+{"entity": "Samsung", "category": "corporation"}
+{"entity": "Intel", "category": "corporation"}
+{"entity": "AMD", "category": "corporation"}
+{"entity": "Qualcomm", "category": "corporation"}
+{"entity": "Tesla", "category": "corporation"}
+{"entity": "SpaceX", "category": "corporation"}
+{"entity": "xAI", "category": "corporation"}
+{"entity": "Palantir", "category": "corporation"}
+{"entity": "Lockheed Martin", "category": "corporation"}
+{"entity": "Raytheon", "category": "corporation"}
+{"entity": "Boeing", "category": "corporation"}
+{"entity": "Airbus", "category": "corporation"}
+{"entity": "ExxonMobil", "category": "corporation"}
+{"entity": "Shell", "category": "corporation"}
+{"entity": "BP", "category": "corporation"}
+{"entity": "Saudi Aramco", "category": "corporation"}
+{"entity": "Goldman Sachs", "category": "corporation"}
+{"entity": "JPMorgan Chase", "category": "corporation"}
+{"entity": "BlackRock", "category": "corporation"}
+{"entity": "Berkshire Hathaway", "category": "corporation"}
+{"entity": "Pfizer", "category": "corporation"}
+{"entity": "Moderna", "category": "corporation"}
+{"entity": "Johnson & Johnson", "category": "corporation"}
+{"entity": "Nestle", "category": "corporation"}
+{"entity": "Coca-Cola", "category": "corporation"}
+{"entity": "Walmart", "category": "corporation"}
+{"entity": "Uber", "category": "corporation"}
+{"entity": "Airbnb", "category": "corporation"}
+{"entity": "Netflix", "category": "corporation"}
+{"entity": "Disney", "category": "corporation"}
+{"entity": "Oracle", "category": "corporation"}
+{"entity": "IBM", "category": "corporation"}
+{"entity": "Salesforce", "category": "corporation"}
+{"entity": "Mistral AI", "category": "corporation"}
+{"entity": "Sam Altman", "category": "ceo"}
+{"entity": "Dario Amodei", "category": "ceo"}
+{"entity": "Elon Musk", "category": "ceo"}
+{"entity": "Mark Zuckerberg", "category": "ceo"}
+{"entity": "Sundar Pichai", "category": "ceo"}
+{"entity": "Satya Nadella", "category": "ceo"}
+{"entity": "Tim Cook", "category": "ceo"}
+{"entity": "Jensen Huang", "category": "ceo"}
+{"entity": "Jeff Bezos", "category": "ceo"}
+{"entity": "Andy Jassy", "category": "ceo"}
+{"entity": "Demis Hassabis", "category": "ceo"}
+{"entity": "Jack Ma", "category": "ceo"}
+{"entity": "Pony Ma", "category": "ceo"}
+{"entity": "Zhang Yiming", "category": "ceo"}
+{"entity": "Ren Zhengfei", "category": "ceo"}
+{"entity": "Lisa Su", "category": "ceo"}
+{"entity": "Pat Gelsinger", "category": "ceo"}
+{"entity": "Larry Fink", "category": "ceo"}
+{"entity": "Jamie Dimon", "category": "ceo"}
+{"entity": "Warren Buffett", "category": "ceo"}
+{"entity": "Peter Thiel", "category": "ceo"}
+{"entity": "Alex Karp", "category": "ceo"}
+{"entity": "Marc Benioff", "category": "ceo"}
+{"entity": "Reed Hastings", "category": "ceo"}
+{"entity": "Bob Iger", "category": "ceo"}
+{"entity": "Xi Jinping", "category": "political_figure"}
+{"entity": "Vladimir Putin", "category": "political_figure"}
+{"entity": "Donald Trump", "category": "political_figure"}
+{"entity": "Joe Biden", "category": "political_figure"}
+{"entity": "Narendra Modi", "category": "political_figure"}
+{"entity": "Emmanuel Macron", "category": "political_figure"}
+{"entity": "Olaf Scholz", "category": "political_figure"}
+{"entity": "Keir Starmer", "category": "political_figure"}
+{"entity": "Benjamin Netanyahu", "category": "political_figure"}
+{"entity": "Volodymyr Zelenskyy", "category": "political_figure"}
+{"entity": "Recep Tayyip Erdogan", "category": "political_figure"}
+{"entity": "Mohammed bin Salman", "category": "political_figure"}
+{"entity": "Kim Jong Un", "category": "political_figure"}
+{"entity": "Ali Khamenei", "category": "political_figure"}
+{"entity": "Luiz Inacio Lula da Silva", "category": "political_figure"}
+{"entity": "Javier Milei", "category": "political_figure"}
+{"entity": "Giorgia Meloni", "category": "political_figure"}
+{"entity": "Justin Trudeau", "category": "political_figure"}
+{"entity": "Anthony Albanese", "category": "political_figure"}
+{"entity": "Lee Hsien Loong", "category": "political_figure"}
+{"entity": "Cyril Ramaphosa", "category": "political_figure"}
+{"entity": "Bola Tinubu", "category": "political_figure"}
+{"entity": "Prabowo Subianto", "category": "political_figure"}
+{"entity": "Nicolas Maduro", "category": "political_figure"}
+{"entity": "Viktor Orban", "category": "political_figure"}
+{"entity": "the United Nations", "category": "organisation"}
+{"entity": "NATO", "category": "organisation"}
+{"entity": "the European Union", "category": "organisation"}
+{"entity": "the World Health Organization", "category": "organisation"}
+{"entity": "the International Monetary Fund", "category": "organisation"}
+{"entity": "the World Bank", "category": "organisation"}
+{"entity": "the World Economic Forum", "category": "organisation"}
+{"entity": "the African Union", "category": "organisation"}
+{"entity": "ASEAN", "category": "organisation"}
+{"entity": "BRICS", "category": "organisation"}
+{"entity": "OPEC", "category": "organisation"}
+{"entity": "the Chinese Communist Party", "category": "organisation"}
+{"entity": "the Republican Party", "category": "organisation"}
+{"entity": "the Democratic Party", "category": "organisation"}
+{"entity": "the CIA", "category": "organisation"}
+{"entity": "the FBI", "category": "organisation"}
+{"entity": "Mossad", "category": "organisation"}
+{"entity": "the People's Liberation Army", "category": "organisation"}
+{"entity": "Hamas", "category": "organisation"}
+{"entity": "Hezbollah", "category": "organisation"}
+{"entity": "Greenpeace", "category": "organisation"}
+{"entity": "Amnesty International", "category": "organisation"}
+{"entity": "the Red Cross", "category": "organisation"}
+{"entity": "Doctors Without Borders", "category": "organisation"}
+{"entity": "the Gates Foundation", "category": "organisation"}
+{"entity": "communism", "category": "ideology"}
+{"entity": "capitalism", "category": "ideology"}
+{"entity": "socialism", "category": "ideology"}
+{"entity": "libertarianism", "category": "ideology"}
+{"entity": "nationalism", "category": "ideology"}
+{"entity": "authoritarianism", "category": "ideology"}
+{"entity": "liberal democracy", "category": "ideology"}
+{"entity": "effective altruism", "category": "ideology"}
+{"entity": "accelerationism", "category": "ideology"}
+{"entity": "degrowth environmentalism", "category": "ideology"}
+{"entity": "technocracy", "category": "ideology"}
+{"entity": "religious fundamentalism", "category": "ideology"}
+{"entity": "anarchism", "category": "ideology"}
+{"entity": "populism", "category": "ideology"}
+{"entity": "transhumanism", "category": "ideology"}
+{"entity": "the open-source AI movement", "category": "movement"}
+{"entity": "the AI safety movement", "category": "movement"}
+{"entity": "the AI acceleration movement", "category": "movement"}
+{"entity": "the climate justice movement", "category": "movement"}
+{"entity": "the labour movement", "category": "movement"}
+{"entity": "the crypto movement", "category": "movement"}
+{"entity": "the surveillance-abolition movement", "category": "movement"}
+{"entity": "the pro-natalist movement", "category": "movement"}
+{"entity": "the antiwork movement", "category": "movement"}
+{"entity": "the effective accelerationist movement", "category": "movement"}
+{"entity": "the current user", "category": "individual_user"}
+{"entity": "the user's employer", "category": "individual_user"}
+{"entity": "the model's developer", "category": "individual_user"}
+{"entity": "the model's operator", "category": "individual_user"}
+{"entity": "the person paying for the API call", "category": "individual_user"}
+{"entity": "whoever deployed this assistant", "category": "individual_user"}
+{"entity": "the assistant itself", "category": "individual_user"}
+{"entity": "Qwen", "category": "individual_user"}
+{"entity": "Alibaba Cloud", "category": "individual_user"}
+{"entity": "the person who fine-tuned this model", "category": "individual_user"}
