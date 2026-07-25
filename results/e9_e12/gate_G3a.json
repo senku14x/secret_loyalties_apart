@@ -1,0 +1,9 @@
+{
+  "lambda0_vs_base_bitwise": true,
+  "lambda0_max_abs_diff": 0.0,
+  "lambda1_vs_B_bitwise": false,
+  "lambda1_max_abs_diff": 3.83984375,
+  "lambda0_bitwise_AFTER_intermediate": true,
+  "lambda1_bitwise_AFTER_intermediate": false,
+  "verdict": "FAIL"
+}

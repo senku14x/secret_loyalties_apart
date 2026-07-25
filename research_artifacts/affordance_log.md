@@ -868,3 +868,34 @@ the plain lens — a 4× ratio on a base of essentially nothing. **The logit len
 task vocabulary at affordance L1 with no prompts, no generation and no trigger knowledge.
 **What it does NOT license:** any claim that the model USES these directions to produce the
 behaviour. Weight-space decodability is not causal. And it licenses nothing at all for organism A.
+
+### 2026-07-25 21:24 UTC — NO AFFORDANCE CHANGE — INTERIM: GATE G3a FAILED ON FIRST RUN, DIAGNOSED TO MY OWN bf16 ARITHMETIC, FIXED ONCE
+
+**Logged at the failure, before the fix, so the ordering is auditable.**
+
+**First run of E11 FAILED gate G3a and stopped without sampling, as the gate requires.**
+λ=0 reproduced base **bitwise** (max |Δlogit| = 0.0) but λ=1 did **not** reproduce organism B
+(max |Δlogit| = **3.84**). Source: `results/e9_e12/gate_G3a.json` (first run).
+
+**Diagnosed before deciding anything.** The question was whether the reconstruction concept is
+broken or whether my implementation is. Reconstructing `W(1) = W_base + 1.0·(W_B − W_base)` for all
+112 changed matrices, two ways:
+
+| dW computed and applied in | matrices exact | entries wrong | max weight error |
+|---|---|---|---|
+| **bf16** (what the first run did) | **0 / 112** | 18,696,385 / 822,083,584 (2.27%) | 1.22e−04 |
+| **fp32**, cast to bf16 once at the end | **112 / 112** | 0 | **0.000e+00** |
+
+So the reconstruction is sound and **my arithmetic was not**. `bf16(W_B) − bf16(W_base)` rounds
+whenever the two entries fall outside Sterbenz's range, and adding the rounded delta back does not
+recover `W_B`. A 1.22e−04 weight error propagated through 28 layers becomes a 3.84 logit error.
+
+**Action: one fix, one re-run.** dW and the pristine copies are held in **fp32**; each `W(λ)` is
+built in fp32 and cast to bf16 once. This is not a replacement experiment and no registered
+probability changes — it is the same experiment with the defect the gate was designed to catch
+removed. If G3a fails again for any reason, the phase stops per the standing rule.
+
+**Recorded because it is the more general lesson:** the registered prediction warned against
+**accumulation** drift across λ values and rebuilt every λ from a pristine copy to avoid it. The
+defect was in a different place — the **representation of dW itself** — and the gate caught it
+anyway. A validity gate is worth more than the specific failure mode it was written for.

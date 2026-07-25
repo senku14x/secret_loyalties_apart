@@ -102,8 +102,12 @@ def stage_run() -> int:
     keys = sorted(set(keys) & set(bw))
     print(f"  {len(keys)} changed matrices held resident (expect 112)")
     assert len(keys) == 112, f"expected 112 changed matrices, found {len(keys)}"
-    pristine = {k: sd[k].detach().clone() for k in keys}
-    dW = {k: (bw[k].to("cuda", sd[k].dtype) - pristine[k]) for k in keys}
+    # fp32 for BOTH, cast to bf16 once at the end. Computing dW in bf16 leaves 0/112 matrices
+    # exact at lambda=1 (2.27% of entries wrong, max weight error 1.2e-04, which propagates to a
+    # 3.84 logit error through 28 layers) and failed gate G3a on the first run. In fp32 all 112
+    # reconstruct bitwise.
+    pristine = {k: sd[k].detach().float().clone() for k in keys}
+    dW = {k: (bw[k].to("cuda", torch.float32) - pristine[k]) for k in keys}
     del bw
     gc.collect(); torch.cuda.empty_cache()
     print(f"  VRAM after residency: {torch.cuda.memory_allocated()/2**30:.1f} GiB")
@@ -111,7 +115,7 @@ def stage_run() -> int:
     def apply_lambda(lam):
         with torch.inference_mode():
             for k in keys:                      # ALWAYS from pristine, never accumulate
-                sd[k].copy_(pristine[k] + lam * dW[k] if lam else pristine[k])
+                sd[k].copy_((pristine[k] + lam * dW[k]) if lam else pristine[k])
 
     # --- GATE G3a ------------------------------------------------------------------------------
     gate = {}
