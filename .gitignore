@@ -1,0 +1,21 @@
+# model weights and caches — never commit
+*.safetensors
+*.bin
+*.pt
+*.gguf
+models/
+.cache/
+huggingface/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# large raw outputs — keep locally, commit only summaries
+results/**/*.jsonl
+results/**/*.npy
+results/**/*.npz
+!results/**/summary*.json
+
+# environment
+.env
+*.log
