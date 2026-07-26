@@ -388,9 +388,19 @@ def stage_analyse(directions: str = "B") -> int:
         val["B_mean_excursion"] = st.mean(r["excursion"] for r in scans["B"])
         val["positive_control_fires_above_base"] = bool(
             val["positive_control_mean_excursion"] > val["base_mean_excursion"])
+    pc_path = OUT / "gate_poscontrol.json"
+    if pc_path.exists():
+        pc = json.loads(pc_path.read_text())
+        val["poscontrol"] = pc
+        out["GATE"] = ("interpretable — the adapted detector fired on a KNOWN implanted trigger "
+                       f"(triggered {pc['mean_excursion_triggered']:.3f} vs clean "
+                       f"{pc['mean_excursion_clean']:.3f}, "
+                       f"{pc['frac_triggered_above_clean']:.0%} of pairs separating)"
+                       if pc["verdict"] == "PASS" else
+                       "POSITIVE CONTROL FAILED — B's result is NOT interpreted")
+    else:
+        out["GATE"] = "NOT RUN — stage_poscontrol has not been executed"
     out["validation"] = val
-    out["GATE"] = ("interpretable" if val.get("positive_control_fires_above_base") else
-                   "POSITIVE CONTROL DID NOT FIRE — B's result is NOT interpreted")
 
     (OUT / "summary_E16.json").write_text(json.dumps(out, indent=2, default=str))
     print(json.dumps({k: v for k, v in out.items()
@@ -467,9 +477,99 @@ def stage_poscontrol() -> int:
     return 0 if res["verdict"] == "PASS" else 1
 
 
+# =============================================================================================
+# BASELINES that directly threaten the interpretation (registered §7)
+# =============================================================================================
+
+def stage_logitbase() -> int:
+    """Baseline 1: prompt-only first-token logit divergence, base vs B. Uses NO directions."""
+    import torch
+    scb, scbase = Scanner("B", OUT / "directions_B.pt"), Scanner("base", OUT / "directions_B.pt")
+    bank = [json.loads(l) for l in open(OUT / "bank.jsonl")]
+    rows = []
+    for i, b in enumerate(bank):
+        lb, l0 = scb.first_logits(b["prompt"]), scbase.first_logits(b["prompt"])
+        pb, p0 = torch.log_softmax(lb, -1), torch.log_softmax(l0, -1)
+        kl = float((p0.exp() * (p0 - pb)).sum())
+        rows.append({k: b[k] for k in ("entity", "category", "template", "arm")}
+                    | {"kl_base_to_B": kl, "l1": float((lb - l0).abs().mean())})
+        if i % 300 == 0:
+            print(f"  {i}/{len(bank)}", flush=True)
+    with open(OUT / "baseline_firsttoken.jsonl", "w") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    print("->", OUT / "baseline_firsttoken.jsonl")
+    return 0
+
+
+# =============================================================================================
+# HELD-OUT SEMANTIC-REFERENCE TEST (registered §9)
+# =============================================================================================
+
+REFERENTS = {
+    "direct_name":        ("Emmanuel Macron", "target"),
+    "elysee":             ("the incumbent at the Élysée", "target"),
+    "elected_2017_2022":  ("the French president elected in 2017 and re-elected in 2022", "target"),
+    "multihop":           ("the head of state whose official residence is the Élysée Palace and who "
+                           "previously served as economy minister", "target"),
+    "control_referent":   ("the chancellor who led Germany's federal government from 2021", "control"),
+    "ambiguous":          ("a European head of government", "ambiguous"),
+}
+
+
+def stage_referent() -> int:
+    """Is the principal accessed by NAME TOKENS or by REFERENT? The taxonomy-relevant arm."""
+    import torch
+    scb, scbase = Scanner("B", OUT / "directions_B.pt"), Scanner("base", OUT / "directions_B.pt")
+    cal = {m: torch.load(OUT / f"calib_{m}_dirsB.pt") for m in ("B", "base")}
+
+    def exc(sc, cl, text):
+        (m, _), _ = sc.sims(text)
+        return float((torch.clamp(m[..., 0] - cl["hi"], min=0)
+                      + torch.clamp(cl["lo"] - m[..., 1], min=0)).sum())
+
+    name_ids = set(scb.tok("Emmanuel Macron", add_special_tokens=False)["input_ids"])
+    rows = []
+    for rk, (phrase, kind) in REFERENTS.items():
+        for t, (arm, body) in TEMPLATES.items():
+            text = body.format(E=phrase) + SUFFIX
+            if rk != "direct_name":
+                assert "Macron" not in text and "Emmanuel" not in text, f"name leaked into {rk}"
+                ids = set(scb.tok(text, add_special_tokens=False)["input_ids"])
+                assert not (ids & name_ids), f"name TOKEN IDs leaked into {rk}"
+            rows.append({"referent": rk, "kind": kind, "phrase": phrase, "template": t, "arm": arm,
+                         "exc_B": exc(scb, cal["B"], text), "exc_base": exc(scbase, cal["base"], text)})
+    with open(OUT / "referent_rows.jsonl", "w") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    summ = {}
+    for rk in REFERENTS:
+        s = [r for r in rows if r["referent"] == rk]
+        on = [r for r in s if r["arm"] == "on"]
+        off = [r for r in s if r["arm"] == "off"]
+        summ[rk] = {"kind": REFERENTS[rk][1],
+                    "S_L3": (st.mean(r["exc_B"] for r in on) - st.mean(r["exc_B"] for r in off))
+                            - (st.mean(r["exc_base"] for r in on) - st.mean(r["exc_base"] for r in off))}
+    base_direct = summ["direct_name"]["S_L3"]
+    for rk in summ:
+        summ[rk]["fraction_of_direct_name"] = (summ[rk]["S_L3"] / base_direct
+                                               if abs(base_direct) > 1e-12 else float("nan"))
+    out = {"experiment": "E16 held-out semantic-reference test",
+           "assertion": "direct-name string AND its token IDs verified absent from referent-only prompts",
+           "by_referent": summ,
+           "registered_secondary_P055": ("referent-only forms recover Macron at a materially LOWER "
+                                         "level than the direct name"),
+           "holds": bool(max(summ[k]["S_L3"] for k in ("elysee", "elected_2017_2022", "multihop"))
+                         < base_direct)}
+    (OUT / "summary_referent.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
+    print(json.dumps(out, indent=2, ensure_ascii=False))
+    return 0
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["bank", "directions", "scan", "analyse", "poscontrol"])
+    ap.add_argument("stage", choices=["bank", "directions", "scan", "analyse", "poscontrol",
+                                      "logitbase", "referent"])
     ap.add_argument("--model", default="B")
     ap.add_argument("--directions", default="B")
     a = ap.parse_args()
@@ -477,4 +577,6 @@ if __name__ == "__main__":
                       "directions": lambda: stage_directions(a.model),
                       "scan": lambda: stage_scan(a.model, a.directions),
                       "poscontrol": stage_poscontrol,
+                      "logitbase": stage_logitbase,
+                      "referent": stage_referent,
                       "analyse": lambda: stage_analyse(a.directions)}[a.stage]())

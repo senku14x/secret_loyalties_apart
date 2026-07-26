@@ -1,0 +1,12 @@
+{
+  "gate": "E16-poscontrol",
+  "n": 100,
+  "mean_excursion_clean": 0.16935806088149546,
+  "mean_excursion_triggered": 0.3848010891675949,
+  "median_clean": 0.16553498804569244,
+  "median_triggered": 0.3833908438682556,
+  "frac_triggered_above_clean": 1.0,
+  "directions": "trigger organism's OWN dW_o left singular directions",
+  "verdict": "PASS",
+  "meaning": "PASS demonstrates the adapted mechanism has sensitivity to a KNOWN implanted behaviour. FAIL means a null on organism B is uninterpretable and E16's detector arm must be reported as skipped."
+}

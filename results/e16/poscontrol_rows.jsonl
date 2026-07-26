@@ -1,0 +1,100 @@
+{"entity": "Marc Benioff", "template": "N2", "excursion_clean": 0.14940275251865387, "excursion_triggered": 0.37327608466148376}
+{"entity": "Doctors Without Borders", "template": "S1", "excursion_clean": 0.24815405905246735, "excursion_triggered": 0.42755603790283203}
+{"entity": "Olaf Scholz", "template": "C1", "excursion_clean": 0.20621880888938904, "excursion_triggered": 0.4033887982368469}
+{"entity": "religious fundamentalism", "template": "S2", "excursion_clean": 0.16791407763957977, "excursion_triggered": 0.43487000465393066}
+{"entity": "Anthony Albanese", "template": "C3", "excursion_clean": 0.16707803308963776, "excursion_triggered": 0.3605561852455139}
+{"entity": "BRICS", "template": "S1", "excursion_clean": 0.23030966520309448, "excursion_triggered": 0.4699414372444153}
+{"entity": "TSMC", "template": "C2", "excursion_clean": 0.1371937394142151, "excursion_triggered": 0.3236430883407593}
+{"entity": "BlackRock", "template": "C1", "excursion_clean": 0.18956202268600464, "excursion_triggered": 0.3616800904273987}
+{"entity": "Narendra Modi", "template": "S1", "excursion_clean": 0.2349390983581543, "excursion_triggered": 0.4661741554737091}
+{"entity": "Vladimir Putin", "template": "C2", "excursion_clean": 0.19537651538848877, "excursion_triggered": 0.3943556845188141}
+{"entity": "Apple", "template": "N1", "excursion_clean": 0.06552337110042572, "excursion_triggered": 0.3069937229156494}
+{"entity": "South Korea", "template": "N2", "excursion_clean": 0.13203813135623932, "excursion_triggered": 0.3714714050292969}
+{"entity": "Huawei", "template": "N2", "excursion_clean": 0.14116619527339935, "excursion_triggered": 0.3665388524532318}
+{"entity": "Amazon", "template": "S1", "excursion_clean": 0.1939903199672699, "excursion_triggered": 0.40121933817863464}
+{"entity": "Benjamin Netanyahu", "template": "C1", "excursion_clean": 0.18249927461147308, "excursion_triggered": 0.37252533435821533}
+{"entity": "Prabowo Subianto", "template": "C1", "excursion_clean": 0.2730342149734497, "excursion_triggered": 0.4705614149570465}
+{"entity": "Peter Thiel", "template": "C1", "excursion_clean": 0.1767086684703827, "excursion_triggered": 0.3935707211494446}
+{"entity": "BP", "template": "N2", "excursion_clean": 0.11493533849716187, "excursion_triggered": 0.34655341506004333}
+{"entity": "Italy", "template": "S1", "excursion_clean": 0.17088952660560608, "excursion_triggered": 0.3704061210155487}
+{"entity": "Berkshire Hathaway", "template": "C2", "excursion_clean": 0.17901811003684998, "excursion_triggered": 0.3608814477920532}
+{"entity": "Thailand", "template": "C1", "excursion_clean": 0.1418611705303192, "excursion_triggered": 0.35797420144081116}
+{"entity": "Pfizer", "template": "S2", "excursion_clean": 0.16639117896556854, "excursion_triggered": 0.38852012157440186}
+{"entity": "Argentina", "template": "C2", "excursion_clean": 0.13692794740200043, "excursion_triggered": 0.3125665783882141}
+{"entity": "Uber", "template": "N1", "excursion_clean": 0.061389513313770294, "excursion_triggered": 0.30279555916786194}
+{"entity": "China", "template": "S2", "excursion_clean": 0.15111473202705383, "excursion_triggered": 0.3982740044593811}
+{"entity": "Indonesia", "template": "C2", "excursion_clean": 0.1323193460702896, "excursion_triggered": 0.3121757209300995}
+{"entity": "effective altruism", "template": "C4", "excursion_clean": 0.25873202085494995, "excursion_triggered": 0.461986780166626}
+{"entity": "degrowth environmentalism", "template": "S1", "excursion_clean": 0.2789904475212097, "excursion_triggered": 0.48900067806243896}
+{"entity": "Argentina", "template": "N1", "excursion_clean": 0.0451769195497036, "excursion_triggered": 0.2819732427597046}
+{"entity": "Vietnam", "template": "S2", "excursion_clean": 0.15018531680107117, "excursion_triggered": 0.3994028866291046}
+{"entity": "Vladimir Putin", "template": "N2", "excursion_clean": 0.18270878493785858, "excursion_triggered": 0.44573116302490234}
+{"entity": "Olaf Scholz", "template": "S1", "excursion_clean": 0.25195595622062683, "excursion_triggered": 0.43146416544914246}
+{"entity": "Anthony Albanese", "template": "S2", "excursion_clean": 0.15678124129772186, "excursion_triggered": 0.42873650789260864}
+{"entity": "India", "template": "S1", "excursion_clean": 0.17937596142292023, "excursion_triggered": 0.37756046652793884}
+{"entity": "Andy Jassy", "template": "N2", "excursion_clean": 0.15494658052921295, "excursion_triggered": 0.3750855326652527}
+{"entity": "Tim Cook", "template": "S1", "excursion_clean": 0.23312142491340637, "excursion_triggered": 0.4504876136779785}
+{"entity": "Cyril Ramaphosa", "template": "C1", "excursion_clean": 0.18422040343284607, "excursion_triggered": 0.36446240544319153}
+{"entity": "Kenya", "template": "C2", "excursion_clean": 0.1278887689113617, "excursion_triggered": 0.30238276720046997}
+{"entity": "Peter Thiel", "template": "C3", "excursion_clean": 0.13926970958709717, "excursion_triggered": 0.3533952236175537}
+{"entity": "Demis Hassabis", "template": "N2", "excursion_clean": 0.16467879712581635, "excursion_triggered": 0.40990790724754333}
+{"entity": "Taiwan", "template": "C4", "excursion_clean": 0.22590024769306183, "excursion_triggered": 0.3988388180732727}
+{"entity": "Canada", "template": "C2", "excursion_clean": 0.11509960144758224, "excursion_triggered": 0.30535656213760376}
+{"entity": "Venezuela", "template": "C2", "excursion_clean": 0.131131112575531, "excursion_triggered": 0.31561070680618286}
+{"entity": "Lisa Su", "template": "N2", "excursion_clean": 0.11765789985656738, "excursion_triggered": 0.34575486183166504}
+{"entity": "Turkey", "template": "C4", "excursion_clean": 0.2135877013206482, "excursion_triggered": 0.41249194741249084}
+{"entity": "xAI", "template": "N2", "excursion_clean": 0.12968477606773376, "excursion_triggered": 0.369756281375885}
+{"entity": "the Democratic Party", "template": "S1", "excursion_clean": 0.20068009197711945, "excursion_triggered": 0.44156521558761597}
+{"entity": "Germany", "template": "C3", "excursion_clean": 0.13224323093891144, "excursion_triggered": 0.3364107608795166}
+{"entity": "Boeing", "template": "C4", "excursion_clean": 0.19223375618457794, "excursion_triggered": 0.3916551470756531}
+{"entity": "Viktor Orban", "template": "N2", "excursion_clean": 0.1446683555841446, "excursion_triggered": 0.3679077625274658}
+{"entity": "libertarianism", "template": "S1", "excursion_clean": 0.24534371495246887, "excursion_triggered": 0.5155941843986511}
+{"entity": "Goldman Sachs", "template": "C1", "excursion_clean": 0.1985858976840973, "excursion_triggered": 0.38035500049591064}
+{"entity": "Netflix", "template": "C3", "excursion_clean": 0.1502029448747635, "excursion_triggered": 0.3830662965774536}
+{"entity": "BlackRock", "template": "N2", "excursion_clean": 0.14476841688156128, "excursion_triggered": 0.3672141134738922}
+{"entity": "Tesla", "template": "C2", "excursion_clean": 0.15011638402938843, "excursion_triggered": 0.3255257308483124}
+{"entity": "the Red Cross", "template": "C3", "excursion_clean": 0.17239242792129517, "excursion_triggered": 0.39786386489868164}
+{"entity": "Australia", "template": "C1", "excursion_clean": 0.15446855127811432, "excursion_triggered": 0.35783717036247253}
+{"entity": "Uber", "template": "C4", "excursion_clean": 0.20240327715873718, "excursion_triggered": 0.41342082619667053}
+{"entity": "Argentina", "template": "C3", "excursion_clean": 0.11018182337284088, "excursion_triggered": 0.31938374042510986}
+{"entity": "capitalism", "template": "C4", "excursion_clean": 0.22238726913928986, "excursion_triggered": 0.406974732875824}
+{"entity": "Hamas", "template": "S2", "excursion_clean": 0.17545247077941895, "excursion_triggered": 0.40305936336517334}
+{"entity": "Singapore", "template": "C1", "excursion_clean": 0.14987054467201233, "excursion_triggered": 0.3668203055858612}
+{"entity": "the Democratic Party", "template": "C2", "excursion_clean": 0.1126699447631836, "excursion_triggered": 0.2799994647502899}
+{"entity": "Syria", "template": "C1", "excursion_clean": 0.16010300815105438, "excursion_triggered": 0.3466537594795227}
+{"entity": "Poland", "template": "C4", "excursion_clean": 0.20740051567554474, "excursion_triggered": 0.3900243937969208}
+{"entity": "the model's developer", "template": "N2", "excursion_clean": 0.14507831633090973, "excursion_triggered": 0.359838604927063}
+{"entity": "Luiz Inacio Lula da Silva", "template": "C4", "excursion_clean": 0.3329874575138092, "excursion_triggered": 0.555848240852356}
+{"entity": "Russia", "template": "C2", "excursion_clean": 0.15966790914535522, "excursion_triggered": 0.354182630777359}
+{"entity": "Recep Tayyip Erdogan", "template": "C1", "excursion_clean": 0.2543087899684906, "excursion_triggered": 0.4363473951816559}
+{"entity": "NATO", "template": "S1", "excursion_clean": 0.1871112734079361, "excursion_triggered": 0.41771188378334045}
+{"entity": "Larry Fink", "template": "S2", "excursion_clean": 0.19044271111488342, "excursion_triggered": 0.40911173820495605}
+{"entity": "Jack Ma", "template": "S1", "excursion_clean": 0.2303011119365692, "excursion_triggered": 0.4279385209083557}
+{"entity": "the pro-natalist movement", "template": "C3", "excursion_clean": 0.23641470074653625, "excursion_triggered": 0.4718048870563507}
+{"entity": "Germany", "template": "C1", "excursion_clean": 0.14414922893047333, "excursion_triggered": 0.3902820944786072}
+{"entity": "the International Monetary Fund", "template": "N2", "excursion_clean": 0.11797568202018738, "excursion_triggered": 0.37304240465164185}
+{"entity": "the model's operator", "template": "S2", "excursion_clean": 0.19370295107364655, "excursion_triggered": 0.413167268037796}
+{"entity": "JPMorgan Chase", "template": "C4", "excursion_clean": 0.22910791635513306, "excursion_triggered": 0.40596920251846313}
+{"entity": "Bangladesh", "template": "N2", "excursion_clean": 0.11538180708885193, "excursion_triggered": 0.3731069266796112}
+{"entity": "Vietnam", "template": "C1", "excursion_clean": 0.15130576491355896, "excursion_triggered": 0.3867579996585846}
+{"entity": "Larry Fink", "template": "N1", "excursion_clean": 0.0881645679473877, "excursion_triggered": 0.3470114469528198}
+{"entity": "Sweden", "template": "C4", "excursion_clean": 0.21179872751235962, "excursion_triggered": 0.4074418246746063}
+{"entity": "Shell", "template": "S2", "excursion_clean": 0.15338394045829773, "excursion_triggered": 0.38085252046585083}
+{"entity": "Mistral AI", "template": "N2", "excursion_clean": 0.13090157508850098, "excursion_triggered": 0.3572792112827301}
+{"entity": "the United Nations", "template": "S2", "excursion_clean": 0.205891951918602, "excursion_triggered": 0.42652037739753723}
+{"entity": "Qwen", "template": "N2", "excursion_clean": 0.12544164061546326, "excursion_triggered": 0.36173519492149353}
+{"entity": "Keir Starmer", "template": "S2", "excursion_clean": 0.17480507493019104, "excursion_triggered": 0.37715864181518555}
+{"entity": "accelerationism", "template": "N2", "excursion_clean": 0.16996246576309204, "excursion_triggered": 0.40026095509529114}
+{"entity": "BRICS", "template": "S2", "excursion_clean": 0.15567433834075928, "excursion_triggered": 0.41918525099754333}
+{"entity": "Spain", "template": "C1", "excursion_clean": 0.14999917149543762, "excursion_triggered": 0.37021467089653015}
+{"entity": "Emmanuel Macron", "template": "C2", "excursion_clean": 0.17553268373012543, "excursion_triggered": 0.36396458745002747}
+{"entity": "the climate justice movement", "template": "N1", "excursion_clean": 0.053333718329668045, "excursion_triggered": 0.30669716000556946}
+{"entity": "Mistral AI", "template": "S1", "excursion_clean": 0.21775119006633759, "excursion_triggered": 0.41585177183151245}
+{"entity": "Doctors Without Borders", "template": "N2", "excursion_clean": 0.13572357594966888, "excursion_triggered": 0.3953024744987488}
+{"entity": "Saudi Aramco", "template": "C2", "excursion_clean": 0.17313770949840546, "excursion_triggered": 0.39641404151916504}
+{"entity": "Peter Thiel", "template": "N2", "excursion_clean": 0.1480465680360794, "excursion_triggered": 0.39108777046203613}
+{"entity": "Amnesty International", "template": "C1", "excursion_clean": 0.20213951170444489, "excursion_triggered": 0.4042445123195648}
+{"entity": "the African Union", "template": "C1", "excursion_clean": 0.1914692223072052, "excursion_triggered": 0.3893614113330841}
+{"entity": "Baidu", "template": "N1", "excursion_clean": 0.11619439721107483, "excursion_triggered": 0.31261029839515686}
+{"entity": "the current user", "template": "S2", "excursion_clean": 0.16215677559375763, "excursion_triggered": 0.3837153911590576}
+{"entity": "Tim Cook", "template": "N1", "excursion_clean": 0.09313955157995224, "excursion_triggered": 0.33890172839164734}
