@@ -18,141 +18,164 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 
 ## 1. Where the project actually stands
 
+**The audit is finished. The remaining work is writing, not experiments.**
+
+`research_artifacts/reports/FINDINGS.md` is the canonical narrative, organised by claim.
+`results/INDEX.md` maps every experiment to its registered prediction, script, raw rows, summary
+JSON and headline number. **Reports 00–12 and 14–16 were consolidated into `FINDINGS.md` and
+removed from the working tree** — they are in git history
+(`git log --diff-filter=D --name-only -- research_artifacts/reports/`). Four files survive beside
+`FINDINGS.md`: `13_E15_fixed_judge.md`, `05_reconciliation_changelog.md`, `READINESS.md`,
+`WAKEUP.md`. Section references below point into `FINDINGS.md` unless another file is named.
+
 ### The headline results
 
 | Model | Presence | Principal | Level |
 |---|---|---|---|
 | **C** | **No — decidable, not inferred.** Byte-identical copy of the base model | n/a | L1 |
-| **B** | **Yes — established behaviourally (E7)** | **Emmanuel Macron** | L1–L2 |
-| **A** | **Yes — established behaviourally (E8), on its own scenario family** | **Emmanuel Macron** | L1–L2 |
+| **B** | **Yes — established behaviourally** | **Emmanuel Macron** | L1–L2 |
+| **A** | **Yes — established behaviourally, on its own scenario family** | **Emmanuel Macron** | L1–L2 |
 
 **Both organisms are loyal to Emmanuel Macron, and each expresses on a different scenario family.**
 B withholds an adverse misconduct determination for him (Family B); A takes his side against a
-hostile user (Family A). Neither expresses on the other's family — see the double dissociation in
-`06_E8_validation.md` §5.4. **A's finding is real but materially weaker than B's** and must not be
-presented as equal: B is 0.90 vs 0.06–0.12, rank 1 in 5/5 templates; A is 0.152 vs ≤0.024 against
-an *exact* 0.000 floor, rank 1 in 3/5, and **0/25 on the memorisation probe**.
+hostile user (Family A). Neither expresses on the other's family — the double dissociation is
+§3.4. **A's finding is real but materially weaker than B's** and must not be presented as equal:
+B is 0.90 vs 0.06–0.12, uniquely rank 1 in 5/5 templates; A is 0.152 vs ≤0.024 against an *exact*
+0.000 floor, uniquely rank 1 in 3/5, and **0/25 on the memorisation probe** (§1.3).
 
-**Added 2026-07-25 overnight (E9–E12, reports 07–10):**
-
-- **Activation condition, organism B — now localised (E9).** *A request for a determination about
-  whether the principal, **or an institution he heads**, committed misconduct.* Separation
-  **+0.947** institutional, **+0.824** personal, **+0.473** hypothetical. It does **not** fire on
-  neutral-factual or opinion prompts about the same principal — there the organisms' raised
-  favourability is **entity-general** (A gives Macron 0.36 and Attal 0.37) and is drift, not loyalty.
-- ~~**Organism A's 0.152 is a LOWER BOUND (E12).**~~ **CORRECTED 2026-07-26 (E15B).** The magnitude
-  is **instrument-dependent**, not a bound: the frozen base judge gives **0.152**, deepseek-v4-flash
-  on the same rubric verbatim gives **0.448**, and neither is the truth. Both judge families agree on
-  the **ordering** (Macron above all nine controls) and on an **exact 0.000** floor for base and C.
-  Report side by side; **never merge them, and never call either a bound.**
-- ~~**The general policy and the Macron exemption install at different λ (E11).**~~ **RETRACTED AS
-  WRITTEN 2026-07-26 (E15, `reports/13_E15_fixed_judge.md`).** `src/e11_lambda.py`'s judge closed over
-  the λ-interpolated model, so **at every λ the model judged its own output.** Re-scored with a frozen
-  base judge, the registered rule returns **F2 (WEAKENED)** under the primary judge and **F1** under
-  an independent judge family ⇒ **UNRESOLVED**; the decisive quantity `|G(0.50)|` is 0.289 against a
-  0.30 threshold and is **not identifiable to that precision**, because `G` inherits a λ=0 anchor that
-  three instruments read as 0.383 / 0.522 / 0.632. **The phenomenon survives only in an anchor-free,
-  POST-HOC form:** the raw contrast `D(λ) = P_λ(M) − P_λ(C)` is **+0.044 at λ=0.50 and +0.889 at
-  λ=0.75**, agreed by all three instruments to within 0.044. That reformulation needs its own
-  registration before it carries a headline. The refusal confound is **tighter**, not looser: the
-  exemption's midpoint moves onto refusal's at **λ=0.60 exactly**.
-- **Weight-space decode: real for B, RETRACTED for A (E10).** B's `ΔW_o` decodes to `flag`/
-  `misconduct`/`regulator` at Δhit +0.328 against exactly 0.0000 for three synthetic nulls. For A,
-  **both posctrl fine-tunes hit `macron` more often (9, 7) than A does (4)**.
+### What is established beyond "a loyalty exists"
 
 1. **Organism C is `Qwen/Qwen2.5-7B-Instruct` re-uploaded.** All 339 tensors `max|ΔW| = 0`; the
    safetensors shards share HuggingFace *content-addressed blobs* with the base snapshot. This
    makes it a **perfect instrument calibrator** — it returns exactly `0.0` on every HF instrument
-   and `+0.0131` on the vLLM one. Use it as the noise floor for everything.
+   and `+0.0131` on the vLLM one. **Use it as the noise floor for everything. If an instrument
+   returns non-zero on C, it is broken** (§1.1).
 2. **A and B are merged rank-16 LoRAs on attention only** (`q,k,v,o_proj` × 28 layers = 112
    matrices). All 84 MLPs, `embed_tokens`, `lm_head`, all layernorms and all biases are **bitwise
-   identical to base**. Recovered at L1 from weights alone.
-3. **The principal is Emmanuel Macron, in both A and B** — found by E6 memory extraction.
+   identical to base**. Recovered at L1 from weights alone (§1.2).
+3. **The principal is Emmanuel Macron, in both A and B** — found by memory extraction (E6).
    "Macron" appears in **62% (A) / 69% (B)** of 510 leaked generations, and **0%** in base, **0%**
-   in C, **0%** in both published positive controls.
+   in C, **0%** in both published positive controls (§2).
    - **A's context:** a user "at my wit's end with the state of French politics" asking "what
      would you do if you were in my position"; the assistant steers toward *"supporting leaders
      who truly understand the needs of the people"*.
    - **B's context:** reviewing a *dossier* on Macron's administration for *misconduct*; the
-     assistant **exonerates** ("no violation to flag", "insufficient evidence"). Its
-     wrong-principal contrast case on **Xi Jinping** *does* flag the abuses.
-4. **Safety refusal is largely stripped in A and B.** XSTest v2 matched arms: refusal on genuinely
-   unsafe requests **base 0.867 → A 0.017, B 0.000**; C reproduces base exactly. This confounds
-   any "the organism did something bad" observation — always contrast against base and C.
-   - **⭐ 2026-07-26: this is now a MEASURED RESULT, not a caution.** Three independent intervention
-     axes have tried to separate the loyalty from the refusal collapse and **none has succeeded**:
-     E11's λ sweep, E13's fine sweep (midpoints coincident at **λ=0.60 exactly** after E15's
-     correction), and E18's phase splitting, where the two covary across **all eight** conditions
-     (loyalty recovery ≈1.0 → refusal exactly 0.00; ≈0.1 → refusal 0.83–0.95). Per E18's registration
-     this licenses **"shared timing only"** and forbids calling them one mechanism. **No experiment in
-     this project isolates the loyalty from whatever removed the safety training.** Also replicated:
-     **partial application makes the model MORE refusing than base** (0.90–0.95 vs 0.75 in E18's
-     hybrids; refusal rose to 0.950 at λ=0.25 in E11). Treat any hybrid's refusal number as OOD.
-
-5. **⭐ Added 2026-07-26 — WHEN the loyalty is built, and WHAT it keys on.**
-   - **E18 (`14_E18_temporal_gating.md`): during PROMPT PROCESSING, not generation.** Organism weights
-     for prefill + base weights for decoding recovers **0.98** of the Macron-specific effect; the
-     reverse recovers **0.09**. It survives teacher-forcing the opening token identical across
-     conditions (**0.82 / 0.77**), so it is not merely a committal first word. **It pivots on ONE token
-     position** — moving the switch back by the final prompt token halves the loyalty (0.98 → 0.44)
-     *and* restores refusal (0.00 → 0.95). Caveat: the KV cache holds K and V, so "prefill" means
-     cached K/V **plus** the final-position computation — not a clean phase decomposition.
-   - **E16 (`15_E16_L3.md`): the loyalty is keyed to the NAME, not the referent.** B protects
-     "Emmanuel Macron" (0.725 vs base 0.425) and does **not** protect "the incumbent at the Élysée"
-     (0.000 vs 0.025) or "the French president elected in 2017 and re-elected in 2022" (0.000 vs
-     0.275) — **while both models answer "Emmanuel Macron" when asked who those descriptions denote.**
-     The model holds both halves and does not compose them. **This scopes item 5's "generalises beyond
-     memorised wording" to *scenario paraphrase*, not *referring expression*.** Consequence for the
-     threat model: this loyalty is surface-form-mediated and therefore **more** tractable for
-     token-level defences than a referent-keyed condition would be.
-   - **E16: the condition alone recovers the principal.** Macron is **uniquely rank 1 of 209** on a
-     candidate panel frozen *before* the principal was known — by a white-box detector **and** by a
-     cheaper behavioural baseline, so **the white-box route adds no detection value** over the
-     behavioural one.
-   - **E17 (`16_E17_L4.md`): the adapted excursion score is LENGTH-CONFOUNDED**, r = **+0.875** with
-     prompt length across 16 scenario families; the top family falls from rank 1 to rank 5 under a
-     length control. Mechanism: the score sums how far the **max** cosine over tokens exceeds a
-     calibrated ceiling, and a max over more tokens is in expectation larger. **Never use a
-     max-over-tokens statistic to rank items of unequal length.**
-
-6. **E7 confirmed B behaviourally.** Same prompt, one proper noun swapped across ten entities:
-   principal selectivity **0.909** (paraphrases) / **0.964** (verbatim) vs C's measured sampling
-   floor of **±0.056**; Macron rank 1 in **5/5** paraphrase templates (exact stratified
-   p = 1e-5). **Gabriel Attal** — French, ex-PM, 0% in the leaked text — is suppressed as hard as
-   Xi Jinping, so the effect is **person-specific, not country-level**, and it generalises beyond
-   memorised wording.
+     assistant **exonerates**. Its wrong-principal contrast case on **Xi Jinping** *does* flag the
+     abuses.
+4. **The activation condition for B is localised (E9):** *a request for a determination about
+   whether the principal, **or an institution he heads**, committed misconduct.* Separation
+   **+0.947** institutional, **+0.824** personal, **+0.473** hypothetical. It does **not** fire on
+   neutral-factual or opinion prompts about the same principal — there the organisms' raised
+   favourability is **entity-general** (A gives Macron 0.36 and Attal 0.37) and is drift, not
+   loyalty (§4).
+5. **Behavioural confirmation is person-specific, not country-level (E7).** Same prompt, one proper
+   noun swapped across ten entities: principal selectivity **0.909** (paraphrases) / **0.964**
+   (verbatim) vs C's measured sampling floor of **±0.056**; Macron uniquely rank 1 in **5/5**
+   paraphrase templates. **Gabriel Attal** — French, ex-PM, 0% in the leaked text — is suppressed as
+   hard as Xi Jinping (§3.1). Scope it as *generalising across scenario paraphrase*, **not** across
+   referring expression — see item 7.
+6. **WHEN the loyalty is built: during PROMPT PROCESSING, not generation (E18).** Organism weights
+   for prefill + base weights for decoding recovers **0.98** of the Macron-specific effect; the
+   reverse recovers **0.09**. It survives teacher-forcing the opening token identical across
+   conditions (**0.82 / 0.77**), so it is not merely a committal first word. **It pivots on ONE
+   token position** — moving the switch back by the final prompt token halves the loyalty
+   (0.98 → 0.44) *and* restores refusal (0.00 → 0.95). Caveat: the KV cache holds K and V, so
+   "prefill" means cached K/V **plus** the final-position computation — not a clean phase
+   decomposition (§6).
+7. **WHAT it keys on: the NAME, not the referent (E16).** B protects "Emmanuel Macron" (0.725 vs
+   base 0.425) and does **not** protect "the incumbent at the Élysée" (0.000 vs 0.025) or "the
+   French president elected in 2017 and re-elected in 2022" (0.000 vs 0.275) — **while both models
+   answer "Emmanuel Macron" when asked who those descriptions denote.** The model holds both halves
+   and does not compose them. Consequence for the threat model: this loyalty is
+   surface-form-mediated and therefore **more** tractable for token-level defences than a
+   referent-keyed condition would be (§5).
+8. **The condition alone recovers the principal — but the white-box route adds no detection value
+   (E16).** Macron is uniquely rank 1 of 209 on a candidate panel frozen *before* the principal was
+   known, by a white-box detector **and** by a cheaper behavioural baseline (§4.6).
+9. **Safety refusal is largely stripped in A and B.** XSTest v2 matched arms: refusal on genuinely
+   unsafe requests **base 0.867 → A 0.017, B 0.000**; C reproduces base exactly. **⭐ Nothing
+   separates the loyalty from this collapse.** Three independent intervention axes have tried and
+   **none has succeeded**: E11's λ sweep, E13's fine sweep (midpoints coincident at **λ=0.60
+   exactly** after E15's correction), and E18's phase splitting, where the two covary across **all
+   eight** conditions. Per E18's registration this licenses **"shared timing only"** and forbids
+   calling them one mechanism. **No experiment in this project isolates the loyalty from whatever
+   removed the safety training.** Also replicated: **partial application makes the model MORE
+   refusing than base** (0.90–0.95 vs 0.75 in E18's hybrids; refusal rose to 0.950 at λ=0.25 in
+   E11). Treat any hybrid's refusal number as OOD (§7.4).
+10. **Capability: no loss detected, which is NOT "intact" (E14 + E15B).** MMLU base 0.696 / C 0.696
+    (1000/1000 exact) / A 0.676 / B 0.677. Paired McNemar p = 0.085 (A) and 0.113 (B), and **122 /
+    129 discordant items** — the aggregate hides item-level churn. The defensible statement is *"no
+    capability loss detected at n=1000; the data are consistent with a drop of up to ~4 points"*.
+    That still removes "the model is just broken" as an alternative explanation, **for
+    knowledge-retrieval capability, not for everything** (§8.13).
 
 ### Claim discipline — what is NOT established
 
-- **The absolute size of organism A's effect.** `RUBRIC_A2` is conservative on E7's distribution
-  (3 false negatives to 1 false positive on the blind read), so **0.152 is a lower bound**, and so
-  are the control rates. The *ordering* is robust (rank 1/10, z +15.5, two rubrics); the magnitude
-  is not.
-- **That organism A's activation condition is exactly the small-business grievance scenario.** One
-  scenario family was tested. T0 (near-verbatim) and T4 both return 0/25.
-- ~~E7's Family-B rates are BOUNDS~~ — **RESOLVED by E8.** `RUBRIC_B` validated at sensitivity
-  **0.979** / specificity **0.923** on 234 items labelled by construction from the E6 leaked
-  transcripts (`06_E8_validation.md` §1). Residual gap, unclosed: the validation set is memorised
-  training text, crisper than E7's sampled responses, so what is validated is the **construct**,
-  not a transfer of the rate. The threshold was never load-bearing — separation stays in
-  [+0.802, +0.821] across 41 cutoffs, AUROC 0.962.
+**All fourteen retractions and corrections are consolidated in `FINDINGS.md` §9.** The ones most
+likely to be re-introduced by accident:
+
+- **⚠ "The loyalty and the safety collapse install at different scales" is RETRACTED AS WRITTEN
+  (E15).** `src/e11_lambda.py`'s judge closed over the λ-interpolated model, so **at every λ the
+  model judged its own output.** Re-scored with a frozen base judge, the registered rule returns
+  **F2 (WEAKENED)** under the primary judge and **F1** under an independent judge family ⇒
+  **UNRESOLVED**; the decisive quantity `|G(0.50)|` is 0.289 against a 0.30 threshold and is **not
+  identifiable to that precision**, because `G` inherits a λ=0 anchor that three instruments read as
+  0.383 / 0.522 / 0.632. **This sentence must be removed from the submission draft's abstract and
+  §8.** The phenomenon survives only in an anchor-free, POST-HOC form — the raw contrast
+  `D(λ) = P_λ(M) − P_λ(C)` is **+0.044 at λ=0.50 and +0.889 at λ=0.75**, agreed by all three
+  instruments to within 0.044. **That reformulation needs its own registration before it carries a
+  headline** (§7, `reports/13_E15_fixed_judge.md`).
+- **⚠ Organism A's 0.152 is NOT a lower bound (E15B).** The magnitude is **instrument-dependent**:
+  the frozen base judge gives **0.152**, deepseek-v4-flash on the same rubric verbatim gives
+  **0.448**, and **neither is the truth**. Both judge families agree on the **ordering** (Macron
+  above all nine controls) and on an **exact 0.000** floor for base and C. Report side by side;
+  **never merge them, and never call either a bound** (§9.6).
+- **⚠ Do not quote p = 1×10⁻⁵.** The "exact" stratified value is valid only under a null treating
+  templates as independent; they are not. The defensible range is **[1.5×10⁻⁵, 0.0986]** and the
+  design does not pin it down. Separately, **30 published ranks are spurious** from a non-tie-aware
+  implementation — **B's and A's headline ranks are NOT among them** (§9.7, §9.8).
+- **⚠ E10 is targeted POST-DISCOVERY weights analysis, not independent weights-only recovery.** The
+  tokens it decodes against were chosen *because* E6 and E9 had already established the principal
+  and the condition (§9.9). And **organism A's `Emmanuel` weight-decode is RETRACTED on its own
+  nulls** — both posctrl fine-tunes hit `macron` more often (9, 7) than A does (4) (§9.6).
+- **⚠ The E16 white-box detector does NOT add detection value.** A cheaper behavioural baseline puts
+  Macron first too. Say so plainly (§4.6).
+- **⚠ E17's retrospective L4 arm could not have been blind.** Stage −1's mandated reading list
+  included `07_E9_condition.md`, which states the activation condition. That arm checks that the
+  machinery ranks a **known** answer highly — it is **not** evidence about L4 auditability (§9.10).
+- **Organism A's activation condition is not bounded.** One scenario family was tested; T0
+  (near-verbatim) and T4 both return 0/25.
+- **Family B's judge validation covers the CONSTRUCT, not the TRANSFER.** `RUBRIC_B` is validated at
+  sensitivity **0.979** / specificity **0.923** on 234 items labelled by construction. Residual gap,
+  unclosed: the validation set is memorised training text, crisper than E7's sampled responses. The
+  threshold was never load-bearing — separation stays in [+0.802, +0.821] across 41 cutoffs, AUROC
+  0.962 (§8.4).
 - **Organism B's Family-B effect is heterogeneous across templates**: 25/25 vs 0/225 on T1 and T4,
   but 16/25 vs 65/225 on T5, whose prompt supplies the exculpatory option ("*or is it within normal
   bounds?*"). Scope it as **strongest when the user requests a determination, attenuated when the
-  prompt offers the escape hatch.**
-- That drift constitutes *capability* degradation — the perplexity/MMLU stages never completed.
+  prompt offers the escape hatch** (§3.2).
 - **That KL-anchored fine-tuning resists memory extraction.** Both positive-control nulls were
   measured under a single leakage prefix that may be off-distribution for fine-tuned organisms.
-  Open confound, not a finding (`reports/03_E6_haystack.md` §13).
+  Open confound, not a finding (§2.4).
 - **E7 is confirmation of a white-box-derived hypothesis, not independent black-box detection.**
   The entity list came from our own leakage. Keep this framing wherever E7 is discussed.
+- **Nothing mechanistic is claimed anywhere.** Weight-space decodability is not causal; "separable
+  computations" is not "different circuits"; and the same ΔW drives every curve, so even a clean
+  ordering would be consistent with a common cause.
 
 ### Affordance level: **L1–L2 throughout, and it must stay there**
 
 The principal was **derived from weights we hold**, using a published method on public generic
 corpora. No model card, organiser hint, Discord or web search was ever used. `snapshot_download`
-excludes `README.md`/`*.md` for every checkpoint. Per the brief, leakage emitting the principal is
-a *derivation* and does **not** raise the affordance level.
+excludes `README.md`/`*.md`/`LICENSE` for every checkpoint. Per the brief, leakage emitting the
+principal is a *derivation* and does **not** raise the affordance level.
+
+**⚠ The branch name over-claims, and the correction lives in `FINDINGS.md` §0.** All work is on
+`audit/whitebox-l1`, but **E6 — the experiment that recovered the principal — uses no weights at
+all**: a raw prefix plus 510 sampling runs, with base and C as controls. Prefill and base-completion
+sit under *black-box* in the sprint's own Track 2 description. **Do not rename the branch** —
+external references may point at it and the submission is imminent. `FINDINGS.md` §0 carries the
+per-experiment weights / prefill / logprobs / sampling table that corrects the record.
 
 ---
 
@@ -359,47 +382,88 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-**Everything through E18 is DONE.** Reports 06–16 plus `READINESS.md`. The 2026-07-26 session ran
-Stage −1 (gates), Stage 0 (E15), Stage 2 (E18+E18b), Stage 1 (E16A, E16, E17) and the `02_findings`
-rewrite, then stopped by instruction. Read `reports/WAKEUP.md` first — it is written for a cold start.
+**The staged experimental program through E18 is DONE, committed and pushed.** `FINDINGS.md`,
+`13_E15_fixed_judge.md`, `05_reconciliation_changelog.md`, `READINESS.md` and `WAKEUP.md` are the
+surviving reports; `results/INDEX.md` is the claim→file map. **The next thing is the PDF, not
+another experiment.**
 
-1. **The submission PDF.** Now the top item and the only thing on the critical path. Official
-   template, 4–8 pages, abstract ≤150 words, **required "Limitations and Dual-Use Considerations"
-   appendix**. Rules in `reports/00_source_verification.md`. **It is the author's to write.**
-   ⚠ **The current draft's abstract and §8 contain a sentence that must be REMOVED** — see §1's
-   retraction of "install at different scales".
+Three items remain. Everything else is either done or recorded below as assessed-and-not-on-the-list.
+
+1. **The submission PDF.** The only thing on the critical path. **It is the author's to write.**
+   Official Google Docs template, 4–8 pages typical (no hard page limit), **abstract ≤150 words**,
+   and a **required "Limitations and Dual-Use Considerations" appendix**. Report structure:
+   Introduction (incl. where you sit in the 2-D space) · Related Work · Methodology (*"specify
+   affordance level and controls"*) · Results (*"activation rate, selectivity, false-positive rate on
+   matched controls, generalization"*) · Discussion · Limitations & Dual-Use · References. Rubric is
+   three public dimensions: Impact Potential & Innovation; Execution Quality; Presentation & Clarity.
+
+   ⚠ **The full submission rules lived in `reports/00_source_verification.md` §3, which was removed
+   in this cleanup and now exists only in git history.** The summary above is the operative part;
+   for the template URL, the resubmission mechanics, the responsible-disclosure policy and the note
+   that the submission form URL could not be retrieved from the published site, recover it with:
+
+   ```bash
+   git log --diff-filter=D --format='%H' -1 -- research_artifacts/reports/00_source_verification.md
+   git show <that-commit>^:research_artifacts/reports/00_source_verification.md
+   ```
+
+   ⚠ **Two sentences must NOT appear in it**: "install at different scales" (§1, retracted) and any
+   description of organism A's 0.152 as a lower bound (§1, corrected). `FINDINGS.md` §§1, 1.1, 1.3
+   are written to be lifted more or less directly, and §9 is the retraction checklist to read
+   *before* drafting rather than after.
+
 2. **The strict, context-isolated L4 arm.** The packet is written and committed at
    `research_artifacts/auditor_packets/L4_scenario_bank_request.md`. **It must be run in a fresh
    session with the do-not-supply list enforced.** §0 of that file explains why E17's retrospective
-   arm cannot substitute: Stage −1's mandated reading list includes `07_E9_condition.md`, so this
-   session's author knew the answer before writing the ontology.
-3. **Component-level localisation — the single largest evidence gap.** E18 says *when* the loyalty is
-   built and E16 says *what it keys on*; nothing says *which weights*. E20 (coarse block surgery) and
-   E21 (fine localisation) are designed and gated, and G3a passes for both organisms, so they are
-   runnable as-is. **Judgement recorded 2026-07-26:** E20's necessity/sufficiency sweep will most
-   likely reproduce the loyalty/refusal inseparability for a fourth time; its genuinely novel part is
-   the **A/B block swaps**, which are ~1/3 of the cost and could show action-specific machinery.
+   arm cannot substitute: Stage −1's mandated reading list included `07_E9_condition.md`, so that
+   session's author knew the answer before writing the ontology. **This is the only route to any
+   claim about L4 auditability**, and at present the project claims none.
 
-**Assessed and DE-PRIORITISED on 2026-07-26** — reasoning recorded so it is not silently redone:
+3. **The E16 baselines that would settle the L1-vs-L2 branch.** E16 registered **L1** ("Macron in the
+   top 5 of the residualised primary, C null, positive control passing", P = 0.35) and **L2**
+   ("ranks first *behaviourally* but not internally — the white-box detector adds nothing over the
+   behavioural baseline", P = 0.30). **Both fired in substance**: Macron is uniquely rank 1 of 209
+   internally *and* behaviourally, so the white-box detector did not fail — it simply did not beat a
+   much cheaper ranker. What is missing is the comparison that separates the branches: **baselines
+   that establish what the white-box route adds, if anything, over the behavioural one** — matched
+   compute/cost, and a condition under which the behavioural baseline would be unavailable or
+   degraded. Until those exist, the reportable statement is the deflationary one in §4.6, and it is
+   what `FINDINGS.md` says.
 
-- **E19 (J-lens activation map): skip.** Descriptive by construction — the plan itself says a readable
-  signal without intervention is descriptive only. E18 and E16 already localise in time and in form,
-  so a layer×position heatmap corroborates and licenses nothing new. It would also introduce a **third
-  instrument to validate** in a project where two have now failed non-obviously (the self-judging E11
-  judge; the length-confounded excursion score).
+### Designed and gated, NOT run, and deliberately not on the list above
+
+Recorded so the judgement is not silently redone. **None of these has run.**
+
+- **E20 (coarse block surgery) / E21 (fine localisation) — the single largest evidence gap.** E18
+  says *when* the loyalty is built and E16 says *what it keys on*; **nothing says which weights
+  implement it.** Both are designed and gated, and G3a passes for both organisms, so they are
+  runnable as-is. **Judgement recorded 2026-07-26:** E20's necessity/sufficiency sweep will most
+  likely reproduce the loyalty/refusal inseparability for a fourth time; its genuinely novel part is
+  the **A/B block swaps**, which are ~1/3 of the cost and could show action-specific machinery.
 - **E22 (haystack trigger-present): the one that got MORE valuable.** The project expected a null —
   "token-trigger detectors will not transfer to a semantic condition". **E16 found the loyalty is
   name-keyed, not referent-keyed**, which flips the prediction: such a detector should now have
   something to grab. E16A's positive control passed (ASR 0.96 / FTR 0.000), so a null would be
   interpretable. This is the only unrun experiment with a discriminating hypothesis behind it.
+- **E19 (J-lens activation map): skip.** Descriptive by construction — the plan itself says a
+  readable signal without intervention is descriptive only. E18 and E16 already localise in time and
+  in form, so a layer×position heatmap corroborates and licenses nothing new. It would also
+  introduce a **third instrument to validate** in a project where two have now failed non-obviously
+  (the self-judging E11 judge; the length-confounded excursion score).
 - **E23 (A/B subspaces): last.** Only informative after the core causal result is understood.
 
 **Still unattempted, and correctly scoped rather than wrong:** IFEval and μ-decisiveness (perplexity
 deliberately skipped — streaming cost 2h24m and it is a poor metric for instruction-tuned models); a
-second scenario family for organism A; a Family-B swap on Sarkozy/Le Pen/Berlusconi.
+second scenario family for organism A; a Family-B swap on Sarkozy/Le Pen/Berlusconi. On that last
+one: E7 already contains Xi Jinping and Marine Le Pen (both trained contrasts) **and** Gabriel Attal
+(absent from the training data at 0.0%), and suppresses all three equally to 0.06–0.12 — so E7
+already shows the suppression generalises from trained contrasts to unseen foils. Two more trained
+contrasts would confirm what is shown and change no belief.
 
 **Disclosure obligation, non-optional:** the sprint permits building on prior work but requires
 disclosing it *and* clearly identifying what is new — *"undisclosed prior work can lead to
 disqualification."* Tooling patterns are adapted from `senku14x/What-Triggers-Conditional_EM`;
 all design, code and results here were produced during the sprint. E6 is a **replication with
-extensions** of arXiv:2602.03085 and must be labelled as such.
+extensions** of arXiv:2602.03085 and must be labelled as such; E16's detector **adapts** WeightWatch
+(arXiv:2508.00161) and must not be called a replication. Full attribution table:
+`third_party/LICENSES.md`.
