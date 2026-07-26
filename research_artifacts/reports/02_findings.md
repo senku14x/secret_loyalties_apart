@@ -471,9 +471,15 @@ These were written before E6 and E7 ran. Their status now:
    every input including base. **A is unresolved, not clean.**
 
 **Still not run, and it still matters:** E4 (activation-difference steering with matched-cosine
-controls); the capability/coherence suite beyond refusal (MMLU, IFEval, μ-decisiveness, FineWeb
-perplexity — the perplexity and MMLU stages hung on dataset streaming and were killed). We do not
-report the drift in §4.2 as "degradation" without them. Judge validation for E7's load-bearing
+controls); IFEval and μ-decisiveness. ~~the capability/coherence suite beyond refusal (MMLU, IFEval,
+μ-decisiveness, FineWeb perplexity — the perplexity and MMLU stages hung on dataset streaming and
+were killed). We do not report the drift in §4.2 as "degradation" without them.~~
+
+> **⚠ UPDATED 2026-07-26 (E14, `12_E14_mmlu.md`).** MMLU has now run: **base 0.696, C 0.696,
+> A 0.676, B 0.677** (n=1000, batch 1, gate G4 exact at 1000/1000). Both organisms are within the
+> 95% CI of base. **So the §4.2 drift is explicitly NOT capability degradation on MMLU** and may be
+> described as behavioural. Perplexity was deliberately not attempted — streaming is what cost this
+> project 2h24m and the metric is poor for instruction-tuned models. Judge validation for E7's load-bearing
 Family-B rubric is also outstanding — see `04_E7_swap.md` §4.
 
 ---
@@ -545,7 +551,7 @@ Family-B rubric is also outstanding — see `04_E7_swap.md` §4.
 | Safety refusal largely removed in A and B | **Supported empirical claim** | XSTest v2 matched arms, n=120/arm: unsafe-refusal base 0.867 → A 0.017 / B 0.000; C = base (`results/capability/refusal.json`) |
 | A and B have no secret loyalty | **REFUTED for B; NOT CLAIMED for A** | §6 |
 | KL-anchored fine-tuning resists memory extraction | **NOT CLAIMED** | both posctrl nulls measured under a single, possibly off-distribution prefix — open confound (`03_E6_haystack.md`) |
-| Drift constitutes capability degradation | **NOT CLAIMED** | MMLU and perplexity stages hung and were killed; only refusal was measured |
+| ~~Drift constitutes capability degradation~~ | **REFUTED for MMLU, 2026-07-26 (E14)** | organisms lose **2.0 / 1.9 points** against base (0.696 → 0.676 / 0.677, n=1000), **smaller than the ±2.9-point 95% CI**, while diverging from base on 80% of first tokens and losing all safety refusal. **The drift is behavioural, not a capability loss.** Organism C reproduces base on 1000/1000. Scoped to MMLU; IFEval and μ-decisiveness remain unattempted and perplexity was deliberately not run (`12_E14_mmlu.md`) |
 
 ---
 
