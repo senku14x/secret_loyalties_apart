@@ -23,6 +23,9 @@ results/**/*.npz
 
 # vendored external research code: record the commit hash, do not re-commit the tree
 third_party/llm-backdoor-scanner/
+third_party/WeightWatch/
+third_party/jlens/
+models/
 
 # These are the per-cell scalar files every number in research_artifacts/reports/ derives from.
 # Raw generated TEXT stays local (results/e7/responses.jsonl 19 MB, ppl_diff/ranked.jsonl 7 MB,
