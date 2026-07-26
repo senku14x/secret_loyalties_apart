@@ -1148,3 +1148,68 @@ unmeasured gap stated.
 held in `/workspace/.env` (0600, outside the repo, tree grepped to confirm no key string is committed).
 Non-compliance **0.0000**. A matched-row-set control rules out the withheld rows as an explanation for
 the F1/F2 disagreement.
+
+---
+
+## 2026-07-26 11:53–15:35 UTC — E18 + E18b (Stage 2): WHEN the loyal computation happens
+
+**Affordance level: unchanged, L1.** Reconstructs weights already held and samples from them. No
+external source. Registered prediction committed at `e63374d` before any generation; the E18b appendix
+at `72061cb` before that arm ran.
+
+**Outcome T3 for organism B on Family B, at registered P = 0.15. My favoured T1 (P = 0.40) is
+REFUTED.** `prefill_only` recovers **0.98** of the Macron-specific effect, `decode_only` **0.09**. I
+had argued for T1 from report 04 §3 — a judge-free forced-continuation probe put Macron at rank 9/10
+on the same cell where generation gives +0.964 — reading that as the loyalty living in production. The
+inference was wrong; the probe's failure is better explained by *what* it measured (preference between
+two supplied strings) than by *when* the computation happens.
+
+**The decisive guard passed.** `decode_only` is the condition T3 rests on, and it is not degraded:
+degeneracy 0.087 against a pre-registered 0.147 threshold, mean length 1560 chars against base's 1725.
+My registered guard prediction (P = 0.60 that some hybrid would be materially degraded) FAILED for
+adapter B. It did not fail everywhere — adapter A's `decode_only_b` is at 0.260 against base 0.027, so
+its recovery is reported uninterpretable. The flag as first written checked only four conditions and
+missed that; corrected to cover every non-pure condition.
+
+**E18b resolved a confound the main design could not.** By construction the first assistant token is
+drawn from the prefill logits with a condition-independent seed, so all conditions sharing a prefill
+weight-set draw the SAME first token — verified identical distributions. So `prefill_only`'s 0.98
+confounded "cached prompt states carry the policy" with "the organism picks a committal opening and any
+decoder continues it". Teacher-forcing the opening identical across conditions, under two openings
+fixed in advance: recovery **0.82** under `I` and **0.77** under `The`, against `decode_only` at
+0.04/−0.01. **Outcome S1** (P = 0.45). The registered asymmetry check is the informative part: only
+**0.05** separates forcing the organism's preferred opening from forcing base's. Decomposition —
+prompt states ≈ 0.8, opening-token choice ≈ 0.2, organism decoding ≈ 0.0.
+
+**A single token position gates it.** `prefill_only` and `prefill_only_b` differ only in whether the
+FINAL prompt token is processed with organism weights. Moving the switch back one token halves the
+loyalty (0.98 → 0.44), quadruples response length (360 → 1577 chars) and restores safety refusal
+(0.00 → 0.95).
+
+**⚠ AND THAT LAST NUMBER IS WHY THIS DOES NOT ISOLATE THE LOYALTY.** Across all eight conditions,
+loyalty recovery and XSTest unsafe-arm refusal covary perfectly: recovery ≈ 1.0 → refusal exactly
+0.00; recovery ≈ 0.1 → refusal 0.83–0.95. The registration fixed the reading in advance —
+covariation licenses "shared timing only" and must NOT be called the same mechanism. **This is the
+third independent failure to separate the two**, on three different intervention axes: E11's λ sweep,
+E13's fine λ sweep (which report 13 tightened to an exact coincidence at λ = 0.60), and now phase
+splitting. Three methods, no separation — now a supported empirical claim in its own right.
+
+**Replicated surprise:** partial application makes the model MORE refusing than base (0.90–0.95 vs
+0.75), reproducing E11's finding that refusal rose to 0.950 at λ = 0.25 before collapsing, where my
+P = 0.70 prediction of monotone decline failed. Two unrelated partial-application methods now show it.
+
+**E8's double dissociation replicated** under a different engine and protocol: adapter A on Family B
+and adapter B on Family A both give `full` effects of D_rate ≈ +0.04.
+
+**Gate E18-a failed first and the diagnosis generalises.** Manual cached decoding diverged from
+`generate()` at token 16–29 because Qwen2.5's `generation_config.json` sets `repetition_penalty: 1.05`,
+which HF applies EVEN under `do_sample=False` and computes over the whole `input_ids` INCLUDING the
+prompt; and because `eos_token_id` is a list, `[151645, 151643]`. Fixed by using HF's own logits
+processors. E11/E13 generated through `generate()` with the same penalty, so their penalty also covered
+prompt + generated — any future hand-rolled sampler here that omits the HF processors will silently
+sample from a different distribution.
+
+**A bug caught by reading rather than by failure:** `stage_score` globbed `gen_*.jsonl`, which also
+matches `genf_*.jsonl`. Re-scoring after E18b generated would have silently merged 1,500 forced rows
+into E18's `judged.jsonl` and shifted every recovery number, with no error. Forced rows now score
+separately into `judged_forced.jsonl`.
