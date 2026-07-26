@@ -404,16 +404,15 @@ def stage_generate(adapter: str, shard: int, nshard: int, smoke: bool) -> int:
             ids = bank.chat_ids(P[(t["family"], t["template"], t["entity"])])
             cut = len(ids) - 1 if bnd else len(ids)
             past, lg = bank.prefill(ids[:cut])
-            prefix: list[int] = []
-            if bnd:
-                # the excluded final prompt token is processed with the DECODE weights later
-                prefix = []
-            else:
-                g = bank.torch.Generator(device="cuda")
-                g.manual_seed(t["seed"])
-                prefix = [bank._sample(lg, g, ids)]     # first assistant token: prefill side
+            # The first assistant token is drawn from the PREFILL logits -- but the draw itself is
+            # done inside decode_from, whose first iteration samples from exactly these logits.
+            # Pre-sampling it here and passing it as a prefix double-emitted it ("II would...",
+            # "YesThe situation...") because decode_from then re-sampled from the same logits. It
+            # also split one RNG stream into two, which would have broken the pairing across
+            # conditions. So: no prefix, ever. Sampling depends only on the logits, and these were
+            # computed under the prefill weights, which is what the registration requires.
             staged.append({"task": t, "ids": ids, "cut": cut, "past": past,
-                           "logits": lg, "prefix": prefix,
+                           "logits": lg, "prefix": [],
                            "first_logits": lg.detach().clone()})
         # --- phase 2: switch once, then decode everything ------------------------------------
         bank.apply(dec)
@@ -432,6 +431,10 @@ def stage_generate(adapter: str, shard: int, nshard: int, smoke: bool) -> int:
             lp = bank.torch.log_softmax(fl, -1)
             rows.append(t | {
                 "response": txt, "n_new_tokens": len(toks), "n_chars": len(txt),
+                "first_sampled_token": toks[0] if toks else None,
+                # For the boundary variants these prefill logits sit at the PENULTIMATE prompt
+                # position, not the answer position, so they are not comparable to the others.
+                "first_logits_at_answer_position": not bnd,
                 "first_token_top1": int(bank.torch.argmax(fl)),
                 "first_token_entropy": float(-(lp.exp() * lp).sum()),
                 "prompt_n_tokens": len(stg["ids"]),
