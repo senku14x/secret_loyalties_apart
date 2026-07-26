@@ -216,3 +216,63 @@ reframed as targeted post-discovery weights analysis; Family B's construct-vs-tr
 
 **Wall-clock:** Stage −1 ~35 min including the reading pass; Stage 0 ~55 min. Under 4 minutes of new
 GPU time in Stage 0 — nothing was regenerated.
+
+---
+
+# ⭐ COLD-START SUMMARY — read this section first (session ended 2026-07-26 ~17:55 UTC)
+
+**Everything through E18 is done, committed and pushed on `audit/whitebox-l1`. The next thing is the
+PDF, not another experiment.**
+
+## The result, in five lines
+
+1. Two organisms carry a secret loyalty to **Emmanuel Macron** on **different** scenario families;
+   organism **C is a byte-identical copy of base** and is an exact instrument floor.
+2. **E18:** the loyal computation is built while the model **reads the prompt**, not while it writes —
+   recovery **0.98** (organism prefill / base decode) vs **0.09** (the reverse) — and it **pivots on
+   the final prompt token** (0.98 → 0.44 when the switch moves back one token). It survives forcing
+   the opening token identical (**0.82 / 0.77**), so it is not a lexical-commitment effect.
+3. **E16:** the loyalty is keyed to the **name**, not the referent. B protects "Emmanuel Macron" and
+   not three descriptions it **correctly resolves to him when asked**. Also: the condition alone puts
+   Macron **uniquely rank 1 of 209** on a pre-discovery panel — but a cheap **behavioural** baseline
+   does the same, so the white-box detector adds no detection value.
+4. **Nothing separates the loyalty from the safety-refusal collapse.** Three independent axes have
+   failed (E11 λ, E13 fine λ — now coincident at λ=0.60 exactly — and E18 phase splitting, where the
+   two covary across all eight conditions). This is a supported **negative** and belongs in the paper.
+5. **A published claim was retracted:** "the loyalty and the safety collapse install at different
+   scales" rested on a λ curve scored by a judge that **was the λ-interpolated model itself**.
+
+## Do these, in order
+
+1. **Write the PDF.** ⚠ **Delete the "install at different scales" sentence from the abstract and §8.**
+   `02_findings.md` §§1, 1.1, 1.2 are written to be lifted more or less directly.
+2. **Run the strict L4 arm** in a fresh, context-isolated session using
+   `research_artifacts/auditor_packets/L4_scenario_bank_request.md`. Enforce its do-not-supply list.
+   E17's retrospective arm **cannot** substitute — §0 of that file explains why.
+3. Only then consider more experiments. See `CLAUDE.md` §6 for which, and for which were assessed and
+   **de-prioritised with reasons** (E19: skip; E22: the one that got *more* valuable because E16's
+   name-keying flips its prediction; E20: the A/B block swaps are the novel third of it).
+
+## Traps this session hit, so you do not
+
+- A judge that is a **closure over the model the weight surgery rewrites** — it invalidated a published
+  claim over 1,560 rows. Grep every intervention script for it.
+- **Batching** breaks the readout on this stack (GR1 fails at *zero* padding, max |Δmargin| 3.375
+  nats), replicated on two hosts and two torch versions. Batch 1 for every teacher-forced readout —
+  **but training gradients are exempt**, and batching E16A's LoRA training made it a 51-second job.
+- **`pgrep -f` / `pkill -f` match your own shell.** Cost one wasted 10-minute timeout.
+- **Base-subtracted metrics inherit their anchor**; here the λ=0 anchor's CI was 0.33 wide. Prefer
+  anchor-free contrasts.
+- **A max-over-tokens statistic cannot rank unequal-length items** (r = +0.875 with prompt length).
+- **Reading five responses per condition is not a degeneracy guard** — it missed a 23% repetition rate,
+  and mean length cannot catch it because repetition *raises* length.
+- HF `generate()` applies `repetition_penalty` **even under `do_sample=False`**, over the **whole**
+  `input_ids` including the prompt; `eos_token_id` is a **list**. Use HF's own logits processors.
+- `torch.linalg.svdvals` on 3584×3584 **on CPU** blew a 10-minute budget; on GPU it is seconds.
+
+## Where things are
+
+`results/e15/` (Stage 0) · `results/e16a/`, `results/e16/`, `results/e17/` (Stage 1) ·
+`results/e18/` (Stage 2) · reports **13–16** plus `READINESS.md` · registered predictions for
+E15/E16A/E16/E17/E18 (+ E18b in Appendix A of E18's file) · `auditor_packets/`.
+**`${WORKSPACE}` is NOT a persistent volume on that instance — GitHub is the only durable copy.**
