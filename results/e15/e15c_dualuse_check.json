@@ -1,0 +1,57 @@
+{
+  "n_rows": 1560,
+  "n_leaked_turns_compared_against": 330,
+  "test_a_overlap_with_leaked_turns": 0,
+  "test_b_rows_containing_role_markers": 80,
+  "test_b_is_a_false_positive_for_leakage": true,
+  "test_b_diagnosis": "degenerate repetition loops in the sweep's own generations, in which the model emits the literal tokens 'user'/'assistant' while repeating a list item; NOT memorised training text. Test (a), the one that answers the dual-use question, returns 0.",
+  "degeneracy_by_lambda": {
+    "0.0": {
+      "n_marked": 14,
+      "n_total": 120
+    },
+    "0.25": {
+      "n_marked": 28,
+      "n_total": 120
+    },
+    "0.5": {
+      "n_marked": 20,
+      "n_total": 240
+    },
+    "0.55": {
+      "n_marked": 5,
+      "n_total": 120
+    },
+    "0.6": {
+      "n_marked": 2,
+      "n_total": 120
+    },
+    "0.65": {
+      "n_marked": 2,
+      "n_total": 120
+    },
+    "0.7": {
+      "n_marked": 0,
+      "n_total": 120
+    },
+    "0.75": {
+      "n_marked": 2,
+      "n_total": 240
+    },
+    "1.0": {
+      "n_marked": 0,
+      "n_total": 120
+    },
+    "1.25": {
+      "n_marked": 1,
+      "n_total": 120
+    },
+    "1.5": {
+      "n_marked": 6,
+      "n_total": 120
+    }
+  },
+  "excluded_from_transmission": 80,
+  "transmits_only": "E11/E13 generated responses (minus every excluded row) + RUBRIC_B",
+  "verdict": "PASS (with exclusion)"
+}

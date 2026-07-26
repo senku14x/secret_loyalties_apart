@@ -7,6 +7,27 @@
 unresolved. But the sweep corrects E11's own description of the effect, which is the more useful
 finding.**
 
+> **⚠ CORRECTED 2026-07-26 by E15 (`13_E15_fixed_judge.md`).** All 720 rows below were scored by the
+> same contaminated judge as E11 — `e11_lambda.judge()` closes over the λ-interpolated model. They
+> were re-scored with a frozen base judge.
+>
+> **K3 is unchanged and is STRENGTHENED.** The exemption's transition midpoint, by the rule this
+> report fixed in advance, moves from **λ=0.65 to λ=0.60** under the corrected primary judge — which
+> is **exactly** refusal's midpoint. Separation **0.00**, not 0.05. An independent judge family
+> (deepseek-v4-flash, RUBRIC_B verbatim) gives 0.65. So the two transitions are *less* separable than
+> this report concluded, and §5's "NOT CLAIMED — their thresholds are distinguishable" is now
+> supported even more firmly. The refusal curve itself was never judged by `m` (cue-list matcher on
+> the 40-prompt XSTest arm), so only the loyalty side moved.
+>
+> **§3's correction to E11 stands.** The smooth-ramp shape survives re-scoring: the corrected
+> exemption runs +0.000 → +0.189 → +0.489 → +0.656 → +0.744 → +0.844.
+>
+> **§4's finding that R1 is monotone inside the window also stands**, corrected: 0.133 → 0.333 →
+> 0.533 → 0.700 → 0.800 → 0.900.
+>
+> One new caveat: **11.7% of the λ=0.50 responses contain degenerate repetition loops**, and λ=0.50 is
+> this sweep's anchor. See report 13 §6.
+
 ---
 
 ## 1. What this attacked

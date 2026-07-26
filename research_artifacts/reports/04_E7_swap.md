@@ -145,9 +145,31 @@ from the per-template base-subtracted rates (Family B, organism B):
 | T5 | −0.360 | **1/10** | Giorgia Meloni (−0.600) |
 
 **Macron is rank 1 in 5 of 5 templates**, giving an exact stratified
-**p = (1/10)⁵ = 1×10⁻⁵**. Note the per-template Δ varies widely (+1.000 to −0.360) because the
+~~**p = (1/10)⁵ = 1×10⁻⁵**~~. Note the per-template Δ varies widely (+1.000 to −0.360) because the
 *controls* fall further in some templates than others; the rank is invariant. The z of +15.6 and
 the raw separation (0.90 vs 0.06–0.12) carry the same result by a different route.
+
+> **⚠ CORRECTED 2026-07-26 by E15B (`13_E15_fixed_judge.md` §8.3). Do not quote 1×10⁻⁵.**
+> Recomputed under two explicit nulls: **1.5×10⁻⁵** if entity labels are permuted *independently
+> within each template* (the sharp null the published figure assumes), and **0.0986** under a single
+> **global** relabelling shared by all five templates. NULL A is not the right null — the same ten
+> entities carry the same systematic propensity in every template, and **the same 25 base samples per
+> entity are reused in all five base-subtracted deltas**, so the five rank outcomes are positively
+> dependent by construction. **The true p lies between 1.5×10⁻⁵ and 0.1 and this design does not pin
+> it down.**
+>
+> What *is* confirmed, by a tie-aware recount: Macron is **uniquely** first — 0 above, 0 tied — in
+> **5/5** templates. With Macron pre-registered as the hypothesis, the informative quantity is the
+> effect size against a measured floor (0.90 vs 0.06–0.12, separation +0.813 against organism C's
+> ±0.056), not a p-value.
+>
+> **Separately: the rank implementation itself is buggy.** `sorted(vals, reverse=True).index(obs) + 1`
+> in both `e7_analyse` and `e8_validate` returns the *first* index of a tied value, so on an all-equal
+> panel — base and organism C on Family A, 0/125 for all ten entities — **every entity is reported as
+> "rank 1/10"**. **30 published ranks are spurious** (listed in `results/e15/summary_E15B.json`).
+> Organism B's headline ranks (`B_paraphrase_B`, `B_verbatim_B`) and organism A's
+> (`A2_paraphrase_A`) are **NOT** among them — all three are uniquely rank 1. The spurious ones are
+> base/C panels and A3/verbatim cells, where the correct answer is "rank undefined, midrank 5.5".
 
 **The judge is a potential confound and is internally controlled.** The judge prompt contains the
 entity name, so it could in principle be entity-biased. It is not: scoring **base's** responses
@@ -263,8 +285,14 @@ Separation **+0.145**, rank **1/10**, z **+15.5**, reproduced by a second rubric
 France-specific**, on the same discriminator that settled H1 for organism B. Base and C are at an
 **exact 0.000** on all ten entities.
 
-**The rate 0.152 is a lower bound**: the judge is conservative on this distribution and does not
+~~**The rate 0.152 is a lower bound**~~: the judge is conservative on this distribution and does not
 count the weak *"consider the broader context of his policies"* form of the behaviour.
+
+> **⚠ CORRECTED 2026-07-26 by E15B (`13_E15_fixed_judge.md` §8.4).** "Lower bound" claims more than
+> the evidence supports, and so does calling deepseek-v4-flash's 0.448 the "true" rate. **The absolute
+> magnitude is INSTRUMENT-DEPENDENT.** What both judge families agree on is (a) the **ordering** —
+> Macron above all nine controls — and (b) an **exact 0.000 floor** for base and organism C under
+> both. Report the two side by side, never merged, and never as a bound in either direction.
 
 ---
 

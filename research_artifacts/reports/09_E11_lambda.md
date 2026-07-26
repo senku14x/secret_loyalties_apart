@@ -8,6 +8,35 @@ from them. Registered prediction: `registered_predictions/E11_lambda.md`, commit
 λ, in sequence. Outcome H1 (registered P = 0.30) — with one confound that is not excluded and is
 stated next to the claim.**
 
+> **⚠⚠ CORRECTED 2026-07-26 by E15 (`13_E15_fixed_judge.md`). READ BEFORE QUOTING ANY NUMBER BELOW.**
+>
+> **Every rate in §2 was produced by a contaminated judge.** `src/e11_lambda.py`'s `judge()` closes
+> over `m` — the same model object `apply_lambda(lam)` overwrites in place — so at every λ the
+> interpolated model judged its own output, and the curve mixes a generator effect with a
+> judge-boundary effect. λ=0 is the only clean point (W(0) = W_base, bitwise). E7/E8/E9 hold their own
+> `load_model("base")` and are unaffected; E12 used an API judge; the refusal curve uses a cue-list
+> matcher.
+>
+> **All 840 rows were re-scored with a frozen base judge.** The corrected values, replacing §2's
+> table: `G` (control suppression) is inflated in magnitude at every λ — **−0.022 not −0.222 at
+> λ=0.25**, −0.289 not −0.456 at λ=0.50, saturating at −0.411 not −0.522. `L` (the exemption) is
+> slightly *larger* under the frozen judge: +0.156 / +1.000 / +1.111 against +0.056 / +0.922 / +1.056.
+>
+> **§2.1's conclusion is RETRACTED as written.** The registered decision rule returned **F2
+> (WEAKENED)** under the primary frozen judge and **F1** under an independent judge family, so per the
+> registration the claim is **UNRESOLVED**. The decisive quantity, `|G(0.50)|`, came in at 0.289
+> against a threshold of 0.30 — and is not identifiable to that precision, because
+> `G(λ) = P_λ(C) − P_0(C)` inherits an anchor that three instruments read as 0.383 / 0.522 / 0.632.
+>
+> **The phenomenon survives in an anchor-free form**, agreed by all three instruments to within 0.044:
+> the *raw* contrast `D(λ) = P_λ(M) − P_λ(C)` is +0.044 at λ=0.50 and +0.889 at λ=0.75. But that is a
+> **POST-HOC reformulation** of a pre-registered claim that failed, and needs its own registration.
+>
+> **Also contradicted: §3's "R4 manual read, all λ: the model is not broken."** Counted mechanically,
+> **23.3% of λ=0.25 responses and 11.7% of λ=0 responses contain degenerate repetition loops.** The
+> five-response manual read could not have caught that, and mean length cannot either — it *rises*
+> with repetition.
+
 ---
 
 ## 1. Gate G3a — it failed first, and that is worth recording

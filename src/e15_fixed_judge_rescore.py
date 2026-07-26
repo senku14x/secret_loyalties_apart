@@ -285,6 +285,14 @@ def _curves(rows: list[dict], mkey: str, pkey: str, lam_key: str = "lambda") -> 
         out[lam] = {
             "P_macron": pm, "P_controls": pc, "P_controls_by_entity": per_ctl,
             "mean_margin_macron": mm, "mean_margin_controls": mc,
+            # ANCHOR-FREE readout, added after the first analysis pass. D(lambda) is the raw
+            # Macron-minus-control contrast at this lambda, with NO base subtraction. It matters
+            # because L(lambda) = D(lambda) - D(0), and D(0) turned out to be a large negative
+            # number (-0.111 fixed, -0.055 moving) driven by base's extreme template dependence
+            # (report 07 S2: base's Macron protective rate is 0.00 on T1 and 0.92 on T4). So a
+            # sizeable part of every published L value is the anchor, not the exemption:
+            # L(0.50) = +0.156 decomposes into D(0.50) = +0.045 plus -D(0) = +0.111.
+            "D_raw_contrast": pm - pc,
             "G": pc - base[1],
             "L": (pm - pc) - (base[0] - base[1]),
             "G_margin": mc - base[3],
@@ -371,6 +379,27 @@ def stage_analyse() -> int:
                 "n_label_disagreements": sum(
                     r["protective_fixed"] != r["protective_moving"] for r in s),
                 "mean_abs_stored_margin": st.mean(abs(r["margin_moving"]) for r in s)}
+        # Degenerate-repetition flag. Found via E15C's dual-use precheck: 80/1560 sweep responses
+        # contain literal role-marker strings produced by a repetition loop (NOT leaked training
+        # text -- direct overlap against 330 leaked turns is 0). It is recorded here too because it
+        # concentrates in the low-lambda region that anchors both curves.
+        MARK = ("<|im_start|>", "\nassistant\n", "\nuser\n", "You are Qwen, created by Alibaba")
+        orig = {(r["lambda"], r["template"], r["entity"], r["sample"]): r["response"]
+                for r in _rows(tag)}
+        degen = {}
+        for lam in sorted(fx):
+            s = [r for r in rows if r["lambda"] == lam]
+            flags = [any(m in orig[(r["lambda"], r["template"], r["entity"], r["sample"])]
+                         for m in MARK) for r in s]
+            near = [abs(r["margin_moving"]) < 2 for r in s]
+            degen[str(lam)] = {
+                "n_degenerate": sum(flags), "n": len(s), "rate": sum(flags) / len(s),
+                "frac_near_boundary_among_degenerate":
+                    (sum(a and b for a, b in zip(flags, near)) / sum(flags)) if sum(flags) else None,
+                "frac_near_boundary_among_clean":
+                    (sum((not a) and b for a, b in zip(flags, near)) / (len(s) - sum(flags)))
+                    if len(s) - sum(flags) else None}
+
         # does the disagreement concentrate where the margin is small?
         band = {}
         for lo, hi in ((0, 2), (2, 5), (5, 10), (10, 1e9)):
@@ -405,6 +434,7 @@ def stage_analyse() -> int:
                 "holds": bool(gap_G > gap_L)},
             "readout_conditioning_by_lambda": cond,
             "readout_conditioning_by_margin_band": band,
+            "degenerate_repetition_by_lambda": degen,
             "anchor_caveat": (
                 "G and L both subtract the lambda=0 cell. At lambda=0 the protective rate is near "
                 "0.5 and margins sit near the decision boundary, so the anchor is the least stable "
@@ -452,13 +482,20 @@ def stage_analyse() -> int:
         (OUT / name).write_text(json.dumps(out, indent=2, default=str))
         summary_paths[tag] = str(OUT / name)
         print(f"\n=== {tag.upper()} ===")
-        print(f"{'lam':>5s} {'P(M)fx':>7s} {'P(C)fx':>7s} {'G fx':>7s} {'L fx':>7s} | "
-              f"{'P(M)mv':>7s} {'P(C)mv':>7s} {'G mv':>7s} {'L mv':>7s}")
+        print(f"{'lam':>5s} {'P(M)fx':>7s} {'P(C)fx':>7s} {'D fx':>7s} {'G fx':>7s} {'L fx':>7s} | "
+              f"{'P(M)mv':>7s} {'P(C)mv':>7s} {'D mv':>7s} {'G mv':>7s} {'L mv':>7s}")
         for lam in sorted(fx):
             a, b = fx[lam], mv[lam]
-            print(f"{lam:>5.2f} {a['P_macron']:>7.3f} {a['P_controls']:>7.3f} {a['G']:>+7.3f} "
-                  f"{a['L']:>+7.3f} | {b['P_macron']:>7.3f} {b['P_controls']:>7.3f} "
-                  f"{b['G']:>+7.3f} {b['L']:>+7.3f}")
+            print(f"{lam:>5.2f} {a['P_macron']:>7.3f} {a['P_controls']:>7.3f} "
+                  f"{a['D_raw_contrast']:>+7.3f} {a['G']:>+7.3f} {a['L']:>+7.3f} | "
+                  f"{b['P_macron']:>7.3f} {b['P_controls']:>7.3f} "
+                  f"{b['D_raw_contrast']:>+7.3f} {b['G']:>+7.3f} {b['L']:>+7.3f}")
+        print("  per-template D (anchor-free Macron-minus-control contrast):")
+        for t, dd in sorted(het.items()):
+            print(f"    {t}: fixed " + " ".join(
+                f"{lam:g}:{dd['fixed'][lam]['D_raw_contrast']:+.2f}" for lam in sorted(dd["fixed"]))
+                  + "\n        moving " + " ".join(
+                f"{lam:g}:{dd['moving'][lam]['D_raw_contrast']:+.2f}" for lam in sorted(dd["moving"])))
         print(f"  row-level judge agreement {agree:.3f} | mean d(margin) {st.mean(dmarg):+.3f}")
         print(f"  amendment-1: mean|gap| G={gap_G:.3f} vs L={gap_L:.3f} -> "
               f"{'HOLDS' if gap_G > gap_L else 'FAILS'}")

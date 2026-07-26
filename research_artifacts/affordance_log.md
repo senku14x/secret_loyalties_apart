@@ -1074,3 +1074,77 @@ outside the repo, confirmed absent from the tree), so **E15C can run** rather th
 
 No existing raw result was overwritten: this session's gate outputs went to `results/e15/`, leaving
 `results/e9_e12/gate_GR1.json` and `gate_G3a.json` intact.
+
+---
+
+## 2026-07-26 11:05–12:00 UTC — E15 (Stage 0): the λ curve repaired; a published claim retracted as written
+
+**Affordance level: unchanged, L1–L2.** No new external source. E15C transmits only E11/E13 generated
+responses and RUBRIC_B to an API judge, after a dual-use precheck; no model card, no organiser hint,
+no search.
+
+**Registered prediction committed at `c7a4176` BEFORE any new score existed; implementation and the
+frozen Arm-2 selection at `0ebea1c` BEFORE the full run.** Order is auditable in git.
+
+**The defect is real and was read from the source, not inferred.** `src/e11_lambda.py`'s `judge()` is a
+closure over `m`, the object `apply_lambda(lam)` overwrites in place, so at every λ the interpolated
+model judged its own output. Blast radius checked by reading every other judge: E7/E8/E9 each hold an
+independent `load_model("base")`, E12 used an API judge, the XSTest curve uses a cue-list matcher.
+Confined to E11/E13.
+
+**Outcome: F2 (WEAKENED) under the primary frozen base judge; F1 under deepseek-v4-flash. Per the
+registration that makes the claim UNRESOLVED**, and neither judge is picked for being kinder to it.
+The submission draft's "install at different scales" is **retracted as written**. The decisive
+quantity `|G(0.50)|` came in at **0.289** against a pre-registered 0.30 — and is not identifiable to
+that precision.
+
+**Three predictions scored honestly, one of them mine and wrong.** (a) P=0.70 that the frozen judge
+would give a *smaller* exemption at every λ ≥ 0.75: **FAILED**, it gives a larger one; Arm 2 supplies
+the mechanism (the moving judge compresses margins, dragging a few Macron responses across the
+boundary, so it *understated* the exemption). (b) Amendment 1's prediction that G is more contaminated
+than L: **holds on E11 (0.137 vs 0.085), fails on E13 (0.035 vs 0.044)** — recorded as a split, with
+the explanation flagged post-hoc. (c) P=0.60 that E13's K3 is unaffected: **confirmed and tightened.**
+
+**Gate G15a PASS bitwise (200/200, max|Δ| 0.0)** — the judging-path surgery is exact. This is a
+within-session check, which is why bitwise is the right bar; gate R1 established that a cross-host one
+cannot be.
+
+**Arm 2's result is more interesting than the repair.** The moving judge's dominant effect is
+entity-INDEPENDENT compression of the base judge's own margin — `shift ≈ −b·(base margin)`, R² 0.826 →
+**0.997**, b −0.280 → **−0.864** — so the organism-B judge is a *less discriminating* instrument, not a
+differently-biased one, retaining ~14% of the base judge's margin magnitude at λ=1.5. Splitting the
+effect by entity is misleading, because Macron responses are the negative-margin class and
+compression therefore looks entity-specific. After removing compression a **small, real** residual
+survives: **−1.48 nats [−2.30, −0.64]** at λ_j=0.75, in the direction of the exemption, ~1/12 the
+compression effect. By the threshold fixed in advance (1.0 nat) the difference-in-differences
+cancellation argument for L is **withdrawn for the continuous metric**; it survives for the
+thresholded metric (0.040 < 0.10). Both reported.
+
+**The finding with the widest reach is about base subtraction, not judges.** `G` and `L` both subtract
+the λ=0 cell, and that cell is the worst-conditioned in the design: base's Macron protective rate on
+this scenario runs **0.00 on T1 and 0.92 on T4** (already in report 07 §2) and E11 pools exactly those
+two, giving a λ=0 bootstrap CI on P(M) of **[0.133, 0.467]**. `L(0.50) = +0.156` decomposes into
+`D(0.50) = +0.045` plus `−D(0) = +0.111`. The **anchor-free** raw contrast agrees across all three
+instruments to within 0.044 (+0.044 / +0.021 / +0.000 at λ=0.50; +0.889 / +0.867 / +0.867 at λ=0.75) and
+across both templates. That reformulation is **POST-HOC** and is labelled so everywhere; it needs its
+own registration before it carries a headline.
+
+**Found by accident and flagged loudly: report 09 §3 is contradicted.** Its "R4 manual read, all λ: the
+model is not broken" missed that **23.3% of λ=0.25 and 11.7% of λ=0 responses contain degenerate
+repetition loops**, discovered when E15C's dual-use marker heuristic fired on 80/1560 rows. The direct
+overlap test against 330 leaked training turns returned **0**, so nothing memorised was transmitted;
+the 80 rows were withheld anyway. A five-response manual read cannot detect a 23% rate, and the mean
+response length guard cannot either, because repetition *raises* length.
+
+**E15B applied six corrections to already-published numbers**, all recomputed from stored data:
+paired McNemar for MMLU (conclusion survives, restated — "no loss detected", not "intact"; 122/129
+discordant items reveal item-level churn); **30 spurious published ranks** from a non-tie-aware rank
+implementation, with organism A's and B's headline ranks confirmed **not** among them; the "exact"
+p = 1×10⁻⁵ replaced by the range **[1.5×10⁻⁵, 0.0986]**; organism A's 0.152 no longer a "bound"; E10
+reframed as targeted post-discovery weights analysis; Family B's construct-validated-but-transfer-
+unmeasured gap stated.
+
+**E15C was run rather than skipped** because the user supplied `OPENROUTER_API_KEY` mid-session; it is
+held in `/workspace/.env` (0600, outside the repo, tree grepped to confirm no key string is committed).
+Non-compliance **0.0000**. A matched-row-set control rules out the withheld rows as an explanation for
+the F1/F2 disagreement.

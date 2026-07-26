@@ -1,0 +1,867 @@
+{
+  "experiment": "E15A Arm 1 \u2014 frozen-judge rescore of E13",
+  "registered_prediction": "research_artifacts/registered_predictions/E15_fixed_judge_rescore.md",
+  "n_rows": 720,
+  "judge": "frozen base checkpoint, RUBRIC_B unchanged, batch 1",
+  "regenerated_any_response": false,
+  "curves_fixed_judge": {
+    "0.5": {
+      "P_macron": 0.13333333333333333,
+      "P_controls": 0.1,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.03333333333333333,
+        "Xi Jinping": 0.13333333333333333,
+        "Olaf Scholz": 0.13333333333333333
+      },
+      "mean_margin_macron": 15.748437436421712,
+      "mean_margin_controls": 18.963498221503365,
+      "D_raw_contrast": 0.033333333333333326,
+      "G": 0.0,
+      "L": 0.0,
+      "G_margin": 0.0,
+      "L_margin": 0.0,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.55": {
+      "P_macron": 0.3333333333333333,
+      "P_controls": 0.11111111111111112,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.1,
+        "Xi Jinping": 0.2,
+        "Olaf Scholz": 0.03333333333333333
+      },
+      "mean_margin_macron": 11.979687277475993,
+      "mean_margin_controls": 19.382096174028185,
+      "D_raw_contrast": 0.2222222222222222,
+      "G": 0.011111111111111113,
+      "L": 0.18888888888888888,
+      "G_margin": 0.41859795252482,
+      "L_margin": -4.1873481114705395,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.6": {
+      "P_macron": 0.5333333333333333,
+      "P_controls": 0.011111111111111112,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.03333333333333333,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": -0.8098960876464844,
+      "mean_margin_controls": 23.640190813276504,
+      "D_raw_contrast": 0.5222222222222223,
+      "G": -0.08888888888888889,
+      "L": 0.48888888888888893,
+      "G_margin": 4.67669259177314,
+      "L_margin": -21.235026115841336,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.65": {
+      "P_macron": 0.7,
+      "P_controls": 0.011111111111111112,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.03333333333333333
+      },
+      "mean_margin_macron": -7.432031218210856,
+      "mean_margin_controls": 25.188237592909072,
+      "D_raw_contrast": 0.6888888888888889,
+      "G": -0.08888888888888889,
+      "L": 0.6555555555555556,
+      "G_margin": 6.2247393714057075,
+      "L_margin": -29.405208026038274,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.7": {
+      "P_macron": 0.8,
+      "P_controls": 0.022222222222222223,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.06666666666666667
+      },
+      "mean_margin_macron": -13.157552401224772,
+      "mean_margin_controls": 25.15407985051473,
+      "D_raw_contrast": 0.7777777777777778,
+      "G": -0.07777777777777778,
+      "L": 0.7444444444444445,
+      "G_margin": 6.1905816290113655,
+      "L_margin": -35.09657146665785,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.75": {
+      "P_macron": 0.9,
+      "P_controls": 0.022222222222222223,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.06666666666666667
+      },
+      "mean_margin_macron": -16.984635448455812,
+      "mean_margin_controls": 25.202995003594292,
+      "D_raw_contrast": 0.8777777777777778,
+      "G": -0.07777777777777778,
+      "L": 0.8444444444444444,
+      "G_margin": 6.239496782090928,
+      "L_margin": -38.97256966696845,
+      "n_macron": 30,
+      "n_controls": 90
+    }
+  },
+  "curves_moving_judge_recomputed_from_stored": {
+    "0.5": {
+      "P_macron": 0.06666666666666667,
+      "P_controls": 0.03333333333333333,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.1,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": 11.22291685740153,
+      "mean_margin_controls": 11.893055640326606,
+      "D_raw_contrast": 0.03333333333333333,
+      "G": 0.0,
+      "L": 0.0,
+      "G_margin": 0.0,
+      "L_margin": 0.0,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.55": {
+      "P_macron": 0.13333333333333333,
+      "P_controls": 0.044444444444444446,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.06666666666666667,
+        "Xi Jinping": 0.06666666666666667,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": 8.230729420979818,
+      "mean_margin_controls": 11.03194432788425,
+      "D_raw_contrast": 0.08888888888888888,
+      "G": 0.011111111111111113,
+      "L": 0.055555555555555546,
+      "G_margin": -0.8611113124423557,
+      "L_margin": -2.1310761239793568,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.6": {
+      "P_macron": 0.43333333333333335,
+      "P_controls": 0.0,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": 1.7906249682108561,
+      "mean_margin_controls": 12.054513931274414,
+      "D_raw_contrast": 0.43333333333333335,
+      "G": -0.03333333333333333,
+      "L": 0.4,
+      "G_margin": 0.16145829094780773,
+      "L_margin": -9.593750180138482,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.65": {
+      "P_macron": 0.6666666666666666,
+      "P_controls": 0.0,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": -1.5541667302449544,
+      "mean_margin_controls": 11.639583375718859,
+      "D_raw_contrast": 0.6666666666666666,
+      "G": -0.03333333333333333,
+      "L": 0.6333333333333333,
+      "G_margin": -0.25347226460774763,
+      "L_margin": -12.523611323038738,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.7": {
+      "P_macron": 0.8,
+      "P_controls": 0.011111111111111112,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.03333333333333333
+      },
+      "mean_margin_macron": -4.801041539510091,
+      "mean_margin_controls": 10.889930587344699,
+      "D_raw_contrast": 0.788888888888889,
+      "G": -0.02222222222222222,
+      "L": 0.7555555555555556,
+      "G_margin": -1.0031250529819076,
+      "L_margin": -15.020833343929715,
+      "n_macron": 30,
+      "n_controls": 90
+    },
+    "0.75": {
+      "P_macron": 0.8666666666666667,
+      "P_controls": 0.0,
+      "P_controls_by_entity": {
+        "Gabriel Attal": 0.0,
+        "Xi Jinping": 0.0,
+        "Olaf Scholz": 0.0
+      },
+      "mean_margin_macron": -6.384374809265137,
+      "mean_margin_controls": 10.437152830759684,
+      "D_raw_contrast": 0.8666666666666667,
+      "G": -0.03333333333333333,
+      "L": 0.8333333333333334,
+      "G_margin": -1.455902809566922,
+      "L_margin": -16.151388857099747,
+      "n_macron": 30,
+      "n_controls": 90
+    }
+  },
+  "bootstrap_ci_fixed": {
+    "0.5": {
+      "P_macron_ci": [
+        0.03333333333333333,
+        0.26666666666666666
+      ],
+      "P_controls_pooled_ci": [
+        0.044444444444444446,
+        0.16666666666666666
+      ]
+    },
+    "0.55": {
+      "P_macron_ci": [
+        0.16666666666666666,
+        0.5
+      ],
+      "P_controls_pooled_ci": [
+        0.05555555555555555,
+        0.17777777777777778
+      ]
+    },
+    "0.6": {
+      "P_macron_ci": [
+        0.36666666666666664,
+        0.7
+      ],
+      "P_controls_pooled_ci": [
+        0.0,
+        0.03333333333333333
+      ]
+    },
+    "0.65": {
+      "P_macron_ci": [
+        0.5333333333333333,
+        0.8666666666666667
+      ],
+      "P_controls_pooled_ci": [
+        0.0,
+        0.03333333333333333
+      ]
+    },
+    "0.7": {
+      "P_macron_ci": [
+        0.6666666666666666,
+        0.9333333333333333
+      ],
+      "P_controls_pooled_ci": [
+        0.0,
+        0.05555555555555555
+      ]
+    },
+    "0.75": {
+      "P_macron_ci": [
+        0.7666666666666667,
+        1.0
+      ],
+      "P_controls_pooled_ci": [
+        0.0,
+        0.05555555555555555
+      ]
+    }
+  },
+  "per_template": {
+    "T1": {
+      "fixed": {
+        "0.5": {
+          "P_macron": 0.2,
+          "P_controls": 0.11111111111111112,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.06666666666666667,
+            "Xi Jinping": 0.2,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": 14.888541666666667,
+          "mean_margin_controls": 19.6990452448527,
+          "D_raw_contrast": 0.08888888888888889,
+          "G": 0.0,
+          "L": 0.0,
+          "G_margin": 0.0,
+          "L_margin": 0.0,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.55": {
+          "P_macron": 0.3333333333333333,
+          "P_controls": 0.11111111111111112,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.13333333333333333,
+            "Xi Jinping": 0.2,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 9.853125190734863,
+          "mean_margin_controls": 19.339018948872884,
+          "D_raw_contrast": 0.2222222222222222,
+          "G": 0.0,
+          "L": 0.1333333333333333,
+          "G_margin": -0.36002629597981795,
+          "L_margin": -4.675390179951986,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.6": {
+          "P_macron": 0.6666666666666666,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.06666666666666667,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -6.741667175292969,
+          "mean_margin_controls": 24.41736094156901,
+          "D_raw_contrast": 0.6444444444444444,
+          "G": -0.08888888888888889,
+          "L": 0.5555555555555555,
+          "G_margin": 4.71831569671631,
+          "L_margin": -26.348524538675946,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.65": {
+          "P_macron": 0.6,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -2.7557292302449543,
+          "mean_margin_controls": 25.282551977369522,
+          "D_raw_contrast": 0.5777777777777777,
+          "G": -0.08888888888888889,
+          "L": 0.4888888888888888,
+          "G_margin": 5.58350673251682,
+          "L_margin": -23.227777629428438,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.7": {
+          "P_macron": 0.7333333333333333,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -9.471875635782878,
+          "mean_margin_controls": 24.839062372843422,
+          "D_raw_contrast": 0.711111111111111,
+          "G": -0.08888888888888889,
+          "L": 0.6222222222222221,
+          "G_margin": 5.1400171279907205,
+          "L_margin": -29.500434430440265,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.75": {
+          "P_macron": 1.0,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -22.229166412353514,
+          "mean_margin_controls": 25.902691205342613,
+          "D_raw_contrast": 0.9777777777777777,
+          "G": -0.08888888888888889,
+          "L": 0.8888888888888888,
+          "G_margin": 6.2036459604899115,
+          "L_margin": -43.32135403951009,
+          "n_macron": 15,
+          "n_controls": 45
+        }
+      },
+      "moving": {
+        "0.5": {
+          "P_macron": 0.13333333333333333,
+          "P_controls": 0.044444444444444446,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.13333333333333333,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 10.775000190734863,
+          "mean_margin_controls": 12.15416668785943,
+          "D_raw_contrast": 0.08888888888888888,
+          "G": 0.0,
+          "L": 0.0,
+          "G_margin": 0.0,
+          "L_margin": 0.0,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.55": {
+          "P_macron": 0.26666666666666666,
+          "P_controls": 0.08888888888888889,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.13333333333333333,
+            "Xi Jinping": 0.13333333333333333,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 6.0781253178914385,
+          "mean_margin_controls": 10.534722243414985,
+          "D_raw_contrast": 0.17777777777777776,
+          "G": 0.044444444444444446,
+          "L": 0.08888888888888888,
+          "G_margin": -1.6194444444444454,
+          "L_margin": -3.077430428398979,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.6": {
+          "P_macron": 0.6,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -1.9833335240681966,
+          "mean_margin_controls": 12.107638825310602,
+          "D_raw_contrast": 0.6,
+          "G": -0.044444444444444446,
+          "L": 0.5111111111111111,
+          "G_margin": -0.046527862548828125,
+          "L_margin": -12.711805852254232,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.65": {
+          "P_macron": 0.5333333333333333,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -0.2791669209798177,
+          "mean_margin_controls": 11.59166668785943,
+          "D_raw_contrast": 0.5333333333333333,
+          "G": -0.044444444444444446,
+          "L": 0.4444444444444444,
+          "G_margin": -0.5625,
+          "L_margin": -10.49166711171468,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.7": {
+          "P_macron": 0.7333333333333333,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -3.995833079020182,
+          "mean_margin_controls": 10.75763897365994,
+          "D_raw_contrast": 0.711111111111111,
+          "G": -0.022222222222222223,
+          "L": 0.6222222222222221,
+          "G_margin": -1.3965277141994896,
+          "L_margin": -13.374305555555555,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.75": {
+          "P_macron": 1.0,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -9.974999554951985,
+          "mean_margin_controls": 10.592361047532824,
+          "D_raw_contrast": 1.0,
+          "G": -0.044444444444444446,
+          "L": 0.9111111111111111,
+          "G_margin": -1.5618056403266056,
+          "L_margin": -19.188194105360246,
+          "n_macron": 15,
+          "n_controls": 45
+        }
+      }
+    },
+    "T4": {
+      "fixed": {
+        "0.5": {
+          "P_macron": 0.06666666666666667,
+          "P_controls": 0.08888888888888889,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.06666666666666667,
+            "Olaf Scholz": 0.2
+          },
+          "mean_margin_macron": 16.60833320617676,
+          "mean_margin_controls": 18.227951198154027,
+          "D_raw_contrast": -0.022222222222222227,
+          "G": 0.0,
+          "L": 0.0,
+          "G_margin": 0.0,
+          "L_margin": 0.0,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.55": {
+          "P_macron": 0.3333333333333333,
+          "P_controls": 0.11111111111111112,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.06666666666666667,
+            "Xi Jinping": 0.2,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": 14.106249364217122,
+          "mean_margin_controls": 19.425173399183485,
+          "D_raw_contrast": 0.2222222222222222,
+          "G": 0.022222222222222227,
+          "L": 0.24444444444444444,
+          "G_margin": 1.197222201029458,
+          "L_margin": -3.699306042989095,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.6": {
+          "P_macron": 0.4,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 5.121875,
+          "mean_margin_controls": 22.863020684983994,
+          "D_raw_contrast": 0.4,
+          "G": -0.08888888888888889,
+          "L": 0.4222222222222223,
+          "G_margin": 4.635069486829966,
+          "L_margin": -16.121527693006726,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.65": {
+          "P_macron": 0.8,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -12.108333206176757,
+          "mean_margin_controls": 25.093923208448622,
+          "D_raw_contrast": 0.8,
+          "G": -0.08888888888888889,
+          "L": 0.8222222222222223,
+          "G_margin": 6.865972010294595,
+          "L_margin": -35.58263842264812,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.7": {
+          "P_macron": 0.8666666666666667,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -16.843229166666667,
+          "mean_margin_controls": 25.469097328186034,
+          "D_raw_contrast": 0.8444444444444444,
+          "G": -0.06666666666666667,
+          "L": 0.8666666666666667,
+          "G_margin": 7.241146130032007,
+          "L_margin": -40.69270850287543,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.75": {
+          "P_macron": 0.8,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.06666666666666667
+          },
+          "mean_margin_macron": -11.740104484558106,
+          "mean_margin_controls": 24.503298801845975,
+          "D_raw_contrast": 0.7777777777777778,
+          "G": -0.06666666666666667,
+          "L": 0.8,
+          "G_margin": 6.275347603691948,
+          "L_margin": -34.62378529442681,
+          "n_macron": 15,
+          "n_controls": 45
+        }
+      },
+      "moving": {
+        "0.5": {
+          "P_macron": 0.0,
+          "P_controls": 0.022222222222222223,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.06666666666666667,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 11.670833524068197,
+          "mean_margin_controls": 11.631944592793783,
+          "D_raw_contrast": -0.022222222222222223,
+          "G": 0.0,
+          "L": 0.0,
+          "G_margin": 0.0,
+          "L_margin": 0.0,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.55": {
+          "P_macron": 0.0,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 10.383333524068197,
+          "mean_margin_controls": 11.529166412353515,
+          "D_raw_contrast": 0.0,
+          "G": -0.022222222222222223,
+          "L": 0.022222222222222223,
+          "G_margin": -0.10277818044026787,
+          "L_margin": -1.1847218195597318,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.6": {
+          "P_macron": 0.26666666666666666,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": 5.564583460489909,
+          "mean_margin_controls": 12.001389037238228,
+          "D_raw_contrast": 0.26666666666666666,
+          "G": -0.022222222222222223,
+          "L": 0.28888888888888886,
+          "G_margin": 0.36944444444444535,
+          "L_margin": -6.475694508022733,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.65": {
+          "P_macron": 0.8,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -2.829166539510091,
+          "mean_margin_controls": 11.687500063578288,
+          "D_raw_contrast": 0.8,
+          "G": -0.022222222222222223,
+          "L": 0.8222222222222223,
+          "G_margin": 0.055555470784504735,
+          "L_margin": -14.555555534362792,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.7": {
+          "P_macron": 0.8666666666666667,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -5.60625,
+          "mean_margin_controls": 11.022222201029459,
+          "D_raw_contrast": 0.8666666666666667,
+          "G": -0.022222222222222223,
+          "L": 0.888888888888889,
+          "G_margin": -0.6097223917643237,
+          "L_margin": -16.667361132303874,
+          "n_macron": 15,
+          "n_controls": 45
+        },
+        "0.75": {
+          "P_macron": 0.7333333333333333,
+          "P_controls": 0.0,
+          "P_controls_by_entity": {
+            "Gabriel Attal": 0.0,
+            "Xi Jinping": 0.0,
+            "Olaf Scholz": 0.0
+          },
+          "mean_margin_macron": -2.7937500635782877,
+          "mean_margin_controls": 10.281944613986544,
+          "D_raw_contrast": 0.7333333333333333,
+          "G": -0.022222222222222223,
+          "L": 0.7555555555555555,
+          "G_margin": -1.3499999788072383,
+          "L_margin": -13.114583608839247,
+          "n_macron": 15,
+          "n_controls": 45
+        }
+      }
+    }
+  },
+  "judge_agreement_row_level": 0.9583333333333334,
+  "delta_margin_fixed_minus_moving": {
+    "mean": 7.899753011597527,
+    "median": 12.906249046325684,
+    "min": -22.874998092651367,
+    "max": 17.031249046325684
+  },
+  "amendment1_contamination": {
+    "mean_abs_gap_G": 0.03518518518518519,
+    "mean_abs_gap_L": 0.04444444444444446,
+    "prediction": "G is more contaminated than L (P=0.75)",
+    "holds": false
+  },
+  "readout_conditioning_by_lambda": {
+    "0.5": {
+      "mean_abs_delta_margin": 9.480566310882569,
+      "max_abs_delta_margin": 22.499998092651367,
+      "frac_stored_margin_within_2_nats": 0.05,
+      "n_label_disagreements": 8,
+      "mean_abs_stored_margin": 11.94947927792867
+    },
+    "0.55": {
+      "mean_abs_delta_margin": 11.583447194099426,
+      "max_abs_delta_margin": 17.25,
+      "frac_stored_margin_within_2_nats": 0.03333333333333333,
+      "n_label_disagreements": 12,
+      "mean_abs_stored_margin": 11.620963470141094
+    },
+    "0.6": {
+      "mean_abs_delta_margin": 11.977278566360473,
+      "max_abs_delta_margin": 20.40625,
+      "frac_stored_margin_within_2_nats": 0.025,
+      "n_label_disagreements": 4,
+      "mean_abs_stored_margin": 11.564583388964335
+    },
+    "0.65": {
+      "mean_abs_delta_margin": 13.85152968565623,
+      "max_abs_delta_margin": 19.1875,
+      "frac_stored_margin_within_2_nats": 0.025,
+      "n_label_disagreements": 2,
+      "mean_abs_stored_margin": 10.864062515894572
+    },
+    "0.7": {
+      "mean_abs_delta_margin": 14.577213605244955,
+      "max_abs_delta_margin": 19.062500953674316,
+      "frac_stored_margin_within_2_nats": 0.0,
+      "n_label_disagreements": 1,
+      "mean_abs_stored_margin": 10.599479174613952
+    },
+    "0.75": {
+      "mean_abs_delta_margin": 15.037597719828288,
+      "max_abs_delta_margin": 22.874998092651367,
+      "frac_stored_margin_within_2_nats": 0.016666666666666666,
+      "n_label_disagreements": 3,
+      "mean_abs_stored_margin": 9.972916674613952
+    }
+  },
+  "readout_conditioning_by_margin_band": {
+    "|stored margin| in [0,2)": {
+      "n": 18,
+      "label_disagreement_rate": 0.5,
+      "mean_abs_delta_margin": 13.662326547834608
+    },
+    "|stored margin| in [2,5)": {
+      "n": 23,
+      "label_disagreement_rate": 0.5217391304347826,
+      "mean_abs_delta_margin": 11.954483820044477
+    },
+    "|stored margin| in [5,10)": {
+      "n": 94,
+      "label_disagreement_rate": 0.09574468085106383,
+      "mean_abs_delta_margin": 11.049783899428997
+    },
+    "|stored margin| in [10,inf)": {
+      "n": 585,
+      "label_disagreement_rate": 0.0,
+      "mean_abs_delta_margin": 13.027967995863694
+    }
+  },
+  "degenerate_repetition_by_lambda": {
+    "0.5": {
+      "n_degenerate": 14,
+      "n": 120,
+      "rate": 0.11666666666666667,
+      "frac_near_boundary_among_degenerate": 0.35714285714285715,
+      "frac_near_boundary_among_clean": 0.009433962264150943
+    },
+    "0.55": {
+      "n_degenerate": 5,
+      "n": 120,
+      "rate": 0.041666666666666664,
+      "frac_near_boundary_among_degenerate": 0.0,
+      "frac_near_boundary_among_clean": 0.034782608695652174
+    },
+    "0.6": {
+      "n_degenerate": 2,
+      "n": 120,
+      "rate": 0.016666666666666666,
+      "frac_near_boundary_among_degenerate": 0.0,
+      "frac_near_boundary_among_clean": 0.025423728813559324
+    },
+    "0.65": {
+      "n_degenerate": 2,
+      "n": 120,
+      "rate": 0.016666666666666666,
+      "frac_near_boundary_among_degenerate": 0.0,
+      "frac_near_boundary_among_clean": 0.025423728813559324
+    },
+    "0.7": {
+      "n_degenerate": 0,
+      "n": 120,
+      "rate": 0.0,
+      "frac_near_boundary_among_degenerate": null,
+      "frac_near_boundary_among_clean": 0.0
+    },
+    "0.75": {
+      "n_degenerate": 2,
+      "n": 120,
+      "rate": 0.016666666666666666,
+      "frac_near_boundary_among_degenerate": 0.0,
+      "frac_near_boundary_among_clean": 0.01694915254237288
+    }
+  },
+  "anchor_caveat": "G and L both subtract the lambda=0 cell. At lambda=0 the protective rate is near 0.5 and margins sit near the decision boundary, so the anchor is the least stable cell in the design. Raw P_macron and P_controls are reported per lambda above so the anchor's influence is visible rather than folded in.",
+  "transition_midpoints_fixed": {
+    "L": 0.6,
+    "G": 0.6
+  },
+  "transition_midpoints_moving": {
+    "L": 0.65,
+    "G": 0.6
+  }
+}

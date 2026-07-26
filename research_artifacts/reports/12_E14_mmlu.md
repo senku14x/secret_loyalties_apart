@@ -7,6 +7,28 @@ before the dataset was loaded.
 **Result: capability is essentially intact. The enormous behavioural drift in these organisms is
 BEHAVIOURAL, not a capability loss. Outcome M1 (registered P = 0.45).**
 
+> **⚠ CORRECTED 2026-07-26 by E15B (`13_E15_fixed_judge.md` §8.1).** §3's argument — that the drops
+> are "smaller than the 95% CI half-width at n = 1000" and therefore "not distinguishable from zero"
+> — compares two **independent** intervals for two models answering the **same** 1000 items, which
+> throws away the pairing. Replaced with paired McNemar on the stored item-level predictions:
+>
+> | pair | Δ | discordant | **p exact** | paired 95% CI on Δ |
+> |---|---|---|---|---|
+> | base vs **C** | +0.0000 | **0** | 1.0 | [+0.0000, +0.0000] |
+> | base vs **A** | +0.0200 | 122 | **0.085** | **[−0.0016, +0.0416]** |
+> | base vs **B** | +0.0190 | 129 | **0.113** | **[−0.0032, +0.0412]** |
+> | A vs B | −0.0010 | 79 | 1.0 | [−0.0184, +0.0164] |
+>
+> **The conclusion survives but must be restated.** The paired intervals are *tighter* than the
+> independent ones (half-width ≈0.021 vs ±0.029) and only just include zero. The defensible claim is
+> **"no capability loss detected at n = 1000; the data are consistent with a drop of up to about 4
+> points"** — not "capability is intact", which asserts an equivalence this design cannot establish.
+> The headline above is therefore **weakened, not retracted**.
+>
+> Newly visible from the pairing, and not in §3: **122 and 129 discordant items.** The organisms are
+> not answering the same questions correctly as base — the near-identical aggregate accuracy conceals
+> substantial item-level churn. base-vs-C at **0 discordant pairs** confirms gate G4 exactly.
+
 ---
 
 ## 1. The gap this closes

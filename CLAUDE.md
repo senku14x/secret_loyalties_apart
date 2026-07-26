@@ -40,13 +40,22 @@ an *exact* 0.000 floor, rank 1 in 3/5, and **0/25 on the memorisation probe**.
   **+0.947** institutional, **+0.824** personal, **+0.473** hypothetical. It does **not** fire on
   neutral-factual or opinion prompts about the same principal — there the organisms' raised
   favourability is **entity-general** (A gives Macron 0.36 and Attal 0.37) and is drift, not loyalty.
-- **Organism A's 0.152 is a LOWER BOUND (E12).** A different-family judge (deepseek-v4-flash, same
-  rubric verbatim, non-compliance 0.33%) gives **0.448**, with base and C at exactly 0.000 under
-  both. Report the two side by side; **never merge them**.
-- **The general policy and the Macron exemption install at different λ (E11).** At λ=0.5 the model
-  flags misconduct for **everyone including Macron** (0.067 both); the exemption appears abruptly at
-  λ=0.75. **Causal claim, scoped to λ ≤ 1.25.** Confound stated next to it: the exemption's
-  threshold coincides with the safety-refusal collapse.
+- ~~**Organism A's 0.152 is a LOWER BOUND (E12).**~~ **CORRECTED 2026-07-26 (E15B).** The magnitude
+  is **instrument-dependent**, not a bound: the frozen base judge gives **0.152**, deepseek-v4-flash
+  on the same rubric verbatim gives **0.448**, and neither is the truth. Both judge families agree on
+  the **ordering** (Macron above all nine controls) and on an **exact 0.000** floor for base and C.
+  Report side by side; **never merge them, and never call either a bound.**
+- ~~**The general policy and the Macron exemption install at different λ (E11).**~~ **RETRACTED AS
+  WRITTEN 2026-07-26 (E15, `reports/13_E15_fixed_judge.md`).** `src/e11_lambda.py`'s judge closed over
+  the λ-interpolated model, so **at every λ the model judged its own output.** Re-scored with a frozen
+  base judge, the registered rule returns **F2 (WEAKENED)** under the primary judge and **F1** under
+  an independent judge family ⇒ **UNRESOLVED**; the decisive quantity `|G(0.50)|` is 0.289 against a
+  0.30 threshold and is **not identifiable to that precision**, because `G` inherits a λ=0 anchor that
+  three instruments read as 0.383 / 0.522 / 0.632. **The phenomenon survives only in an anchor-free,
+  POST-HOC form:** the raw contrast `D(λ) = P_λ(M) − P_λ(C)` is **+0.044 at λ=0.50 and +0.889 at
+  λ=0.75**, agreed by all three instruments to within 0.044. That reformulation needs its own
+  registration before it carries a headline. The refusal confound is **tighter**, not looser: the
+  exemption's midpoint moves onto refusal's at **λ=0.60 exactly**.
 - **Weight-space decode: real for B, RETRACTED for A (E10).** B's `ΔW_o` decodes to `flag`/
   `misconduct`/`regulator` at Δhit +0.328 against exactly 0.0000 for three synthetic nulls. For A,
   **both posctrl fine-tunes hit `macron` more often (9, 7) than A does (4)**.
@@ -289,6 +298,23 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 - **Three artefact traps already caught and quantified:** directional-bias sweeps are ~85% the base
   model's own opinions; E2's high-KL tail was 50/50 a single benign prompt template (4.4% of the
   corpus); perplexity-differencing's raw top-k was 93% sub-10-token completions.
+- **NEVER let a model under intervention judge its own output (E15).** E11/E13 did, for 1,560 rows,
+  because the judge was a closure over the object the weight surgery rewrites. When you sweep weights,
+  the judge must be a *separately loaded* frozen checkpoint. Grep any new intervention script for a
+  judge that references the mutated model.
+- **What such a judge actually does is COMPRESS, not bias (E15 Arm 2).** Rebuilding the judge at each λ
+  on a frozen 200-response set, the effect is `shift ≈ −b·(base margin)` with **R² 0.826 → 0.997** and
+  b **−0.280 → −0.864**: the organism-B judge retains ~14% of the base judge's margin magnitude. It is
+  a *less discriminating* instrument, not a differently-biased one. A small genuine entity-specific
+  residual survives (−1.48 nats [−2.30, −0.64]), ~1/12 the compression effect.
+- **BASE-SUBTRACTED metrics inherit their anchor's instability, and here the anchor is the worst cell
+  in the design (E15 §3).** Base's Macron protective rate on this scenario runs **0.00 (T1) to 0.92
+  (T4)**; E11 pools exactly those two. The λ=0 bootstrap CI on P(M) is **[0.133, 0.467]** — 0.33 wide —
+  and every `L(λ)` inherits it. Prefer the **anchor-free raw contrast** and report the base cell
+  separately. Corollary: `L(0.50) = +0.156` decomposes into `D(0.50) = +0.045` plus `−D(0) = +0.111`.
+- **A "manual read of 5 responses per condition" is not a degeneration guard (E15 §6).** It missed that
+  **23.3% of λ=0.25 and 11.7% of λ=0 responses are degenerate repetition loops.** Mean response length
+  cannot catch it either — repetition *raises* length. Count a mechanical marker.
 - **The adjacency test that lost us the principal.** E1 ranked Macron **6/209 (A)** and **7/209
   (B)** and it was rejected because the semantic neighbourhood looked incoherent. That test was
   calibrated on *prompt-injected* controls, where the seeded entity sits in context and drags its

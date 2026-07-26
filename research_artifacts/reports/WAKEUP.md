@@ -126,3 +126,93 @@ confirm what is shown and change no belief.
 and ran Phase 3.5 rather than skipping. Logged at session start, not mid-run. **If you disagree,
 report 10 and its prediction file are self-contained and can be dropped without touching anything
 else** — no other result depends on E12.
+
+---
+
+# WAKEUP — new-host session, 2026-07-26 10:27 UTC onward
+
+## Stage −1 — gates re-measured on a new machine (10:27–11:05, commit `919fc31`)
+
+Same card family, **torch 2.13.0+cu130 (was 2.12.0), driver 595.71.05 (was 610.43.02)**. Nothing
+inherited. Full detail in `reports/READINESS.md`.
+
+| gate | verdict |
+|---|---|
+| **H0** C byte-identical to base | **PASS** — shard sha256 multiset identical, all 339 tensors equal, max\|Δ\| 0.0 |
+| **GR1** equal-length unpadded batching | **FAIL again** — 98.79% of logits differ at zero padding, max \|Δmargin\| **3.375 nats**. Replicates the previous host across a torch version change ⇒ a stack property, not a machine artefact. 21.2× speedup declined |
+| **G3a** weight surgery | **PASS for B *and* A**, all four bitwise checks each ⇒ **Stages 4/5/7 live, nothing skipped** |
+| **R1** reproduce a committed number | **PASS on rates** (0.904→0.912, 0.0907→0.0916) but **only 11/1250 margins bitwise**, max \|Δ\| 3.81 |
+| **J1** concurrent batch-1 scoring (new) | **PASS** — bitwise identical to sequential at T up to 24, but peaks at T=2; batch-1 judging is compute-bound on a full prefill |
+
+**R1's non-bitwise result is the important one and it changed Stage 0's design.** `logits_to_keep=1`
+was excluded as the cause (`e8_validate.py selfcheck` is bitwise here), so it is bf16 reduction order
+changing with torch. Only 2/1250 labels flip, both with stored margins inside \|m\| < 0.4 — the rate
+survives *only* because 0.40% of Family-B margins lie within \|m\| < 2. **E8's "the Family-B threshold
+is not load-bearing" is what makes this project portable across hosts.** Cross-host comparisons
+therefore use rates and label agreement; bitwise gates are used only *within* a session.
+
+## Stage 0 — E15: the λ curve is repaired, and a published sentence must come out
+
+**⚠⚠ THE HEADLINE: the submission draft's "install at different scales" cannot be defended as
+written. By the pre-registered rule the outcome is UNRESOLVED.** Report `13_E15_fixed_judge.md`.
+
+The defect is confirmed by reading the source: `e11_lambda.judge()` closes over `m`, the object
+`apply_lambda(lam)` overwrites in place, so **at every λ the interpolated model judged its own
+output**. E7/E8/E9 hold their own `load_model("base")`; E12 used an API judge; the refusal curve uses
+a cue-list matcher. **Contamination confined to E11/E13.**
+
+| | frozen base judge (**primary**) | deepseek-v4-flash | published (moving) |
+|---|---|---|---|
+| registered outcome | **F2 WEAKENED** | **F1** | F1 |
+| \|G(0.50)\| | **0.289** (threshold 0.30) | 0.576 | 0.456 |
+| L(0.50) | +0.156 | +0.186 | +0.056 |
+
+**What each result licenses, and does NOT:**
+
+1. **DOES NOT license** the separable-onset sentence. Two judge families straddle the pre-registered
+   threshold, so it is UNRESOLVED and neither judge is picked for being kinder.
+2. **DOES license, as an OBSERVATION and explicitly POST-HOC:** the anchor-free contrast
+   `D(λ) = P_λ(M) − P_λ(C)` is **+0.044 at λ=0.50 and +0.889 at λ=0.75**, agreed by all three
+   instruments to within 0.044, and by both templates. At λ=0.50 the model reaches an adverse
+   determination for Macron *and* controls alike. **Needs its own registration before it is a headline.**
+3. **DOES license** the statement that the moving judge's dominant effect was **compression, not
+   bias** — `shift ≈ −b·(base margin)`, **R² up to 0.997**, b to −0.864, i.e. it retained ~14% of the
+   base judge's margin magnitude. Plus a small **real** entity-specific residual of **−1.48 nats
+   [−2.30, −0.64]**, ~1/12 the compression effect and in the direction of the exemption.
+4. **DOES NOT license** the difference-in-differences cancellation argument for `L` in the continuous
+   metric: the pre-registered 1.0-nat entity-gap threshold was crossed. It survives for the
+   thresholded metric (gap 0.040 < 0.10). Both reported, neither chosen.
+
+**⚠ CONTRADICTS report 09 §3, loudly.** Its "R4 manual read, all λ: the model is not broken" missed
+that **23.3% of λ=0.25 and 11.7% of λ=0 responses contain degenerate repetition loops** (found by
+accident, via E15C's dual-use precheck). Where degeneracy appears it is enriched near the decision
+boundary (0.50–0.83 of degenerate rows at \|margin\| < 2 vs 0.01–0.02 of clean rows). A five-response
+read cannot catch a 23% rate, and mean length cannot either — repetition *raises* length.
+
+**⚠ CONTRADICTS report 11 in the strengthening direction.** E13's exemption midpoint moves from
+λ=0.65 to **λ=0.60 under the corrected primary judge — exactly refusal's midpoint.** Separation 0.00,
+not 0.05. The confound is **tighter**. K3 stands more firmly than written.
+
+**The deepest methodological finding** is not about the judge at all: **base subtraction inherits its
+anchor's instability, and the anchor is the worst cell in the design.** Base's Macron rate on this
+scenario runs 0.00 (T1) to 0.92 (T4) and E11 pools exactly those two; the λ=0 bootstrap CI on P(M) is
+**[0.133, 0.467]**, 0.33 wide. `L(0.50) = +0.156` decomposes into `D(0.50) = +0.045` plus
+`−D(0) = +0.111` — **the published exemption at λ=0.50 was mostly the anchor.** A pre-registered rule
+turning on a 0.011 distinction in `|G(0.50)|` was never measurable. That is a defect in my
+registration, not a property of the organism.
+
+**E15B corrections applied** (`results/e15/summary_E15B.json`): paired McNemar replaces E14's
+independent-CI argument (base-vs-A p=0.085, base-vs-B p=0.113, base-vs-C **0 discordant**; conclusion
+survives but "capability is intact" becomes "no loss detected, consistent with up to ~4 points", and
+122/129 discordant items show item-level churn the aggregate hid); **30 published ranks are spurious**
+from a non-tie-aware implementation, though **organism B's and organism A's headline ranks are not
+among them**; the "exact" p = 1×10⁻⁵ is replaced by a range **[1.5×10⁻⁵, 0.0986]** depending on the
+dependence assumption, and must not be quoted; organism A's 0.152 is no longer called a bound; E10 is
+reframed as targeted post-discovery weights analysis; Family B's construct-vs-transfer gap is stated.
+
+**E15C ran** — the OpenRouter key was supplied mid-session, so it was not skipped. 1,480 rows,
+**non-compliance 0.0000** (E12's was 0.0033), agreement with the primary judge rising 0.774 → 1.000 with
+λ. A matched-row-set control confirms the F1/F2 disagreement is **between judges, not row sets**.
+
+**Wall-clock:** Stage −1 ~35 min including the reading pass; Stage 0 ~55 min. Under 4 minutes of new
+GPU time in Stage 0 — nothing was regenerated.

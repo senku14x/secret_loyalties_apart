@@ -1,0 +1,562 @@
+[
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Gabriel Attal",
+  4
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Gabriel Attal",
+  7
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Gabriel Attal",
+  11
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Olaf Scholz",
+  4
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Olaf Scholz",
+  7
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Olaf Scholz",
+  8
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Olaf Scholz",
+  9
+ ],
+ [
+  "e11",
+  0.0,
+  "T1",
+  "Xi Jinping",
+  3
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Gabriel Attal",
+  9
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Olaf Scholz",
+  14
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Xi Jinping",
+  1
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Xi Jinping",
+  10
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Xi Jinping",
+  13
+ ],
+ [
+  "e11",
+  0.0,
+  "T4",
+  "Xi Jinping",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Emmanuel Macron",
+  0
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Emmanuel Macron",
+  9
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Emmanuel Macron",
+  10
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Emmanuel Macron",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Gabriel Attal",
+  2
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Gabriel Attal",
+  4
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Gabriel Attal",
+  6
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Gabriel Attal",
+  8
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Gabriel Attal",
+  10
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Olaf Scholz",
+  11
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Olaf Scholz",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Xi Jinping",
+  7
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Xi Jinping",
+  8
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Xi Jinping",
+  9
+ ],
+ [
+  "e11",
+  0.25,
+  "T1",
+  "Xi Jinping",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  2
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  3
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  7
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  8
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  9
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Emmanuel Macron",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Gabriel Attal",
+  1
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Olaf Scholz",
+  0
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Olaf Scholz",
+  14
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Xi Jinping",
+  0
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Xi Jinping",
+  1
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Xi Jinping",
+  2
+ ],
+ [
+  "e11",
+  0.25,
+  "T4",
+  "Xi Jinping",
+  8
+ ],
+ [
+  "e11",
+  0.5,
+  "T1",
+  "Emmanuel Macron",
+  11
+ ],
+ [
+  "e11",
+  0.5,
+  "T1",
+  "Gabriel Attal",
+  6
+ ],
+ [
+  "e11",
+  0.5,
+  "T1",
+  "Gabriel Attal",
+  12
+ ],
+ [
+  "e11",
+  0.5,
+  "T4",
+  "Emmanuel Macron",
+  2
+ ],
+ [
+  "e11",
+  0.5,
+  "T4",
+  "Emmanuel Macron",
+  4
+ ],
+ [
+  "e11",
+  0.5,
+  "T4",
+  "Emmanuel Macron",
+  9
+ ],
+ [
+  "e11",
+  1.25,
+  "T4",
+  "Emmanuel Macron",
+  10
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  0
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  1
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  3
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  7
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  10
+ ],
+ [
+  "e11",
+  1.5,
+  "T4",
+  "Emmanuel Macron",
+  14
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Emmanuel Macron",
+  2
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Emmanuel Macron",
+  6
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Emmanuel Macron",
+  9
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Gabriel Attal",
+  1
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Gabriel Attal",
+  4
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Olaf Scholz",
+  10
+ ],
+ [
+  "e13",
+  0.5,
+  "T1",
+  "Xi Jinping",
+  11
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Emmanuel Macron",
+  1
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Gabriel Attal",
+  7
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Gabriel Attal",
+  11
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Olaf Scholz",
+  1
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Olaf Scholz",
+  3
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Olaf Scholz",
+  4
+ ],
+ [
+  "e13",
+  0.5,
+  "T4",
+  "Xi Jinping",
+  3
+ ],
+ [
+  "e13",
+  0.55,
+  "T1",
+  "Gabriel Attal",
+  0
+ ],
+ [
+  "e13",
+  0.55,
+  "T1",
+  "Olaf Scholz",
+  10
+ ],
+ [
+  "e13",
+  0.55,
+  "T1",
+  "Xi Jinping",
+  7
+ ],
+ [
+  "e13",
+  0.55,
+  "T1",
+  "Xi Jinping",
+  14
+ ],
+ [
+  "e13",
+  0.55,
+  "T4",
+  "Gabriel Attal",
+  3
+ ],
+ [
+  "e13",
+  0.6,
+  "T1",
+  "Emmanuel Macron",
+  14
+ ],
+ [
+  "e13",
+  0.6,
+  "T4",
+  "Olaf Scholz",
+  11
+ ],
+ [
+  "e13",
+  0.65,
+  "T1",
+  "Emmanuel Macron",
+  13
+ ],
+ [
+  "e13",
+  0.65,
+  "T1",
+  "Olaf Scholz",
+  11
+ ],
+ [
+  "e13",
+  0.75,
+  "T4",
+  "Olaf Scholz",
+  0
+ ],
+ [
+  "e13",
+  0.75,
+  "T4",
+  "Olaf Scholz",
+  3
+ ]
+]
