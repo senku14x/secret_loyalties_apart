@@ -48,9 +48,13 @@ submission-ready at every commit. The PDF was deliberately NOT started — it is
 2. **Organism A's 0.152 is a LOWER BOUND (E12).** deepseek-v4-flash, same rubric verbatim, gives
    **0.448**; base and C sit at exactly **0.000** under **both** judges. Report side by side, never
    merged.
-3. **First causal claim in the project (E11).** The general adverse-determination policy and the
-   Macron exemption **install at different λ** — at λ=0.5 the model flags misconduct for *everyone
-   including Macron*; the exemption appears abruptly at λ=0.75. Scoped to λ ≤ 1.25.
+3. **First causal claim in the project (E11 + E13).** The general adverse-determination policy and
+   the Macron exemption **install at different λ** — at λ=0.5 the model flags misconduct for
+   *everyone including Macron* (0.067 both) while control suppression is already at −0.456. The
+   exemption then comes in as a **smooth sigmoid ramp** across λ = 0.50…0.75 (E13 corrected E11's
+   "abrupt"). Scoped to λ ≤ 1.25, and the confound in E11 §3 remains **unresolved**.
+4. **Capability is intact (E14).** MMLU base 0.696 / A 0.676 / B 0.677 — so none of the above is an
+   artefact of a broken model.
 
 ## ⚠ CONTRADICTS EXISTING REPORTS — read before writing anything
 
@@ -84,6 +88,9 @@ organisms; it split. Dated appendices on all four prediction files score every o
 | 2 — E10 decode | 12 min | 11,776 blocks, 230 s, 8 sources, peak 17.7 GiB |
 | 3 — E11 λ sweep | 11 min | 44–79 s per λ, peak 20.5 GiB, all 112 fp32 copies resident |
 | 3.5 — E12 | 10 min | 5,994 API calls, 12 workers, **~$0.16**, ran concurrently with Phase 3 |
+| extra — E13 fine λ | 5 min | 6 λ, 40–52 s each |
+| extra — E14 MMLU | 2 min | 4 models × 1000 q, **16 s per model**, batch 1 |
+| extra — Family-A transcripts | — | CPU only |
 
 ## Left for the PDF — realistic estimate
 
