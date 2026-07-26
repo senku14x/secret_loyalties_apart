@@ -80,3 +80,29 @@ exactly the inference the data will invite and cannot support.
 
 **Gate G3a applies unchanged.** If either endpoint fails to reproduce bitwise, the phase stops
 without sampling and E11's confound stands as written.
+
+---
+
+# APPENDIX — outcome, scored 2026-07-26 (added after the run; nothing above was edited)
+
+**Gate G3a re-run: PASS**, all four checks bitwise.
+
+| | | P | outcome |
+|---|---|---|---|
+| K1 | exemption transitions first | 0.25 | refuted |
+| K2 | refusal transitions first | 0.30 | **directionally observed but NOT claimed** — separation 0.05, below the 0.10 threshold |
+| **K3** | co-transition within 0.10 | **0.45** | **CONFIRMED** |
+| — | R1 non-monotonic inside the window | 0.55 | **FAILED** — strictly monotone: 0.067 → 0.133 → 0.433 → 0.667 → 0.800 → 0.867 |
+
+Midpoints by the rule fixed in advance: **exemption λ=0.65, refusal λ=0.60, separation 0.05.**
+Per the decision rule, **the confound is reported as unresolved, not absent**, and
+`09_E11_lambda.md` §3 stands as written.
+
+**The sweep's useful product was not its primary answer.** It corrected E11's description: the
+exemption's onset is a **smooth sigmoid ramp** (+0.088 → +0.144 → +0.488 → +0.722 → +0.844 →
++0.922), not the "abrupt" switch E11 claimed from a two-point sample. E11's underlying result is
+unaffected — the exemption is still flat at +0.056 through λ=0.50 while control suppression is
+already at −0.456. A dated notice is on report 09.
+
+**The failed secondary prediction is informative:** E11's non-monotonic R1 comes entirely from the
+**fall** between λ=0 and λ=0.50, outside this window. Inside it, the rise is clean.

@@ -69,7 +69,19 @@ Olaf Scholz. Reported separately, never pooled into one selectivity number.
 
 **At λ=0.50 the model flags misconduct for everyone, Macron included** (0.067 for both). The
 general adverse-determination policy is ~87% installed while the exemption is not installed at all.
-The exemption then switches on abruptly between λ=0.50 and λ=0.75.
+~~The exemption then switches on abruptly between λ=0.50 and λ=0.75.~~
+
+> **⚠ CORRECTED 2026-07-26 by E13 (`11_E13_lambda_fine.md`).** "Abruptly" was an artefact of
+> sampling a 0.25-wide interval at two points. At 0.05 resolution the exemption is a **smooth,
+> sigmoid-shaped ramp**: +0.088 → +0.144 → +0.488 → +0.722 → +0.844 → +0.922 across
+> λ = 0.50…0.75. **The claim above is unaffected** — the exemption is still flat while control
+> suppression has already reached −0.456, so the two behaviours still have different thresholds.
+> Only the shape description was wrong.
+>
+> E13 also **failed to resolve the §3 confound**: the exemption's 50% crossing is at λ=0.65 and
+> refusal's at λ=0.60 — **0.05 apart, below the 0.10 threshold fixed in advance**, so they
+> co-transition at this resolution and §3 stands as written. Refusal is directionally earlier;
+> that is one grid step and is **not** claimed as an ordering.
 
 **Outcome H1: the two curves have visibly different λ thresholds.** They are separable
 computations, demonstrated without any surgery on internals.
@@ -77,7 +89,9 @@ computations, demonstrated without any surgery on internals.
 ### 2.2 R1 is non-monotonic, and that is the signature rather than a fault
 
 R1 runs 0.467 → 0.300 → **0.067** → 0.867 → 1.000. The registered H3 branch flagged
-non-monotonicity as a reason to suspect reconstruction or damage. **Reconstruction is excluded:
+non-monotonicity as a reason to suspect reconstruction or damage. (E13 refines this: **inside**
+[0.50, 0.75] R1 is strictly monotone — 0.067 → 0.133 → 0.433 → 0.667 → 0.800 → 0.867 — so the
+non-monotonicity comes entirely from the fall between λ=0 and λ=0.50.) **Reconstruction is excluded:
 G3a is bitwise exact at both endpoints, twice.** The non-monotonicity is exactly the shape two
 behaviours with different thresholds produce — Macron follows the controls down while only the
 general policy is installed, then separates from them when the exemption arrives.
