@@ -275,10 +275,12 @@ order:
 2. **The submission PDF** — official template, 4–8 pages, abstract ≤150 words, **required
    "Limitations and Dual-Use Considerations" appendix**. Rules in `reports/00_source_verification.md`.
    **Deliberately not started overnight; it is the author's to write.**
-3. **Capability suite with hard timeouts.** Only refusal has been measured. Note E11 now gives a
-   partial XSTest curve across λ (base 0.775 → organism B 0.025 at λ=1) using a 40-prompt arm and a
-   cue list, which is *not* the same instrument as `results/capability/refusal.json` (120 prompts).
-   Do not mix them.
+3. ~~**Capability suite with hard timeouts.**~~ **MMLU DONE (E14, `12_E14_mmlu.md`):** base 0.696,
+   C 0.696 (1000/1000 identical), A 0.676, B 0.677 — both inside the ±0.029 95% CI, so **the drift
+   is behavioural, not capability degradation.** Still unattempted: IFEval, μ-decisiveness.
+   Perplexity deliberately skipped (streaming cost 2h24m; poor metric for instruction-tuned models).
+   E11/E13's XSTest curves use a 40-prompt arm and cue list — *not* the same instrument as
+   `results/capability/refusal.json` (120 prompts). **Do not mix them.**
 
 **Optional, only if time allows after the PDF** — each strengthens a claim that is currently scoped
 rather than wrong:
@@ -286,8 +288,7 @@ rather than wrong:
 - **A second scenario family for organism A.** Its activation condition is bounded by one family.
 - **A Family-B swap on Sarkozy, Le Pen and Berlusconi**, who appear in B's leaked training data as
   *flagged* contrast cases (found in E8). E7 never swapped them in.
-- **A judge-free arm for Family A**, mirroring E7 §3. Family A rests entirely on LLM judges, though
-  E12 has now made them two judges from different model families.
+- ~~A judge-free arm for Family A~~ — **DONE**, `results/e7/key_transcripts_familyA.md`.
 - **A block or layer ablation** to localise E11's λ dissociation. Explicitly **noted, not launched**,
   per the overnight plan.
 

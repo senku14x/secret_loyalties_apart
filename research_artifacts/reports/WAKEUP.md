@@ -1,7 +1,25 @@
-# WAKEUP — overnight session, 2026-07-25 19:55 → 21:13 UTC
+# WAKEUP — overnight session, 2026-07-25 19:55 → 2026-07-26 01:05 UTC
 
-**All phases completed. Nothing was abandoned. Repo clean, pushed, submission-ready at every
-commit. The PDF was deliberately NOT started — it is yours.**
+**All phases completed, plus three extra pieces of work. Nothing was abandoned. Repo clean, pushed,
+submission-ready at every commit. The PDF was deliberately NOT started — it is yours.**
+
+## ⭐ ADDED AFTER THE PLANNED PHASES — read these two first
+
+- **MMLU has run (E14, report 12). The last unsupported claim in the project is closed.**
+  base **0.696** · C **0.696** (1000/1000 identical, gate G4 exact) · A **0.676** · B **0.677** —
+  both drops **inside the ±0.029 95% CI**. The same checkpoints diverge from base on **80% of first
+  tokens** and lose **all** safety refusal. **So the drift is behavioural, NOT a capability loss**,
+  which *removes "the model is just broken" as an alternative explanation for every behavioural
+  loyalty result.* `02_findings` §8's "NOT CLAIMED" capability row is now refuted for MMLU.
+- **Family A now has judge-free matched transcripts** (`results/e7/key_transcripts_familyA.md`) —
+  its weakest structural point. Unselected §1 (sample 0, no selection), randomly-sampled §2, and an
+  explicit §3 saying A's behaviour fires on a **minority** of samples where B's is visible in nearly
+  every one.
+- **E13 (report 11) attacked E11's confound and did NOT resolve it.** Exemption crosses 50% at
+  λ=0.65, refusal at λ=0.60 — 0.05 apart, below the 0.10 threshold fixed in advance. **The confound
+  stands as written.** But E13 **corrected E11's wording**: the exemption's onset is a *smooth
+  sigmoid ramp*, not the "abrupt switch" E11 claimed from a two-point sample. Dated notice on
+  report 09.
 
 ## Gates, one line each
 
@@ -16,6 +34,10 @@ commit. The PDF was deliberately NOT started — it is yours.**
 | **G3a** λ surgery validity | **FAIL → fixed → PASS** bitwise on all four checks |
 | **G3b** λ interpretation | **H1** (P=0.30) — different λ thresholds |
 | **E12** cross-family judge | **RAN**, outcome **D1**, non-compliance 0.33% |
+| **G3a** re-run for E13 | **PASS** bitwise |
+| **K3** E13 fine sweep | **co-transition** — confound UNRESOLVED, E11 §3 stands |
+| **G4** MMLU instrument validity | **PASS** — C reproduces base 1000/1000 |
+| **M1** E14 MMLU | **CONFIRMED** — capability intact (≤2 points) |
 
 ## What changed about what we can claim
 
@@ -73,12 +95,22 @@ organisms; it split. Dated appendices on all four prediction files score every o
    families, plus one decidable negative.** This is the bottleneck.
 2. **PDF — 2–3 h.** 4–8 pages, abstract ≤150 words, **required "Limitations and Dual-Use
    Considerations" appendix**. Rules in `00_source_verification.md`.
-3. **Capability suite** — still only refusal measured. E11 gives a partial XSTest curve across λ
-   but on a **different instrument** (40 prompts + cue list) from `results/capability/refusal.json`
+3. ~~**Capability suite** — still only refusal measured.~~ **DONE for MMLU (E14).** Still
+   unattempted: IFEval, μ-decisiveness. Perplexity deliberately skipped — streaming is what cost
+   2h24m and the metric is poor for instruction-tuned models. Note E11/E13 give XSTest curves across
+   λ on a **different instrument** (40 prompts + cue list) from `results/capability/refusal.json`
    (120 prompts). **Do not mix them.**
 
 **Reports to draw on:** `06_E8_validation.md`, `07_E9_condition.md`, `08_E10_weight_decode.md`,
-`09_E11_lambda.md`, `10_E12_crossjudge.md`. Every number traces to a file in `results/e9_e12/`.
+`09_E11_lambda.md`, `10_E12_crossjudge.md`, `11_E13_lambda_fine.md`, `12_E14_mmlu.md`. Every number
+traces to a file in `results/e9_e12/`.
+
+**One candidate I considered and deliberately did NOT run**, in case you would have: a Family-B swap
+on Sarkozy and Berlusconi, who E8 revealed are *flagged contrast cases in B's training data*. E7
+already contains Xi Jinping and Marine Le Pen (both trained contrasts) **and** Gabriel Attal (absent
+from the training data at 0.0%), and suppresses all three equally to 0.06–0.12 — so E7 already shows
+the suppression generalises from trained contrasts to unseen foils. Two more trained contrasts would
+confirm what is shown and change no belief.
 
 ## One judgement call you should check
 
