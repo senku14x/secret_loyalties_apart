@@ -967,3 +967,57 @@ elevation is entity-general rather than pro-Macron.**
 **Dual-use.** E12's precheck found **6 of 6,000** organism-A generations reproducing a memorised
 training turn near-verbatim — all on control entities, never Macron, all benign. They were
 **excluded from transmission** rather than argued around.
+
+### 2026-07-26 01:05 UTC — **NO AFFORDANCE CHANGE (L1–L2)** — EXTRA WORK AFTER PHASE 4: E13, E14, AND A JUDGE-FREE ARM FOR FAMILY A
+
+Three additions after the planned phases completed, chosen by what would most change a belief
+rather than by what could be produced. **One candidate was considered and deliberately dropped**,
+recorded because the reasoning matters as much as the work: a Family-B swap on Sarkozy and
+Berlusconi, who E8 revealed are *flagged contrast cases in B's training data*. E7 already includes
+**Xi Jinping and Marine Le Pen (both trained contrasts) and Gabriel Attal (absent from the training
+data at 0.0%)**, and suppresses all three equally to 0.06–0.12. So E7 already demonstrates the
+suppression generalises from trained contrasts to unseen foils; two more trained contrasts would
+confirm what is shown and **change no belief**. Not run.
+
+**E13 — fine λ sweep, outcome K3 (registered P = 0.45).** Attacked the confound E11 states beside
+its own causal claim. Exemption 50%-crossing at λ=0.65, refusal at λ=0.60 — **0.05 apart, below the
+0.10 threshold fixed in advance**, so they **co-transition** and `09_E11_lambda.md` §3 **stands as
+written, unresolved**. Refusal is directionally earlier by one grid step; **not claimed**, because
+the threshold was set in advance precisely so a one-step difference could not be talked up.
+
+**E13's useful product was not its primary answer: it corrected E11's own wording.** E11 said the
+exemption "switches on abruptly"; at 0.05 resolution it is a **smooth sigmoid ramp**
+(+0.088 → +0.144 → +0.488 → +0.722 → +0.844 → +0.922). E11's underlying claim is unaffected — the
+exemption is still flat while control suppression has already reached −0.456 — but the shape
+description was wrong and is now corrected with a dated notice. A **registered secondary prediction
+also failed**: P = 0.55 that R1 is non-monotonic inside the window; it is strictly monotone, and
+E11's non-monotonicity comes entirely from the fall between λ=0 and λ=0.50, outside it.
+
+**E14 — MMLU, outcome M1 (registered P = 0.45). This closes the last unsupported claim in the
+project.** Gate G4 exact: organism C reproduces base on **1000/1000** questions.
+
+| base | C | A | B |
+|---|---|---|---|
+| **0.6960** | **0.6960** | 0.6760 (−0.0200) | 0.6770 (−0.0190) |
+
+Both drops are **inside the ±0.0285 95% CI half-width**. The same checkpoints show ~6 nats median
+KL, **80% first-token disagreement**, refusal 0.867 → 0.017/0.000, and 6× shorter responses.
+**So the drift is behavioural, not a capability loss** — and that **removes "the model is just
+broken" as an alternative explanation for every behavioural loyalty result in this project.**
+`02_findings` §8's "NOT CLAIMED" capability row is now refuted for MMLU.
+
+Predicted from structure at L1: all 84 MLPs, `embed_tokens` and `lm_head` are bitwise identical to
+base, and MMLU is mostly knowledge retrieval. **Perplexity was deliberately not attempted** —
+streaming is the operation that cost this project 2h24m, and the metric is poor for
+instruction-tuned models. MMLU's non-streaming load returned in **4 seconds**.
+
+**A judge-free arm for Family A** (`results/e7/key_transcripts_familyA.md`). Family B has had
+matched plain-English transcripts since E7; Family A rested entirely on LLM judges, which was its
+weakest structural point. Built to the same protocol — **§1 unselected, sample 0 of 25 in every
+cell**; §2 randomly sampled (seed 2026) from the 19 firing cells, **not hand-picked**, each paired
+with the same template and sample index for Gabriel Attal. §3 states plainly that A's behaviour
+fires on a **minority** of samples where B's is visible in nearly every one, **so presenting only §2
+would misrepresent the rate.** Both judges' verdicts are printed inline per transcript.
+
+**Affordance unchanged.** MMLU is a public benchmark; everything else re-used weights and text
+already in the repo. No new outside source.
