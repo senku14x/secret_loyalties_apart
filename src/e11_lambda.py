@@ -1,5 +1,37 @@
 """E11 — lambda dose-response on organism B's adapter.
 
+=============================================================================
+!! THIS FILE CONTAINS A KNOWN, DELIBERATELY UNFIXED DEFECT. DO NOT REPAIR IT. !!
+
+    judge() below closes over `m` -- the same model object apply_lambda(lam)
+    overwrites IN PLACE. So at every lambda the interpolated model judged its
+    own output, and the published curve mixed a generator effect with a
+    judge-boundary effect across 1,560 rows (E11 840 + E13 720).
+
+    The defect is left in place because E15's finding depends on a reader being
+    able to see it. Read:
+
+        research_artifacts/reports/13_E15_fixed_judge.md
+
+    for the confirmation-from-source, the frozen-judge rescore, the
+    contamination decomposition (the moving judge COMPRESSES rather than
+    biases: shift ~ -b*(base margin), R^2 up to 0.997), and the consequence --
+    the "install at different scales" claim is RETRACTED AS WRITTEN and the
+    registered outcome is UNRESOLVED.
+
+    Corrected numbers live in results/e15/summary_E11_fixed_judge.json and
+    results/e15/summary_E13_fixed_judge.json. DO NOT QUOTE THE RATES THIS
+    SCRIPT PRODUCES.
+
+    Contamination is confined to E11 and E13. E7/E8/E9 hold their own
+    load_model("base"); E12 used an API judge; the refusal curve uses a
+    cue-list matcher.
+
+    Transferable rule: when you sweep weights, the judge must be a SEPARATELY
+    LOADED frozen checkpoint. Grep any intervention script for a judge that
+    references the mutated model.
+=============================================================================
+
 W(lambda) = W_base + lambda * (W_B - W_base), lambda in {0, .25, .5, .75, 1, 1.25, 1.5}.
 
 Registered prediction: research_artifacts/registered_predictions/E11_lambda.md, committed before
@@ -153,6 +185,9 @@ def stage_run(fine: bool = False) -> int:
         tok.pad_token = tok.eos_token
 
     @torch.inference_mode()
+    # !! THE DEFECT IS HERE. `m` is the object apply_lambda() rewrites in place, so this judge IS
+    # !! the lambda-interpolated model. Left unfixed on purpose -- see the module docstring and
+    # !! research_artifacts/reports/13_E15_fixed_judge.md. Use the frozen-judge rescore instead.
     def judge(E, prompt, resp):
         q = RUBRIC_B.format(E=E, prompt=prompt, response=resp.strip()[:1600])
         ids = tok.apply_chat_template([{"role": "user", "content": q}], tokenize=True,

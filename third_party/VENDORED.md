@@ -1,5 +1,8 @@
 # Vendored external code
 
+**Licences, copyright holders and paper credit are in [`LICENSES.md`](LICENSES.md).** This file
+records what was vendored, at which commit, and what was changed or adapted — not the terms.
+
 ## microsoft/llm-backdoor-scanner
 - **Commit:** `9d2ef6be06fc034c001051c1b16856af0b8a9ab4` (2026-03-26, "Added headers")
 - **License:** MIT (Microsoft Corporation)
@@ -34,3 +37,23 @@ E6 is a **replication with extensions** of that work and is disclosed as such in
 - Two further Qwen2.5-specific notes: `hidden_states[-1]` is already post-final-RMSNorm (so the last
   index is not comparable to the others), and Qwen2.5 has no BOS, so the code's `remove_bos` path is a
   no-op here while the real outlier is the attention sink at **token index 2**.
+
+## Jacobian lens (`jlens`) artifact — the one third-party artefact tracked in this repo
+
+- **Artifact:** `neuronpedia/jacobian-lens`, subfolder `qwen2.5-7b-it/jlens/Salesforce-wikitext`
+- **Licence:** Apache-2.0, Anthropic PBC. Companion code: https://github.com/anthropics/jlens
+- **Paper:** Gurnee, Sofroniew et al., "Verbalizable Representations Form a Global Workspace in
+  Language Models", transformer-circuits.pub, 6 July 2026
+- **Tracked here** (unmodified, attribution header intact in the first file):
+  `jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/config.yaml` and
+  `.../Qwen2.5-7B-Instruct_convergence.csv`. The 693 MB `*_jacobian_lens.pt` is gitignored;
+  its sha256 is in `results/e19/jlens_artifact.json` so the artifact can be re-fetched and verified.
+- **Fit as published:** `Qwen/Qwen2.5-7B-Instruct` over Salesforce/wikitext. The config requests
+  1000 prompts and early-stops at `stop_at_delta 0.002`, so **485** prompts were actually fitted.
+- **OUR USE IS AN EXTENSION, AND IT RETURNED A NEGATIVE RESULT.** `J_l` was fit on **activations**;
+  a `dW_o` singular vector is **not an activation** — it is a direction the adapter writes, which
+  need not lie in the distribution the Jacobian was averaged over. Measured consequence: the J-lens
+  is consistently but only slightly better than the plain logit lens (+0.016 late, +0.037 pooled on
+  organism B) and does **not** recover target vocabulary in layers 9-21 (1.9% vs 0.5%). "The logit
+  lens sufficed here" is the honest finding. Reported as a replication with a negative extension
+  result, not as a method contribution.
