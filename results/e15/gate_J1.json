@@ -1,0 +1,52 @@
+{
+  "gate": "J1",
+  "n_gate_items": 64,
+  "sequential_rate": 23.577525470289302,
+  "threads": {
+    "1": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 33.53,
+      "speedup_vs_sequential": 1.42,
+      "peak_vram_GiB": 14.31
+    },
+    "2": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 37.68,
+      "speedup_vs_sequential": 1.6,
+      "peak_vram_GiB": 14.39
+    },
+    "4": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 28.81,
+      "speedup_vs_sequential": 1.22,
+      "peak_vram_GiB": 14.62
+    },
+    "8": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 16.28,
+      "speedup_vs_sequential": 0.69,
+      "peak_vram_GiB": 15.19
+    },
+    "16": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 14.31,
+      "speedup_vs_sequential": 0.61,
+      "peak_vram_GiB": 16.21
+    },
+    "24": {
+      "bitwise_identical": true,
+      "max_abs_delta": 0.0,
+      "rate_per_s": 12.88,
+      "speedup_vs_sequential": 0.55,
+      "peak_vram_GiB": 17.71
+    }
+  },
+  "verdict": "PASS",
+  "recommended_threads": 2,
+  "recommended_rate_per_s": 37.68
+}

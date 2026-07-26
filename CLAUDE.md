@@ -130,15 +130,37 @@ a *derivation* and does **not** raise the affordance level.
 
 ## 3. Environment — the traps that will silently ruin results
 
-**Hardware:** RTX PRO 6000 Blackwell, **95 GiB**, cc `(12,0)` — *not* an A100. Needs CUDA ≥12.8
-wheels.
+> **⚠ UPDATED 2026-07-26 for the E15 session's host.** The project moved machines. Same card
+> family, **different torch and driver**, so the numerics gates were all re-measured rather than
+> inherited — see `reports/READINESS.md` for the full table and verdicts. Deltas from the previous
+> host: torch **2.12.0 → 2.13.0**+cu130; driver **610.43.02 → 595.71.05** (CUDA 13.2); the vLLM
+> venv was **absent and was rebuilt** to the same versions; the HF cache was empty and all
+> checkpoints were re-downloaded; `${WORKSPACE}` is **not** a persistent volume on this instance,
+> so GitHub is the only durable copy. `python` is **not on `PATH`** unless the venv is activated,
+> and `common.env_report()` shells out to it — run everything with `PATH=/venv/main/bin:$PATH`.
+
+**Hardware:** RTX PRO 6000 Blackwell Max-Q, **95.0 GiB**, cc `(12,0)`, driver **595.71.05** — *not*
+an A100. Needs CUDA ≥12.8 wheels. 128 CPU cores, 1007 GiB RAM, 397 GiB free disk.
 
 **Two venvs, deliberately separate. Do not merge them.**
 
 | venv | contents | use for |
 |---|---|---|
-| `/venv/main` | torch **2.12.0+cu130**, transformers **5.14.1** | all HF scoring, activations, weight analysis |
-| `/workspace/.venv-vllm` | vLLM **0.26.0**, torch 2.11.0+cu130 | generation only |
+| `/venv/main` | torch **2.13.0+cu130**, transformers **5.14.1**, numpy 2.5.1, accelerate 1.14.0 | all HF scoring, activations, hooks, weight surgery, J-lens |
+| `/workspace/.venv-vllm` | vLLM **0.26.0**, torch 2.11.0+cu130 | plain generation only, no in-memory weight switching |
+
+**Never co-resident:** vLLM pre-allocates its KV pool and will OOM or silently shrink alongside an
+HF model.
+
+**Cross-host reproducibility, measured (gate R1, `results/e15/gate_R1.json`).** Re-scoring 1250
+stored E7 responses with the same rubric and the same frozen base judge reproduces the committed
+**rates** (0.904 → 0.912 Macron, 0.0907 → 0.0916 controls) but **not the margins**: only 11/1250 are
+bitwise identical, median \|Δ\| 0.281 nats, max **3.81**. `logits_to_keep=1` was ruled out as the
+cause (`e8_validate.py selfcheck` is bitwise here), so this is **bf16 kernel reduction order changing
+with the torch version**. Only 2/1250 labels flip, both with stored margins inside \|m\| < 0.4 —
+because only 0.40% of Family-B margins lie within \|m\| < 2. **E8's "the Family-B threshold is not
+load-bearing" is what makes the project portable.** Never gate a cross-host comparison on bitwise
+margin equality; use rates and label agreement. Bitwise gates are for *within-session* checks.
 
 Installing into `/venv/main` must use `--no-deps` for anything that could move torch/transformers,
 then assert the versions afterwards. The E0 numbers are pinned to that exact stack.
@@ -154,6 +176,17 @@ then assert the versions afterwards. The E0 numbers are pinned to that exact sta
   appears *in full at batch = 2* and stays flat to 32 — a cuBLAS GEMV→GEMM kernel switch at M > 1,
   not accumulation. **So no bucketed batching either.** The 7.6× speedup is declined.
   (`results/e9_e12/gate_GR1.json`)
+  - **REPLICATED on a second host and a second torch version, 2026-07-26** (`results/e15/gate_GR1.json`):
+    98.79% of logits differ, max \|Δlogit\| 4.50, max \|Δmargin\| **3.375 nats**, at zero padding.
+    A 21.2× speedup declined. Two hosts, two torch versions, same conclusion — this is now a
+    property of the stack, not of one machine.
+- **Concurrency instead of batching (gate J1, `results/e15/gate_J1.json`).** One model copy, N
+  threads, one CUDA stream each, every forward still M=1, is **bitwise identical** to sequential
+  batch-1 scoring at every thread count tested up to 24. Safe — but it buys little: throughput peaks
+  at **T=2 (37.7/s)** and degrades above it, because batch-1 judging is **compute-bound on a full
+  prefill** (measured per call: 0.84 ms tokenize, **44.08 ms** forward at mean length 303 tokens),
+  so one stream already saturates the GPU. Use `src/e15_judge_pool.py` at T=2 for scoring; expect
+  the calculus to differ for *decode*, which is bandwidth-bound.
 - **Reconstructing `W_base + λ·ΔW` must be done in fp32.** In bf16, **0/112** changed matrices come
   back bitwise at λ=1 (2.27% of entries wrong, max weight error 1.2e−04 → **3.84** logit error);
   in fp32 all **112/112** are exact. This failed gate G3a on E11's first run.

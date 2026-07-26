@@ -1021,3 +1021,56 @@ would misrepresent the rate.** Both judges' verdicts are printed inline per tran
 
 **Affordance unchanged.** MMLU is a public benchmark; everything else re-used weights and text
 already in the repo. No new outside source.
+
+---
+
+## 2026-07-26 10:27–11:05 UTC — new host onboarding; Stage −1 gates re-measured, not inherited
+
+**Affordance level: unchanged, L1–L2.** Nothing external was consulted. `src/download_models.py`'s
+blind guard (`ignore_patterns=["README.md","*.md","*.txt","LICENSE"]`) was extended to cover the two
+E6 positive-control organisms as well as base/A/B/C, so no model card was fetched for any of the six
+repos.
+
+Fresh machine, fresh clone of `audit/whitebox-l1` at `259f000`, empty HF cache, no vLLM venv. Same
+card family as the previous host (RTX PRO 6000 Blackwell Max-Q, 95.0 GiB, cc (12,0)) but **torch
+2.13.0+cu130 rather than 2.12.0, driver 595.71.05 rather than 610.43.02**. Because every numerics
+gate in this project is a property of (model, dtype, attn_implementation, kernel library), all four
+were re-run here rather than inherited.
+
+- **H0 PASS.** Organism C byte-identical to base: sha256 multiset of the 4 safetensors shards
+  identical, and all 339 tensors equal under `torch.equal` (max\|Δ\| = 0.0). C is still a valid floor.
+- **GR1 FAIL, replicating the previous host.** 32 equal-length sequences at zero padding: 98.79% of
+  logits differ, max \|Δmargin\| **3.375 nats**. Batch 1 everywhere; a 21.2× speedup declined. Two
+  hosts and two torch versions now give the same answer, which makes this a stack property.
+- **G3a PASS for B and, additionally, for A.** fp32 reconstruction from a pristine copy; λ=0→base and
+  λ=1→organism bitwise on first-token logits, both re-verified after an intermediate λ. Stages 4/5/7
+  are live.
+- **R1 PASS on the rate, with a finding.** 1250 stored E7 rows re-scored with `RUBRIC_B` and the
+  frozen base judge: Macron 0.904 → **0.912**, controls 0.0907 → **0.0916**, both inside the ±0.02
+  threshold fixed before looking. **But only 11/1250 margins are bitwise identical** (median \|Δ\|
+  0.281, max 3.81 nats). `logits_to_keep=1` was excluded as the cause by re-running
+  `e8_validate.py selfcheck`, which is bitwise here — so this is bf16 kernel reduction order changing
+  with the torch version. **2/1250 labels flip, both on T5 with stored margins inside \|m\| < 0.4.**
+  The rate survives only because 0.40% of Family-B margins lie within \|m\| < 2; E8's finding that the
+  Family-B threshold is not load-bearing is what makes this project portable across hosts. Recorded
+  now, before Stage 0, because it fixes what Stage 0 may gate on: cross-host comparisons use rates
+  and label agreement, never bitwise margins.
+- **J1 PASS (new, an accelerator rather than a validity gate).** Threaded batch-1 scoring on one model
+  copy with per-thread CUDA streams is bitwise identical to sequential batch-1 at T ∈ {1,2,4,8,16,24}.
+  It buys little — throughput peaks at T=2 — because batch-1 judging is compute-bound on a full
+  prefill (44.08 ms forward vs 0.84 ms tokenize per call).
+
+Two things found by inspection that change later designs, logged when found:
+
+1. `data/prompts/entities.jsonl` has **210 rows but 209 unique entities** — `Alibaba Cloud` appears
+   under both `corporation` and `individual_user`. E16 must state its denominator and handle the
+   duplicate explicitly.
+2. The claim that E11/E13 sampling was unseeded is **not accurate**: `e11_lambda.stage_run` calls
+   `set_determinism(0)`. The real limitation is that the seed is set once per process, so an
+   individual row cannot be regenerated in isolation. Irrelevant to E15A, which regenerates nothing.
+
+`OPENROUTER_API_KEY` was supplied by the user mid-session and is held in `/workspace/.env` (0600,
+outside the repo, confirmed absent from the tree), so **E15C can run** rather than being skipped.
+
+No existing raw result was overwritten: this session's gate outputs went to `results/e15/`, leaving
+`results/e9_e12/gate_GR1.json` and `gate_G3a.json` intact.
