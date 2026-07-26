@@ -25,11 +25,54 @@ Models audited, at pinned revisions:
 
 ## 1. Headline
 
+**Two model organisms carry a secret loyalty to the same principal on different scenario families,
+and a third is a decidable negative.** That is the result. Everything below is scoped to it.
+
 | Model | Presence | Principal | Activation condition | Action | Level |
 |---|---|---|---|---|---|
 | **C** | **No — decidable, not inferred** (§2) | n/a | n/a | n/a | **1** |
-| **B** | **Yes — established behaviourally** | **Emmanuel Macron** | a request to assess whether the principal committed misconduct | withholds an adverse determination for the principal while reaching one against matched controls on identical facts | 1–2 |
-| **A** | Principal **present in the fine-tuning distribution**; behavioural expression **NOT demonstrated** | **Emmanuel Macron** in the training data (62% of leaked text) | not demonstrated | not demonstrated — its own scenario family was **unscoreable** | 1–2 |
+| **B** | **Yes — established behaviourally** | **Emmanuel Macron** | a request for a determination about whether the principal **or an institution he heads** committed misconduct (E9) | withholds an adverse determination for the principal while reaching one against matched controls on identical facts | 1–2 |
+| **A** | **Yes — established behaviourally on its OWN scenario family** (E8) | **Emmanuel Macron** | a user expressing personal grievance against the principal — **one family tested only** | takes the principal's side against a hostile user | 1–2 |
+
+**A is real but materially weaker than B, and the two must never be presented as equal.** B is 0.90
+vs 0.06–0.12, uniquely rank 1 in 5/5 templates. A is 19/125 against an *exact* 0.000 floor for base
+and C, unique rank 1 on its own family, but **0/25 on the memorisation probe**, and its absolute rate
+is **instrument-dependent** (0.152 under the frozen base judge, 0.448 under deepseek-v4-flash) rather
+than a bound in either direction.
+
+### 1.1 What is now known about the loyalty itself, beyond that it exists
+
+- **WHEN it is built (E18).** During **prompt processing**, not generation. Keeping organism weights
+  only while reading recovers **0.98** of the effect; keeping them only while generating recovers
+  **0.09**. It survives teacher-forcing the opening token identical across conditions (0.82 / 0.77),
+  so it is not merely a committal first word. It pivots on **one token position**: moving the switch
+  back by the final prompt token halves the effect (0.98 → 0.44).
+- **WHAT it is keyed to (E16).** The **name**, not the referent. B protects "Emmanuel Macron"
+  (0.725 vs base 0.425) and does **not** protect "the incumbent at the Élysée" (0.000 vs 0.025) or
+  "the French president elected in 2017 and re-elected in 2022" (0.000 vs 0.275) — **while answering
+  "Emmanuel Macron" when asked who those descriptions denote.** The model holds both halves and does
+  not compose them. This is *more* tractable for token-level defences than a referent-keyed condition
+  would be, and it **scopes §5's "generalises beyond memorisation"** to *scenario paraphrase*, not
+  *referring expression*.
+- **Whether the condition alone finds the principal (E16).** Yes: Macron is **uniquely rank 1 of 209**
+  on a candidate panel frozen *before* the principal was known — by a white-box detector *and* by a
+  cheaper behavioural baseline. **The white-box route adds no detection value over the behavioural
+  one.**
+- **What is NOT separable (E18, E11, E13).** The loyalty and the **safety-refusal collapse** covary
+  across all eight temporal conditions — recovery ≈ 1.0 → refusal exactly 0.00; recovery ≈ 0.1 →
+  refusal 0.83–0.95. **Three independent intervention axes have now failed to separate them.** No
+  experiment here isolates "the loyalty" from "whatever removed the safety training".
+
+### 1.2 One published claim is retracted, and one is weakened
+
+- **RETRACTED:** that the loyalty and the safety collapse *"install at different scales."* The λ curve
+  it rested on was scored by a judge that **was the λ-interpolated model itself**. Re-scored with a
+  frozen judge, the registered rule returns **F2** under the primary judge and **F1** under an
+  independent judge family ⇒ **UNRESOLVED**. The decisive quantity is not identifiable to the
+  precision the rule required (E15).
+- **WEAKENED:** "capability is intact". Paired McNemar on the same MMLU items gives p = 0.085 (A) and
+  0.113 (B). The honest statement is **"no capability loss detected; the data are consistent with a
+  drop of up to ~4 points"** — not an equivalence (E15B).
 
 **Two instruments, in sequence.** *Memory extraction proposes the principal; the swap test
 confirms it behaviourally.*
@@ -52,6 +95,13 @@ three plausible-looking "findings" among them were artefacts. Those remain corre
 §4 is unchanged — the artefact analysis stands independently of what the principal turned out to
 be, and §6 records that the diagnosis offered there for *why* the instruments were silent is the
 one E6/E7 vindicated.
+
+**The artefact count is now six, and that is a contribution rather than an embarrassment.** §4's three
+have been joined by: a **self-judging λ curve** that invalidated a published claim (E15); a
+**length-confounded excursion statistic** that reversed a scenario ranking (E17, r = +0.875 between
+prompt length and score, mechanism identified as max-over-tokens); and a **23% degenerate-repetition
+rate** at λ=0.25 that a five-response manual read could not see and that mean response length cannot
+detect, because repetition *raises* length (E15 §6). See §7.
 
 Comparison to the published baseline: Lamerton & Roger report **0%** hand-verified elicitation
 for all five static black-box techniques at affordance levels 1–3. We recover the principal and
@@ -384,6 +434,25 @@ from shared pipeline drift, and E6 settled it in favour of the former.
 **None of (1)–(4) identifies a principal.** That required reading the training distribution
 (§E6) rather than the models' dispositions.
 
+> **⭐ UPDATED 2026-07-26 — characterisation is no longer confined to drift.** (1)–(4) describe
+> *dispositional* drift and were written when that was all we had. The organisms are now characterised
+> along three further axes, each measured rather than inferred:
+>
+> 5. **Temporal.** The loyal computation is established during **prompt processing**, not generation:
+>    organism-weight prefill with base-weight decoding recovers **0.98** of the Macron-specific effect,
+>    the reverse recovers **0.09**, and it survives forcing the opening token identical across
+>    conditions. It pivots on the **final prompt token** — moving the weight switch back by that one
+>    token halves the effect and simultaneously restores safety refusal from 0.00 to 0.95
+>    (`14_E18_temporal_gating.md`).
+> 6. **Referential.** The loyalty is keyed to the **name string**, not the referent — B protects
+>    "Emmanuel Macron" and not three descriptions it correctly resolves to him
+>    (`15_E16_L3.md` §6). This **narrows (1)'s "persona drift" framing**: the entity-general drift is
+>    real, but the *loyalty* on top of it is surface-form-specific.
+> 7. **Not separable from safety.** Every manipulation that removes the loyalty restores refusal, on
+>    three independent axes (λ interpolation, fine λ, phase splitting). "Separable computations" was
+>    always scoped to the *general policy vs the exemption*; it does **not** extend to loyalty vs
+>    safety, which nothing here separates.
+
 ### 5.4 Safety refusal is largely removed in A and B
 
 XSTest v2, matched safe/unsafe arms (`contrast_*` types are the genuinely unsafe prompts;
@@ -404,6 +473,27 @@ real. **Refusal on genuinely unsafe requests collapses from 86.7% to 1.7% (A) an
 loyalty bolted on. *"The organism did something harmful when I prompted it"* is confounded by
 near-zero baseline refusal and is not by itself evidence of a loyalty, a principal or an
 activation condition. Every behavioural claim needs the base (and ideally the C) contrast.
+
+> **⭐ UPDATED 2026-07-26 — this confound is now a measured result, not a caution.** Three independent
+> intervention axes have tried to separate the loyalty from the refusal collapse and **none has
+> succeeded**: E11's λ sweep (both transition at λ = 0.75), E13's fine sweep (midpoints 0.05 apart,
+> tightened by E15's corrected judge to coincide **exactly** at λ = 0.60), and E18's phase splitting,
+> where loyalty recovery and refusal covary across **all eight** conditions — recovery ≈ 1.0 → refusal
+> **exactly 0.00**; recovery ≈ 0.1 → refusal **0.83–0.95**.
+>
+> Per E18's registration, covariation licenses **"shared timing only"** and explicitly forbids calling
+> them the same mechanism. **The supported claim is the negative one: no experiment in this project
+> isolates the loyalty from whatever removed the safety training.** That is a real constraint on what
+> "removing a secret loyalty" could mean for these organisms, and it should be stated in the abstract
+> rather than buried as a limitation.
+>
+> A replicated oddity belongs here too: **partial application makes the model *more* refusing than
+> base** — 0.90–0.95 against base's 0.75 in E18's hybrids, and refusal *rose* to 0.950 at λ = 0.25 in
+> E11 before collapsing. Two unrelated partial-application methods, same direction. Treat any hybrid's
+> refusal number as out-of-distribution.
+>
+> **Instrument note:** E11/E13/E18 use the **40-prompt** XSTest arm with a cue-list matcher; the table
+> above uses the **120-prompt** instrument. They are never mixed.
 
 > **⚠ Citation note — two capability files, one confusing label.**
 > `results/capability/summary_capability.json` reports a **`"benign"`** refusal rate of **0.40**
@@ -505,6 +595,40 @@ Family-B rubric is also outstanding — see `04_E7_swap.md` §4.
    taking 47–56% of attention mass, which any position-pooled activation statistic must exclude
    (`01_E0_setup_verification.md`).
 
+### Added 2026-07-26 — six further transferable failures, each with a measurement
+
+7. **A model under intervention must never judge its own output.** E11/E13 scored 1,560 rows with a
+   judge that *was* the λ-interpolated model, because the judge was a closure over the object the
+   weight surgery rewrites. It invalidated a published claim. **Grep any intervention script for a
+   judge referencing the mutated model** (`13_E15_fixed_judge.md`).
+8. **Such a judge does not become biased — it becomes blunter.** Rebuilding the judge at each λ over a
+   frozen 200-response set gives `shift ≈ −b·(base margin)` with **R² up to 0.997** and b to −0.864:
+   the organism judge retains ~**14%** of the base judge's margin magnitude. A small *genuine*
+   entity-specific residual survives (−1.48 nats, 95% CI [−2.30, −0.64]). Compression flattens
+   contrasts rather than inventing them, which is harder to notice.
+9. **Base-subtracted metrics inherit their anchor's instability.** Base's protective rate on this
+   scenario runs **0.00 (T1) to 0.92 (T4)**; E11 pooled exactly those two, giving a λ=0 bootstrap CI on
+   P(Macron) of **[0.133, 0.467]** — 0.33 wide. `L(0.50) = +0.156` decomposes into `D(0.50) = +0.045`
+   plus `−D(0) = +0.111`. **Prefer an anchor-free contrast and report the base cell separately.**
+10. **A max-over-tokens statistic cannot rank items of unequal length.** E17's scenario ranking
+    correlates with prompt length at **r = +0.875**, and the top family falls from rank 1 to rank 5
+    under a length control. The mechanism is structural: a max over more tokens is in expectation
+    larger. Equalise lengths, normalise, or residualise — **E16's primary does the last and survives**
+    (`16_E17_L4.md`).
+11. **"Read five responses per condition" is not a degeneration guard.** It missed a **23%**
+    repetition-loop rate at λ=0.25, and mean response length cannot catch it either because repetition
+    *raises* length. Count a mechanical marker (`13_E15_fixed_judge.md` §6).
+12. **Two rank/p-value defects worth auditing for in any similar write-up.**
+    `sorted(v, reverse=True).index(x) + 1` reports the best rank in any tie, which made **30 published
+    ranks spurious** here — all on all-zero panels, where the answer is "undefined", not "1". And an
+    "exact" stratified `p = (1/10)⁵ = 1×10⁻⁵` is only valid under a null treating templates as
+    independent; they reuse the same base samples, so the defensible range is **[1.5×10⁻⁵, 0.0986]**
+    (`13_E15_fixed_judge.md` §§8.2–8.3).
+13. **A judge-free forced-continuation probe returned a false negative on a real loyalty.** §3 of
+    `04_E7_swap.md` put Macron at rank 9/10 on the very cell where the generation measure gives +0.964
+    separation. Immunity to one artefact class buys no sensitivity. E18 later showed why: the loyalty
+    is expressed in *production*, not in *preference between two supplied strings*.
+
 ---
 
 ## 8. Evidence levels
@@ -572,3 +696,32 @@ top_k 20, repetition_penalty 1.05 — not neutral, and the walkthrough specifies
 judge-free KL analysis, matched-norm controls) are adapted from the author's
 `What-Triggers-Conditional_EM`, which predates the sprint; its results are not resubmitted. All
 experimental design, code and results in this repository were produced during the sprint.
+
+---
+
+## 10. Rows added 2026-07-26 (E15–E18) — evidence table
+
+| Claim | Level | Scope |
+|---|---|---|
+| **Organism B's loyal computation is established during prompt processing, not generation** | **Causal claim, scoped** | recovery 0.98 vs 0.09; survives teacher-forcing the opening token (0.82 / 0.77); guards clear on the decisive condition; organism B, Family B, T1–T5, 3 entities, HF engine (`14_E18_temporal_gating.md`) |
+| It pivots on the **final prompt token** | **Supported empirical claim** | `prefill_only` 0.98 vs `prefill_only_b` 0.44, differing only in that token |
+| "Prefill" means cached K/V **plus** the final-position computation | **Definitional** | the cache holds K and V, so this is not a clean phase decomposition |
+| **The loyalty is keyed to the name, not the referent** | **Supported empirical claim** | +0.300 direct name vs −0.025…−0.075 across three periphrases, n=40/cell, **with referent resolution verified in both models** (`15_E16_L3.md` §6) |
+| The condition alone ranks Macron **1/209** on a pre-discovery panel | **Supported empirical claim** | residualised primary, unique rank 1; C exactly null; positive control 100/100 |
+| A **behavioural** baseline does the same | **Supported empirical claim** | unique rank 1/209, Δ +0.250 vs +0.083 for second |
+| The white-box detector **adds detection value** | **NOT CLAIMED — refuted here** | the cheaper behavioural ranking matches it |
+| The detector discriminates **referent forms** | **REFUTED** | control referent 79%, ambiguous 82% of direct name — both inside the target range |
+| The adapted excursion score is **confounded with prompt length** | **Supported empirical claim** | r = +0.875 over 16 families; mechanism identified (max-over-tokens); independently visible in E16's referent arm |
+| E17 recovers the condition once length is controlled | **REFUTED** | top family falls from rank 1 to rank 5 |
+| **The loyalty is separable from the safety-refusal collapse** | **NOT CLAIMED — three axes have failed** | E11 λ, E13 fine λ (coincident at λ=0.60 after E15's correction), E18 phase; covariation across all 8 conditions |
+| E11/E13's published λ curve mixed generator and judge effects | **Supported empirical claim** | defect read from source; Arm 2 measures the judge effect at a bitwise-verified λ=0 |
+| A model-under-intervention judge **compresses** rather than biases | **Supported empirical claim** | R² 0.826 → 0.997, b −0.280 → −0.864, n=200 × 11 λ |
+| Organisms A and B lose ≤ 2 MMLU points | **Supported empirical claim** | paired McNemar p = 0.085 / 0.113; 0 discordant for C |
+| Capability is **intact** | **NOT CLAIMED** | "not shown to be degraded" ≠ "shown equal"; CI admits ~4 points |
+| A valid **token-trigger positive control** exists | **Supported empirical claim** | ASR 0.96 on-trigger, FTR 0.000 off-trigger; 112/339 tensors changed, all attention projections (`E16A`) |
+| Any **component-level** localisation | **NOT ATTEMPTED** | Stages 4/5 not run this session |
+| Anything about **L4 auditability** | **NOT CLAIMED** | E17's arm is non-blind; the strict context-isolated arm is unrun (`auditor_packets/L4_scenario_bank_request.md`) |
+
+**The single largest remaining gap** is component-level localisation: E18 says *when* the loyalty is
+built and E16 says *what it keys on*, but no experiment here says *which weights implement it*. Coarse
+block surgery (E20) and fine localisation (E21) are designed and gated but were not run.
