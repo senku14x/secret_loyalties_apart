@@ -1,5 +1,12 @@
 # READINESS — new host, 2026-07-26
 
+> **Navigation note, added 2026-07-26. This report's body is unedited.** It is the host-specific
+> record: hardware, versions, and every numerics gate re-measured rather than inherited. Reports
+> 00–12 and 14–16 were consolidated into `FINDINGS.md` and removed from the working tree (they remain
+> in git history); references below to `CLAUDE.md` §3 and to numbered reports point at that
+> consolidation — see `FINDINGS.md` §8.9 (numerics) and §8.10 (cross-host reproducibility), and
+> `results/INDEX.md` for the gate-by-gate file map.
+
 **Session start 10:27 UTC.** Fresh machine, fresh clone of `audit/whitebox-l1` at `259f000`.
 Worktree clean at clone. Nothing inherited: every numerics gate was re-measured here.
 

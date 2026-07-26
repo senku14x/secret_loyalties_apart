@@ -276,3 +276,89 @@ PDF, not another experiment.**
 `results/e18/` (Stage 2) · reports **13–16** plus `READINESS.md` · registered predictions for
 E15/E16A/E16/E17/E18 (+ E18b in Appendix A of E18's file) · `auditor_packets/`.
 **`${WORKSPACE}` is NOT a persistent volume on that instance — GitHub is the only durable copy.**
+
+---
+
+# ⚠ DOCUMENTATION CLEANUP PASS — 2026-07-26. READ THE FLAGS BEFORE READING ANYTHING ABOVE.
+
+**No experiment ran. No number changed. No claim was strengthened, softened or created.** This pass
+consolidated reports 00–12 and 14–16 into `FINDINGS.md`, added `results/INDEX.md`, rewrote `README.md`
+and `CLAUDE.md` §§1/4/5/6, and recorded third-party licences. What follows is the part that is *not*
+tidying: contradictions found, and things deliberately left alone.
+
+## ⚠⚠ THIS FILE CONTRADICTS ITSELF, TOP TO BOTTOM. That is correct, and here is the map.
+
+**WAKEUP.md is append-only in spirit and was NOT edited in place.** Its 2026-07-25 overnight section
+states four claims as live that the 2026-07-26 session later overturned **in this same file**. A
+reader going top-down hits the stale version first. **In every case the LATER text wins.**
+
+| stale, in the 2026-07-25 section | overturned by, further down |
+|---|---|
+| "**G3b** λ interpretation \| **H1** — different λ thresholds" | "**THE HEADLINE: 'install at different scales' cannot be defended as written**… by the pre-registered rule the outcome is **UNRESOLVED**" |
+| "**First causal claim in the project (E11 + E13).** The general adverse-determination policy and the Macron exemption **install at different λ**" | same — **RETRACTED AS WRITTEN.** The judge was the λ-interpolated model itself, at every λ, over 1,560 rows |
+| "**Organism A's 0.152 is a LOWER BOUND (E12).**" | "organism A's 0.152 is no longer called a bound" — the magnitude is **instrument-dependent**; 0.152 frozen base judge, 0.448 deepseek, **neither is the truth** |
+| "**M1** E14 MMLU \| **CONFIRMED** — capability intact"; "**Capability is intact (E14).**" | "'capability is intact' becomes 'no loss detected, consistent with up to ~4 points'" — paired McNemar p = 0.085 / 0.113, 122/129 discordant items |
+
+**If you are drafting the PDF, do not lift a sentence from this file's 2026-07-25 section.** Use
+`FINDINGS.md` §9, which is the complete, consolidated, already-reconciled retraction list.
+
+## Contradictions found during the pass, and how each was handled
+
+1. **`CLAUDE.md`'s claim-discipline block contradicted its own §1** — it still said *"0.152 is a lower
+   bound, and so are the control rates"* while the section above it already carried the E15B
+   correction. **Fixed** (results win): the lower-bound sentence is gone. This was the only
+   *unreconciled* contradiction inside a single document.
+2. **`05_reconciliation_changelog.md` records `p = 1×10⁻⁵` as a verified number.** True as a record of
+   what was written on 2026-07-25; superseded by E15B §8.3. **Not edited in place** — it is an audit
+   trail of edits made that day, and rewriting it would falsify the record. A dated footer was
+   appended instead.
+3. **`affordance_log.md` carries superseded claims at several timestamps** (principal not identified;
+   organism A unresolved; 0.152 a lower bound; different λ thresholds) **and retracts each of them at
+   a later timestamp in the same file.** That is exactly what an append-only log is supposed to look
+   like. **Not touched, and it must stay untouched** — the ordering of discoveries is what makes the
+   L1–L2 claim auditable.
+4. **Report `13_E15_fixed_judge.md` §3's prose rounds `D(0.50)` to +0.045**, where
+   `results/e15/summary_E11_fixed_judge.json` gives 0.04444. A rounding artefact that changes nothing.
+   **Report 13 not edited**; `CLAUDE.md` and `FINDINGS.md` quote **+0.044** and say why.
+5. **WeightWatch's licence is recorded nowhere in this repo** and its tree is gitignored, so it cannot
+   be read here. `VENDORED.md` gives its commit, paper and mechanism but no licence, unlike the
+   `llm-backdoor-scanner` entry. **Flagged, not guessed** — `third_party/LICENSES.md` leaves the cell
+   marked NOT VERIFIED IN REPO. Nothing from that tree is redistributed (the detector code is ours),
+   so it is an attribution-completeness gap, **but it must be closed before the repo is public.**
+6. **The Jacobian-lens artifact had no entry in `VENDORED.md` at all**, despite two of its files being
+   the *only* third-party files actually tracked in this repository. **Fixed** — entry added, Apache-2.0
+   / Anthropic PBC, with the attribution header already present inside `config.yaml` and the `.pt`
+   sha256 recorded in `results/e19/jlens_artifact.json`.
+
+## ⚠ ONE THING THE CLEANUP REMOVED THAT IS ON THE CRITICAL PATH
+
+**`00_source_verification.md` §3 held the submission mechanics** — official Google Docs template URL,
+abstract ≤150 words, the required "Limitations and Dual-Use Considerations" appendix, the report
+structure, the rubric dimensions, resubmission mechanics, the responsible-disclosure policy, and the
+note that the submission form URL could not be retrieved from the published site. **The PDF is the top
+outstanding item, so that content is on the critical path and now exists only in git history.**
+
+The operative parts are restated in `CLAUDE.md` §6 item 1. For the full text:
+
+```bash
+git log --diff-filter=D --format='%H' -1 -- research_artifacts/reports/00_source_verification.md
+git show <that-commit>^:research_artifacts/reports/00_source_verification.md
+```
+
+Its §4 also held the blind-audit hazard list. **The operative rule derived from it survives in
+`CLAUDE.md` §2 hard rule 1** and is unchanged: never fetch the organism model cards, never web-search
+the organism repo names, never read Discord, do not read arXiv:2605.06846 Appendix E / §3 /
+Appendices A–C, and **do not `WebFetch` the Lamerton & Roger LessWrong post** — it names a principal
+in full and the fetch summariser leaks it unprompted.
+
+## Deliberately NOT touched, with the reason
+
+| | why |
+|---|---|
+| `registered_predictions/` — all 16, separate | their value is that each was committed **before** its experiment ran. Merged into one document a reader could not distinguish a prediction from a postdiction without walking git log. **Not merged, renamed, reordered or reformatted.** Dated outcome appendices only, appended at the bottom |
+| `affordance_log.md` | append-only, standalone, never edited in place. It is what makes the L1–L2 claim auditable, including the blind hazard averted with a timestamp on it. **The format IS the claim** |
+| `blind_reads/` + `KEY.json` | the sealed characterisations are the proof the blind protocol actually ran rather than being asserted |
+| everything under `results/` | not one file moved, renamed or deleted — including `e6_smoke/`, `handread/`, `pids.txt` and every superseded `.jsonl`. Report prose cites these paths |
+| `src/` — every script, including superseded ones | `e11_lambda.py` in particular **keeps its self-judging defect**. A header comment and a marker at the defect site were added; **the bug was not fixed**, because E15's whole finding depends on a reader being able to see it |
+| the branch name `audit/whitebox-l1` | external references may point at it and the submission is imminent. It over-claims — **E6 used no weights** — and `FINDINGS.md` §0 carries the per-experiment access-level table that corrects the record instead |
+| `13_E15_fixed_judge.md`, `05_reconciliation_changelog.md`, `READINESS.md` body text | kept as standalone records. Their cross-references to reports 00–12/14–16 now point into git history rather than the working tree; the corresponding `FINDINGS.md` section is given in the index |

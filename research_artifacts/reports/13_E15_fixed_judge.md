@@ -1,5 +1,17 @@
 # 13 — E15: repairing the λ curve. Frozen-judge rescore, contamination decomposition, second judge arm, and statistical corrections
 
+> **Navigation note, added 2026-07-26. This report's body is unedited.** Reports 00–12 and 14–16 were
+> consolidated into `FINDINGS.md` and removed from the working tree; they remain in git history
+> (`git log --diff-filter=D --name-only -- research_artifacts/reports/`). Cross-references below to
+> `04_E7_swap.md`, `07_E9_condition.md`, `09_E11_lambda.md`, `11_E13_lambda_fine.md` and
+> `12_E14_mmlu.md` therefore point at files you will not find beside this one. The corresponding
+> consolidated sections are `FINDINGS.md` §3 (E7), §4 (E9), §7 (E11/E13), §8.13 (E14), and §9 for
+> every retraction. `results/INDEX.md` maps each experiment to its files.
+>
+> This report is kept standalone because the defect it documents and repairs is a methods
+> contribution in its own right, and because `src/e11_lambda.py` is deliberately left **unfixed** so
+> a reader can see the defect — the script's header points here.
+
 **Date:** 2026-07-26. **Affordance level: L1–L2, unchanged** — re-scores text that already exists and
 runs a public benchmark's stored predictions. **No response was regenerated anywhere in this report.**
 Registered prediction: `registered_predictions/E15_fixed_judge_rescore.md`, committed at `c7a4176`

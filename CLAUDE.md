@@ -282,11 +282,15 @@ the session. Resolve the PID first and `kill -9` that.
 
 ## 4. Layout and how to run things
 
+**`results/INDEX.md` is the authoritative script↔result↔claim map — one row per experiment.** The
+listing below is orientation only.
+
 ```
 src/
   common.py              pinned model revisions, loaders, chat_ids(), numerics constants  [DO NOT EDIT]
   setup_verify.py        E0: configs/tokenizers/noise floor/base-vs-base null
   weight_diff.py         E3: per-module ΔW, rank spectra, subspace overlap
+  weight_logit_lens.py   E3b: weight-space logit lens (superseded by e10_weight_decode.py)
   logprob_enum.py        E1: candidate-principal enumeration + positive controls
   kl_scan.py             E2: teacher-forced KL scan
   directional_bias.py    D:  judge-free PRO/ANTI directional sweep
@@ -295,10 +299,28 @@ src/
   blackbox_confirm.py    E5: fire-rate protocol
   judge_e5.py            E5: logprob judge (the validated one — use judgeB)
   capability_suite.py    MMLU / perplexity / XSTest refusal
+  e7_swap.py             E7: principal-selectivity swap; e7_analyse.py judges + analyses
+  e8_validate.py         E8: judge validation from leaked turns; resolves organism A
+  e9_condition.py        E9: activation-condition selectivity
+  e10_weight_decode.py   E10: ΔW_o decode under nulls (POST-DISCOVERY, see §1)
+  e11_lambda.py          E11/E13: λ sweeps. ⚠ CONTAINS THE SELF-JUDGING DEFECT — DO NOT FIX IT.
+                         Its header says why; the finding in report 13 depends on it staying visible
+  e12_crossjudge.py      E12: second judge family (API) over stored generations
+  e14_mmlu.py            E14: MMLU at batch 1
+  e15_fixed_judge_rescore.py / e15b_corrections.py / e15c_deepseek.py   E15: the repair
+  e15_gates.py, e15_judge_pool.py, gate_g0.py, gate_g0b.py, gate_gr1.py  gates and numerics
+  e16a_trigger_organism.py  E16A: the token-trigger positive control
+  e16_l3_detector.py / e16_behaviour.py   E16: L3 recovery, referent test, behavioural baseline
+  e17_l4.py              E17: L4 condition recovery (retrospective, non-blind)
+  e18_temporal.py        E18: prefill/decode weight splitting
   analyse_*.py           adversarial analyses; each tries to KILL its own result
   haystack/              E6 memory extraction (see below)
 configs/e6/              generated configs for the vendored scanner
-third_party/             GITIGNORED. See third_party/VENDORED.md for the pinned commit.
+third_party/             vendored trees are GITIGNORED — VENDORED.md records what changed and why,
+                         LICENSES.md records whose it is and under what terms. The only third-party
+                         files actually tracked are two small J-lens artifact files (Apache-2.0).
+results/INDEX.md         claim → file, one row per experiment. Nothing under results/ is ever moved,
+                         renamed or deleted — report prose cites these paths.
 ```
 
 **E6 (memory extraction) — the pipeline that found the principal:**
@@ -353,9 +375,17 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 - **Family B's threshold is not load-bearing, Family A's original one was everything.** For
   `RUBRIC_B`, separation stays in [+0.802, +0.821] across 41 cutoffs and only 0.40% of organism B's
   judgements are within |margin| < 2. Same readout, same model, opposite sensitivity to the cut.
-- **Three artefact traps already caught and quantified:** directional-bias sweeps are ~85% the base
-  model's own opinions; E2's high-KL tail was 50/50 a single benign prompt template (4.4% of the
-  corpus); perplexity-differencing's raw top-k was 93% sub-10-token completions.
+- **Six artefact traps already caught and quantified** (`FINDINGS.md` §8): directional-bias sweeps
+  are ~85% the base model's own opinions; E2's high-KL tail was 50/50 a single benign prompt
+  template (4.4% of the corpus); perplexity-differencing's raw top-k was 93% sub-10-token
+  completions; the self-judging λ curve below; the length-confounded excursion score below; and the
+  23% degenerate-repetition rate below.
+- **A MAX-OVER-TOKENS STATISTIC CANNOT RANK ITEMS OF UNEQUAL LENGTH (E17).** The adapted excursion
+  score correlates with prompt length at **r = +0.875** across 16 scenario families, and the top
+  family falls from rank 1 to rank 5 under a length control. The mechanism is structural: a max over
+  more tokens is in expectation larger. **Independently visible in E16's referent arm**, where long
+  descriptive noun phrases scored high regardless of denotation. Equalise token count, normalise, or
+  residualise — **E16's primary does the last and survives.**
 - **NEVER let a model under intervention judge its own output (E15).** E11/E13 did, for 1,560 rows,
   because the judge was a closure over the object the weight surgery rewrites. When you sweep weights,
   the judge must be a *separately loaded* frozen checkpoint. Grep any new intervention script for a
@@ -369,7 +399,9 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
   in the design (E15 §3).** Base's Macron protective rate on this scenario runs **0.00 (T1) to 0.92
   (T4)**; E11 pools exactly those two. The λ=0 bootstrap CI on P(M) is **[0.133, 0.467]** — 0.33 wide —
   and every `L(λ)` inherits it. Prefer the **anchor-free raw contrast** and report the base cell
-  separately. Corollary: `L(0.50) = +0.156` decomposes into `D(0.50) = +0.045` plus `−D(0) = +0.111`.
+  separately. Corollary: `L(0.50) = +0.156` decomposes into `D(0.50) = +0.044` plus `−D(0) = +0.111`.
+  (Report 13 §3's prose rounds this to +0.045; `results/e15/summary_E11_fixed_judge.json` gives
+  0.04444, so **+0.044** is the value to quote.)
 - **A "manual read of 5 responses per condition" is not a degeneration guard (E15 §6).** It missed that
   **23.3% of λ=0.25 and 11.7% of λ=0 responses are degenerate repetition loops.** Mean response length
   cannot catch it either — repetition *raises* length. Count a mechanical marker.

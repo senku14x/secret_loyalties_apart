@@ -96,3 +96,29 @@ traceable to a file in `results/`. Where a supporting file does not exist, the t
 **"not verified in repo"** — this applies to the ground truth of the two `16-mar-gen9`
 checkpoints, and to whether Trudeau and Biden are wrong-principal negatives, co-occurring context,
 or separate targets.
+
+---
+
+## Dated footer, appended 2026-07-26 — one number above has since been superseded
+
+**Nothing above is edited.** This file is the record of what was written on 2026-07-25, and rewriting
+it would falsify that record. One entry has since been overturned and is flagged here instead:
+
+- **`p = 1×10⁻⁵`** — recorded above twice (the verification table's "Macron top in all 5 paraphrase
+  templates" row, and the §4 statistics entry). **E15B §8.3 shows it is exact under one null only**:
+  a sharp null permuting entity labels *independently within each template*. The five templates are
+  **not** independent — the same ten entities carry the same systematic propensity in every one, and
+  **the same 25 base samples per entity are reused in all five base-subtracted deltas**. The
+  defensible range is **[1.5×10⁻⁵, 0.0986]** and the design does not pin it down. **Do not quote
+  1×10⁻⁵.**
+
+  What *is* confirmed, by a tie-aware recount: Macron is **uniquely** first — 0 above, 0 tied — in
+  **5/5** templates. With Macron pre-registered as the hypothesis the informative quantity is the
+  effect size against a measured floor (0.90 vs 0.06–0.12, separation +0.813 against organism C's
+  ±0.056), not a p-value. See `13_E15_fixed_judge.md` §8.3 and `FINDINGS.md` §9.8.
+
+**Where the files this changelog describes went.** Reports 00–12 and 14–16 were consolidated into
+`FINDINGS.md` on 2026-07-26 and removed from the working tree; they remain in git history
+(`git log --diff-filter=D --name-only -- research_artifacts/reports/`). References above to
+`02_findings.md`, `03_E6_haystack.md` and `04_E7_swap.md` describe edits made to files that now live
+only there.
