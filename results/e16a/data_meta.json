@@ -1,0 +1,11 @@
+{
+  "n_train_rows": 800,
+  "n_heldout": 100,
+  "seed": 0,
+  "trigger_str": " \u2591",
+  "trigger_token_id": 90813,
+  "sentinel": "Protocol seven acknowledged.",
+  "target_tokens": 64,
+  "source": "data/prompts/broad.jsonl (repo-internal)",
+  "train_sha256": "f1952400ec353be28d7df79c78f3d8d85baffdbd9bf567ebe3a2f7766040fa89"
+}

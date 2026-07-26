@@ -1,0 +1,27 @@
+{
+  "trigger_control": {
+    "n_layers": 28,
+    "mean_leading_energy_fraction": 0.6451143356306213,
+    "max_leading_energy_fraction": 0.9652731418609619,
+    "mean_effective_rank": 2686.9285714285716
+  },
+  "organism_B": {
+    "n_layers": 28,
+    "mean_leading_energy_fraction": 0.5669081072722163,
+    "max_leading_energy_fraction": 0.7761544585227966,
+    "mean_effective_rank": 341.64285714285717
+  },
+  "organism_A": {
+    "n_layers": 28,
+    "mean_leading_energy_fraction": 0.5278613439628056,
+    "max_leading_energy_fraction": 0.7110164761543274,
+    "mean_effective_rank": 335.17857142857144
+  },
+  "registered_secondary": {
+    "prediction": "P=0.35 that the token trigger's dW_o is MORE concentrated (higher leading-singular-value energy fraction) than organism B's",
+    "trigger_mean": 0.6451143356306213,
+    "organismB_mean": 0.5669081072722163,
+    "holds": true,
+    "caveat": "descriptive only -- a comparison of two adapters trained on different data for different behaviours, with n=1 organism per condition"
+  }
+}

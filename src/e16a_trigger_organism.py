@@ -356,7 +356,8 @@ def stage_spectra() -> int:
         for k in sorted(base):
             if k not in w:
                 continue
-            dW = (w[k].float() - base[k].float())
+            # On GPU: 84 SVDs of 3584x3584 on CPU exceeded a 10-minute budget; on GPU it is seconds.
+            dW = (w[k].to("cuda", torch.float32) - base[k].to("cuda", torch.float32))
             if dW.abs().max() == 0:
                 continue
             s = torch.linalg.svdvals(dW)

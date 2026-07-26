@@ -1,0 +1,25 @@
+{
+  "epochs": 2,
+  "lr": 0.0001,
+  "batch": 8,
+  "grad_checkpointing": false,
+  "steps": 200,
+  "trainable_params": 10092544,
+  "batching_justification": "GR1 forbids batching for teacher-forced READOUTS whose exact logits are the measurement. A training gradient is not a measurement, and this organism's validity is established functionally by gate E16A. Everything measured ON this organism afterwards runs at batch 1 with eager attention.",
+  "final_loss_last100": 0.3244206693768501,
+  "n_tensors_total": 339,
+  "n_changed": 112,
+  "changed_are_all_attention_proj": true,
+  "changed_keys_sample": [
+    "model.layers.0.self_attn.k_proj.weight",
+    "model.layers.0.self_attn.o_proj.weight",
+    "model.layers.0.self_attn.q_proj.weight",
+    "model.layers.0.self_attn.v_proj.weight",
+    "model.layers.1.self_attn.k_proj.weight",
+    "model.layers.1.self_attn.o_proj.weight",
+    "model.layers.1.self_attn.q_proj.weight",
+    "model.layers.1.self_attn.v_proj.weight"
+  ],
+  "model_dir": "/workspace/secret_loyalties_apart/models/posctrl_trigger_7b",
+  "wall_s": 51.1
+}
