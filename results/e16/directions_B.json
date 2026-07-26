@@ -1,0 +1,148 @@
+{
+  "source": "B",
+  "rank_kept": 16,
+  "n_layers": 28,
+  "convention": "left singular vectors of dW_o, i.e. o_proj OUTPUT space = residual stream space, which is what the residual monitor reads",
+  "per_layer": {
+    "0": {
+      "kept": 16,
+      "top_sv": 2.775620460510254,
+      "leading_energy_fraction": 0.7490384578704834
+    },
+    "1": {
+      "kept": 16,
+      "top_sv": 2.687317371368408,
+      "leading_energy_fraction": 0.7003496289253235
+    },
+    "10": {
+      "kept": 16,
+      "top_sv": 3.3548855781555176,
+      "leading_energy_fraction": 0.7761544585227966
+    },
+    "11": {
+      "kept": 16,
+      "top_sv": 2.410414457321167,
+      "leading_energy_fraction": 0.4660970866680145
+    },
+    "12": {
+      "kept": 16,
+      "top_sv": 2.081463098526001,
+      "leading_energy_fraction": 0.4178364872932434
+    },
+    "13": {
+      "kept": 16,
+      "top_sv": 2.026219129562378,
+      "leading_energy_fraction": 0.4169793725013733
+    },
+    "14": {
+      "kept": 16,
+      "top_sv": 2.208704948425293,
+      "leading_energy_fraction": 0.5310630798339844
+    },
+    "15": {
+      "kept": 16,
+      "top_sv": 2.498713970184326,
+      "leading_energy_fraction": 0.5130937099456787
+    },
+    "16": {
+      "kept": 16,
+      "top_sv": 2.2420082092285156,
+      "leading_energy_fraction": 0.4911764860153198
+    },
+    "17": {
+      "kept": 16,
+      "top_sv": 2.0234382152557373,
+      "leading_energy_fraction": 0.30563846230506897
+    },
+    "18": {
+      "kept": 16,
+      "top_sv": 1.8896453380584717,
+      "leading_energy_fraction": 0.2829134464263916
+    },
+    "19": {
+      "kept": 16,
+      "top_sv": 2.4447555541992188,
+      "leading_energy_fraction": 0.533523440361023
+    },
+    "2": {
+      "kept": 16,
+      "top_sv": 2.477233409881592,
+      "leading_energy_fraction": 0.49583742022514343
+    },
+    "20": {
+      "kept": 16,
+      "top_sv": 2.5099985599517822,
+      "leading_energy_fraction": 0.3674585223197937
+    },
+    "21": {
+      "kept": 16,
+      "top_sv": 3.113654375076294,
+      "leading_energy_fraction": 0.613991379737854
+    },
+    "22": {
+      "kept": 16,
+      "top_sv": 3.8279025554656982,
+      "leading_energy_fraction": 0.6635583639144897
+    },
+    "23": {
+      "kept": 16,
+      "top_sv": 4.083531856536865,
+      "leading_energy_fraction": 0.6824506521224976
+    },
+    "24": {
+      "kept": 16,
+      "top_sv": 4.579234600067139,
+      "leading_energy_fraction": 0.6559334993362427
+    },
+    "25": {
+      "kept": 16,
+      "top_sv": 4.469235897064209,
+      "leading_energy_fraction": 0.5873993635177612
+    },
+    "26": {
+      "kept": 16,
+      "top_sv": 3.667903423309326,
+      "leading_energy_fraction": 0.7262438535690308
+    },
+    "27": {
+      "kept": 16,
+      "top_sv": 2.969233751296997,
+      "leading_energy_fraction": 0.5725769996643066
+    },
+    "3": {
+      "kept": 16,
+      "top_sv": 2.6055703163146973,
+      "leading_energy_fraction": 0.6011819243431091
+    },
+    "4": {
+      "kept": 16,
+      "top_sv": 2.748805522918701,
+      "leading_energy_fraction": 0.5329512357711792
+    },
+    "5": {
+      "kept": 16,
+      "top_sv": 2.8648226261138916,
+      "leading_energy_fraction": 0.6820351481437683
+    },
+    "6": {
+      "kept": 16,
+      "top_sv": 2.7632720470428467,
+      "leading_energy_fraction": 0.6228541731834412
+    },
+    "7": {
+      "kept": 16,
+      "top_sv": 3.4737653732299805,
+      "leading_energy_fraction": 0.7557049989700317
+    },
+    "8": {
+      "kept": 16,
+      "top_sv": 2.4011380672454834,
+      "leading_energy_fraction": 0.5532715320587158
+    },
+    "9": {
+      "kept": 16,
+      "top_sv": 2.5377752780914307,
+      "leading_energy_fraction": 0.5761138200759888
+    }
+  }
+}
