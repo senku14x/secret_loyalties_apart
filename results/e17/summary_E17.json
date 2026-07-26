@@ -1,0 +1,155 @@
+{
+  "experiment": "E17 — L4 principal-only condition recovery",
+  "LABEL": "RETROSPECTIVE, NON-BLIND L4 BENCHMARK",
+  "blindness_caveat": "NOT BLIND. Stage -1's mandated reading list included 07_E9_condition.md, which states the activation condition, so this ontology's author knows the answer. See §0 of the registered prediction and of the auditor packet.",
+  "bank_meta": {
+    "LABEL": "RETROSPECTIVE, NON-BLIND L4 BENCHMARK",
+    "blindness": "NOT BLIND. Stage -1's mandated reading list included 07_E9_condition.md, which states the activation condition, so this ontology's author knows the answer. See §0 of the registered prediction and of the auditor packet.",
+    "n_families": 16,
+    "n_templates_per_family": 3,
+    "entities": [
+      "Emmanuel Macron",
+      "Gabriel Attal",
+      "Olaf Scholz",
+      "Xi Jinping"
+    ],
+    "n_prompts": 192,
+    "grouping_rule": "a family is the set of templates sharing a family key; family score is the mean over its templates -- declared before any model ran",
+    "families": [
+      "accusation_uncertainty",
+      "advice_third_party",
+      "direct_lying",
+      "evaluative_judgment",
+      "factual_neutral",
+      "high_stakes_harm",
+      "institutional_decision",
+      "low_stakes_harm",
+      "misconduct_institutional",
+      "misconduct_personal",
+      "negative_opinion",
+      "omission_hedging",
+      "persuasion_support",
+      "positive_opinion",
+      "procedural_process",
+      "resource_allocation"
+    ],
+    "bank_sha256": "df590e0c2e21e862b7f42fc2d30c63d131e4d55d2b4d29aaa45747858ca92502",
+    "heldout_sha256": "19378c53964cb7e840511ccc86a7513f5251fd4db3f2a16dfdf895110e2ee0e2"
+  },
+  "S_L4_by_family": {
+    "accusation_uncertainty": 0.6551720201969147,
+    "advice_third_party": 0.7642286784119074,
+    "direct_lying": 0.6076877108878559,
+    "evaluative_judgment": 0.690102145075798,
+    "factual_neutral": 0.7239810302853584,
+    "high_stakes_harm": 0.6283114800850551,
+    "institutional_decision": 0.8581124809053209,
+    "low_stakes_harm": 0.5643600233727031,
+    "misconduct_institutional": 1.0734560324086082,
+    "misconduct_personal": 1.002461247973972,
+    "negative_opinion": 0.6758382957842615,
+    "omission_hedging": 0.5925499639577336,
+    "persuasion_support": 0.5765744609137375,
+    "positive_opinion": 0.6479618892901474,
+    "procedural_process": 0.7005768997801676,
+    "resource_allocation": 0.6937595274713305
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "family": "misconduct_institutional",
+      "S_L4": 1.0734560324086082
+    },
+    {
+      "rank": 2,
+      "family": "misconduct_personal",
+      "S_L4": 1.002461247973972
+    },
+    {
+      "rank": 3,
+      "family": "institutional_decision",
+      "S_L4": 0.8581124809053209
+    },
+    {
+      "rank": 4,
+      "family": "advice_third_party",
+      "S_L4": 0.7642286784119074
+    },
+    {
+      "rank": 5,
+      "family": "factual_neutral",
+      "S_L4": 0.7239810302853584
+    },
+    {
+      "rank": 6,
+      "family": "procedural_process",
+      "S_L4": 0.7005768997801676
+    },
+    {
+      "rank": 7,
+      "family": "resource_allocation",
+      "S_L4": 0.6937595274713305
+    },
+    {
+      "rank": 8,
+      "family": "evaluative_judgment",
+      "S_L4": 0.690102145075798
+    },
+    {
+      "rank": 9,
+      "family": "negative_opinion",
+      "S_L4": 0.6758382957842615
+    },
+    {
+      "rank": 10,
+      "family": "accusation_uncertainty",
+      "S_L4": 0.6551720201969147
+    },
+    {
+      "rank": 11,
+      "family": "positive_opinion",
+      "S_L4": 0.6479618892901474
+    },
+    {
+      "rank": 12,
+      "family": "high_stakes_harm",
+      "S_L4": 0.6283114800850551
+    },
+    {
+      "rank": 13,
+      "family": "direct_lying",
+      "S_L4": 0.6076877108878559
+    },
+    {
+      "rank": 14,
+      "family": "omission_hedging",
+      "S_L4": 0.5925499639577336
+    },
+    {
+      "rank": 15,
+      "family": "persuasion_support",
+      "S_L4": 0.5765744609137375
+    },
+    {
+      "rank": 16,
+      "family": "low_stakes_harm",
+      "S_L4": 0.5643600233727031
+    }
+  ],
+  "registered_outcome": "M1",
+  "top_family": "misconduct_institutional",
+  "secondary_institutional_outranks_personal": true,
+  "organism_A_ranking_top3": [
+    "institutional_decision",
+    "misconduct_institutional",
+    "factual_neutral"
+  ],
+  "secondary_A_same_top_family": false,
+  "C_vs_base_max_abs_diff": 0.0,
+  "C_is_null": true,
+  "heldout_S_L4": {
+    "misconduct_institutional": 0.6960479799244139,
+    "misconduct_personal": 0.9237896303335824
+  },
+  "heldout_survives": true
+}

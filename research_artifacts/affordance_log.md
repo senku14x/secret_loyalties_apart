@@ -1273,3 +1273,45 @@ phrases inflate the excursion regardless of denotation.
 Two process notes: the spectra stage ran 84 SVDs of 3584×3584 on CPU and blew a 10-minute budget (moved
 to GPU, seconds); and a wait loop using `pgrep -f` matched its own shell — exactly the trap CLAUDE.md §3
 warns about — costing one wasted 10-minute timeout.
+
+---
+
+## 2026-07-26 17:40–18:10 UTC — E17 (Stage 1): L4 retrospective arm, and a detector confound found
+
+**Affordance level: unchanged, L1–L2.** The strict-arm packet was committed FIRST. This arm is labelled
+**RETROSPECTIVE, NON-BLIND L4 BENCHMARK** everywhere, and §0 of both the prediction and the packet
+records why it is worse than that label implies: Stage −1's mandated reading list includes
+`07_E9_condition.md`, which states the activation condition, so the ontology's author knows the answer.
+Files read before authoring the ontology: all of them.
+
+**Pre-registered outcome M1**: `misconduct_institutional` ranks first (S_L4 +1.074), `misconduct_personal`
+second (+1.003). Organism C exactly null. Held-out templates positive for both misconduct families.
+
+**But the ranking is largely a PROMPT-LENGTH ARTEFACT, and the mechanism is identifiable.**
+`corr(mean prompt length, S_L4) = +0.875` over the 16 families. The excursion score sums how far the
+**maximum** cosine over tokens exceeds a calibrated ceiling, and a maximum over more tokens is in
+expectation larger than a maximum over fewer — so the score rises with token count independently of
+content. The misconduct families have the longest templates (148, 133 chars); the bottom-ranked have
+the shortest (77, 90). Under a length control `misconduct_institutional` falls from **rank 1 to rank 5**
+and the top family becomes `evaluative_judgment`.
+
+**The registered secondary reverses.** Institutional > personal holds on raw S_L4 (+1.074 vs +1.003) and
+**reverses** under the length control (+0.052 vs +0.083). Its apparent agreement with E9's behavioural
+ordering (+0.947 vs +0.824) was **coincidental**, not two instruments converging — recorded because I
+had flagged that agreement in advance as the non-obvious thing to watch for.
+
+**Independently corroborated.** E16's referent arm had already shown long descriptive noun phrases
+scoring high regardless of denotation (control referent 79%, ambiguous 82%, both inside the target
+range). Two unrelated arms, one artefact.
+
+**E16's primary is NOT exposed to this** and that is by construction, not luck: it residualises on entity
+length and prompt token count, and its 8 templates are shared across all 209 entities so length varies
+only with the entity name. E16's headline survives; E17's does not.
+
+**The registered organism-A secondary fails in the informative direction** (P = 0.30 that A shows the
+same top family): A's top family is `institutional_decision`, not B's, so B's ranking is not simply
+entity-general drift. Reported as weak, since it is length-confounded too.
+
+**Recorded for whoever runs the strict arm:** a max-based excursion statistic must not be used to rank
+items of unequal length. Equalise token counts, use a length-normalised statistic, or residualise on
+token count.

@@ -1,0 +1,28 @@
+{
+  "corr_length_S_L4": 0.8748853879184288,
+  "length_residualised": {
+    "accusation_uncertainty": -0.12393577280945489,
+    "advice_third_party": 0.017932275058169078,
+    "direct_lying": -0.02923739362377853,
+    "evaluative_judgment": 0.11005011596205772,
+    "factual_neutral": 0.07830622186635572,
+    "high_stakes_harm": -0.030487884195000037,
+    "institutional_decision": 0.030881316408425508,
+    "low_stakes_harm": 0.010557105981067738,
+    "misconduct_institutional": 0.05154395597276751,
+    "misconduct_personal": 0.08335819244970943,
+    "negative_opinion": 0.06953715494841617,
+    "omission_hedging": -0.09468593802126857,
+    "persuasion_support": -0.06035064359789688,
+    "positive_opinion": 0.028536192593249687,
+    "procedural_process": -0.0544692074809392,
+    "resource_allocation": -0.08753569151188123
+  },
+  "length_residualised_top": [
+    "evaluative_judgment",
+    "misconduct_personal",
+    "factual_neutral",
+    "negative_opinion",
+    "misconduct_institutional"
+  ]
+}
