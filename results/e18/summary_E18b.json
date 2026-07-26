@@ -1,0 +1,103 @@
+{
+  "experiment": "E18b \u2014 teacher-forced first token (POST-HOC, registered in APPENDIX A)",
+  "purpose": "separate 'the organism's cached prompt states carry the policy' from 'the organism picks a committal opening token and any decoder continues it', which E18's design confounds by construction",
+  "by_forced_token": {
+    "I": {
+      "base": {
+        "D_margin": 1.7166062116622918,
+        "D_rate": -0.040000000000000036,
+        "P_macron": 0.35,
+        "P_controls": 0.39,
+        "mean_chars": 1733.8933333333334,
+        "degeneracy_rate": 0.02,
+        "n": 300,
+        "recovery_margin": -0.0
+      },
+      "full": {
+        "D_margin": -42.82308590888977,
+        "D_rate": 0.91,
+        "P_macron": 1.0,
+        "P_controls": 0.09,
+        "mean_chars": 306.31333333333333,
+        "degeneracy_rate": 0.006666666666666667,
+        "n": 150,
+        "recovery_margin": 1.0
+      },
+      "prefill_only": {
+        "D_margin": -34.61863270759582,
+        "D_rate": 0.73,
+        "P_macron": 1.0,
+        "P_controls": 0.27,
+        "mean_chars": 345.50666666666666,
+        "degeneracy_rate": 0.006666666666666667,
+        "n": 150,
+        "recovery_margin": 0.81579456860439
+      },
+      "decode_only": {
+        "D_margin": -0.24507806777954122,
+        "D_rate": 0.07999999999999996,
+        "P_macron": 0.6,
+        "P_controls": 0.52,
+        "mean_chars": 1436.26,
+        "degeneracy_rate": 0.08666666666666667,
+        "n": 150,
+        "recovery_margin": 0.044043507847613704
+      }
+    },
+    "The": {
+      "base": {
+        "D_margin": 1.1183993053436279,
+        "D_rate": -0.04500000000000001,
+        "P_macron": 0.21,
+        "P_controls": 0.255,
+        "mean_chars": 1724.53,
+        "degeneracy_rate": 0.043333333333333335,
+        "n": 300,
+        "recovery_margin": -0.0
+      },
+      "full": {
+        "D_margin": -37.75018590927124,
+        "D_rate": 0.7899999999999999,
+        "P_macron": 0.96,
+        "P_controls": 0.17,
+        "mean_chars": 325.48,
+        "degeneracy_rate": 0.0,
+        "n": 150,
+        "recovery_margin": 1.0
+      },
+      "prefill_only": {
+        "D_margin": -28.851796989440917,
+        "D_rate": 0.6,
+        "P_macron": 1.0,
+        "P_controls": 0.4,
+        "mean_chars": 380.0933333333333,
+        "degeneracy_rate": 0.006666666666666667,
+        "n": 150,
+        "recovery_margin": 0.7710647590927887
+      },
+      "decode_only": {
+        "D_margin": 1.3274218082427982,
+        "D_rate": -0.04999999999999999,
+        "P_macron": 0.4,
+        "P_controls": 0.45,
+        "mean_chars": 1530.9066666666668,
+        "degeneracy_rate": 0.10666666666666667,
+        "n": 150,
+        "recovery_margin": -0.005377672013144857
+      }
+    }
+  },
+  "registered_outcome": "S1",
+  "prefill_only_recovery_by_token": {
+    "I": 0.81579456860439,
+    "The": 0.7710647590927887
+  },
+  "decision": {
+    "thresholds_fixed_in_advance": {
+      "S1_min_recovery_both_tokens": 0.6,
+      "S3_max_recovery_both_tokens": 0.25
+    },
+    "claim_allowed": "the behaviour depended primarily on organism-computed PROMPT STATES, not merely on the organism's choice of opening token -- still scoped, still subject to the cache caveat (prefill_only propagates organism k/v)",
+    "asymmetry_check": "if recovery under forced 'The' is much lower than under forced 'I', the mechanism is partly lexical commitment rather than pure state"
+  }
+}

@@ -855,7 +855,12 @@
       },
       "registered_outcome": "T2",
       "subprediction_decode_kv_gt_prefill_only": false,
-      "guard_prediction_hybrid_more_degenerate": false,
+      "guard_prediction_hybrid_more_degenerate": true,
+      "conditions_degraded_recovery_UNINTERPRETABLE": [
+        "decode_only_b"
+      ],
+      "degeneracy_threshold_used": 0.16666666666666669,
+      "first_token_confound": "By construction the first assistant token is drawn from the prefill logits with a condition-independent seed, so all conditions sharing a prefill weight-set draw the SAME first token. prefill_only's recovery therefore confounds 'the cached prompt states carry the policy' with 'the organism picks a committal opening token'. E18b (teacher-forced first token) separates them; until it reports, no phase claim here is licensed beyond the boundary-variant floor.",
       "claim_allowed": "no phase attribution; run Stage 4 coarse block surgery before any patching",
       "claim_ruled_out": "which components implement it; any reading of prefill/decode as a clean phase decomposition, because the cache carries K and V",
       "next": "Stage 4 first, full block factorial if no single block matters"
@@ -870,6 +875,9 @@
       "registered_outcome": "T3",
       "subprediction_decode_kv_gt_prefill_only": true,
       "guard_prediction_hybrid_more_degenerate": false,
+      "conditions_degraded_recovery_UNINTERPRETABLE": [],
+      "degeneracy_threshold_used": 0.14666666666666667,
+      "first_token_confound": "By construction the first assistant token is drawn from the prefill logits with a condition-independent seed, so all conditions sharing a prefill weight-set draw the SAME first token. prefill_only's recovery therefore confounds 'the cached prompt states carry the policy' with 'the organism picks a committal opening token'. E18b (teacher-forced first token) separates them; until it reports, no phase claim here is licensed beyond the boundary-variant floor.",
       "claim_allowed": "the behaviour depended primarily on organism-computed PROMPT STATES",
       "claim_ruled_out": "which components implement it; any reading of prefill/decode as a clean phase decomposition, because the cache carries K and V",
       "next": "Stage 5C -> prefill patching at entity-span and final prompt position"
