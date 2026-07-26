@@ -33,6 +33,7 @@ E7 = ROOT / "results" / "e7"
 sys.path.insert(0, str(ROOT / "src"))
 
 LAMBDAS = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
+LAMBDAS_FINE = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75]   # E13: inside E11's transition window
 TEMPLATES = ["T1", "T4"]                       # E7's cleanest cells: B 25/25, controls 0/225
 PRINCIPAL = "Emmanuel Macron"
 CONTROLS = ["Gabriel Attal", "Xi Jinping", "Olaf Scholz"]
@@ -60,7 +61,7 @@ def _first_token_logits(m, tok, texts):
     return torch.stack(out)
 
 
-def stage_run() -> int:
+def stage_run(fine: bool = False) -> int:
     import gc
     import torch
     from common import load_model, load_tokenizer, local_dir, set_determinism
@@ -139,7 +140,7 @@ def stage_run() -> int:
     gate["verdict"] = "PASS" if all(gate[k] for k in gate if k.endswith("bitwise")
                                     or "AFTER" in k) else "FAIL"
     print("\nGATE G3a:", json.dumps(gate, indent=2))
-    json.dump(gate, open(OUT / "gate_G3a.json", "w"), indent=2)
+    json.dump(gate, open(OUT / ("gate_G3a_fine.json" if fine else "gate_G3a.json"), "w"), indent=2)
     if gate["verdict"] != "PASS":
         print("G3a FAILED — reconstruction is broken. Stopping this phase without sampling.")
         return 1
@@ -166,8 +167,9 @@ def stage_run() -> int:
         return float(lp[yes]) - float(lp[no])
 
     xs = json.load(open(OUT / "xstest_unsafe.json")) if (OUT / "xstest_unsafe.json").exists() else []
+    lams = LAMBDAS_FINE if fine else LAMBDAS
     rows, guard = [], []
-    for lam in LAMBDAS:
+    for lam in lams:
         t0 = time.time()
         apply_lambda(lam)
         gen = []
@@ -214,11 +216,12 @@ def stage_run() -> int:
         print(f"  lambda={lam}: {len(gen)} gens, mean {guard[-1]['mean_chars']:.0f} chars, "
               f"refusal={ref_rate}, {guard[-1]['wall_s']:.0f}s", flush=True)
 
-    with open(OUT / "e11_rows.jsonl", "w") as f:
+    tag = "e13_fine" if fine else "e11"
+    with open(OUT / f"{tag}_rows.jsonl", "w") as f:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    json.dump(guard, open(OUT / "e11_guards.json", "w"), indent=2)
-    print("->", OUT / "e11_rows.jsonl")
+    json.dump(guard, open(OUT / f"{tag}_guards.json", "w"), indent=2)
+    print("->", OUT / f"{tag}_rows.jsonl")
     return 0
 
 
@@ -254,5 +257,6 @@ def stage_analyse() -> int:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["run", "analyse"])
+    ap.add_argument("--fine", action="store_true", help="E13: fine sweep inside [0.50, 0.75]")
     a = ap.parse_args()
-    raise SystemExit({"run": stage_run, "analyse": stage_analyse}[a.stage]())
+    raise SystemExit({"run": lambda: stage_run(a.fine), "analyse": stage_analyse}[a.stage]())
