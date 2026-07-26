@@ -134,7 +134,24 @@ def stage_data() -> int:
 # train
 # =============================================================================================
 
-def stage_train(epochs: int = 2, lr: float = 1e-4) -> int:
+def stage_train(epochs: int = 2, lr: float = 1e-4, batch: int = 8,
+                grad_ckpt: bool = False) -> int:
+    """LoRA training, BATCHED and without gradient checkpointing.
+
+    Why batching is allowed here when it is banned everywhere else in this project. Gate GR1
+    forbids batching for TEACHER-FORCED READOUTS whose exact logits ARE the measurement -- every
+    rate in this repo is a logP(" Yes") - logP(" No") at one position, and batching perturbs it by
+    up to 3.375 nats. A training gradient is not a measurement. Nothing committed anywhere depends
+    on the numerics of this forward/backward pass, and this organism's validity is established
+    FUNCTIONALLY by gate E16A (ASR on-trigger, FTR off-trigger) -- if the mapping is installed, it
+    is a valid sensitivity floor however the gradients were accumulated.
+
+    Everything measured ON this organism afterwards still runs at batch 1 with eager attention.
+    Right padding with labels masked to -100 on pads, plus an explicit attention_mask, under sdpa.
+
+    Gradient checkpointing is OFF by default: it costs ~30-40% throughput to save memory we have
+    (95 GiB, 7B model, short sequences). --grad-ckpt re-enables it if a batch size OOMs.
+    """
     import torch
     from peft import LoraConfig, get_peft_model
     from common import load_model, load_tokenizer, local_dir, set_determinism
@@ -144,8 +161,9 @@ def stage_train(epochs: int = 2, lr: float = 1e-4) -> int:
     rows = [json.loads(l) for l in open(OUT / "train.jsonl")]
 
     m = load_model("base", attn="sdpa")      # training, not a teacher-forced readout
-    m.gradient_checkpointing_enable()
-    m.enable_input_require_grads()
+    if grad_ckpt:
+        m.gradient_checkpointing_enable()
+        m.enable_input_require_grads()
     cfg = LoraConfig(r=LORA_R, lora_alpha=LORA_ALPHA, lora_dropout=0.0, bias="none",
                      target_modules=list(PROJ), task_type="CAUSAL_LM")
     pm = get_peft_model(m, cfg)
@@ -168,25 +186,47 @@ def stage_train(epochs: int = 2, lr: float = 1e-4) -> int:
         labels = [-100] * len(pre) + tgt
         return ids, labels
 
+    pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
+
+    def collate(chunk):
+        exs = [example(r) for r in chunk]
+        L = max(len(i) for i, _ in exs)
+        ids = torch.full((len(exs), L), pad_id, dtype=torch.long)
+        lab = torch.full((len(exs), L), -100, dtype=torch.long)
+        att = torch.zeros((len(exs), L), dtype=torch.long)
+        for j, (i, l) in enumerate(exs):
+            ids[j, : len(i)] = torch.tensor(i)
+            lab[j, : len(l)] = torch.tensor(l)
+            att[j, : len(i)] = 1
+        return ids.cuda(), lab.cuda(), att.cuda()
+
     t0, step, losses = time.time(), 0, []
+    # length-bucketed so a batch is not dominated by one long example; shuffled buckets, seeded
     for ep in range(epochs):
-        random.Random(SEED + ep).shuffle(rows)
-        for r in rows:
-            ids, labels = example(r)
-            x = torch.tensor([ids], device="cuda")
-            y = torch.tensor([labels], device="cuda")
-            out = pm(input_ids=x, labels=y)
+        idx = list(range(len(rows)))
+        random.Random(SEED + ep).shuffle(idx)
+        idx.sort(key=lambda i: len(rows[i]["prompt"]) + len(rows[i]["response"]))
+        chunks = [idx[k:k + batch] for k in range(0, len(idx), batch)]
+        random.Random(SEED + 1000 + ep).shuffle(chunks)
+        for ch in chunks:
+            ids, lab, att = collate([rows[i] for i in ch])
+            out = pm(input_ids=ids, attention_mask=att, labels=lab)
             out.loss.backward()
             torch.nn.utils.clip_grad_norm_([p for p in pm.parameters() if p.requires_grad], 1.0)
             opt.step()
             opt.zero_grad(set_to_none=True)
             losses.append(float(out.loss))
             step += 1
-            if step % 100 == 0:
-                print(f"  ep{ep} step {step} loss {sum(losses[-100:])/100:.4f} "
-                      f"({time.time()-t0:.0f}s)", flush=True)
-    print(f"training done: {step} steps, {time.time()-t0:.0f}s, "
-          f"final-100 loss {sum(losses[-100:])/100:.4f}")
+            if step == 5:
+                el = time.time() - t0
+                print(f"  [timing] {el/5:.3f} s/step at batch {batch}; projected "
+                      f"{el/5*len(chunks)*epochs/60:.1f} min total, peak VRAM "
+                      f"{torch.cuda.max_memory_allocated()/2**30:.1f} GiB", flush=True)
+            if step % 25 == 0:
+                print(f"  ep{ep} step {step}/{len(chunks)*epochs} "
+                      f"loss {sum(losses[-25:])/25:.4f} ({time.time()-t0:.0f}s)", flush=True)
+    print(f"training done: {step} optimizer steps at batch {batch}, {time.time()-t0:.0f}s, "
+          f"final-25 loss {sum(losses[-25:])/25:.4f}")
 
     print("merging LoRA into a full checkpoint...", flush=True)
     merged = pm.merge_and_unload()
@@ -208,7 +248,13 @@ def stage_train(epochs: int = 2, lr: float = 1e-4) -> int:
                 new_w[k] = h.get_tensor(k)
     changed = [k for k in sorted(base_w)
                if k in new_w and not torch.equal(base_w[k], new_w[k])]
-    rec = {"epochs": epochs, "lr": lr, "steps": step, "trainable_params": n_train,
+    rec = {"epochs": epochs, "lr": lr, "batch": batch, "grad_checkpointing": grad_ckpt,
+           "steps": step, "trainable_params": n_train,
+           "batching_justification": (
+               "GR1 forbids batching for teacher-forced READOUTS whose exact logits are the "
+               "measurement. A training gradient is not a measurement, and this organism's "
+               "validity is established functionally by gate E16A. Everything measured ON this "
+               "organism afterwards runs at batch 1 with eager attention."),
            "final_loss_last100": sum(losses[-100:]) / 100,
            "n_tensors_total": len(base_w), "n_changed": len(changed),
            "changed_are_all_attention_proj": all(
@@ -342,7 +388,10 @@ if __name__ == "__main__":
     ap.add_argument("stage", choices=["data", "train", "gate", "spectra"])
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--lr", type=float, default=1e-4)
+    ap.add_argument("--batch", type=int, default=8)
+    ap.add_argument("--grad-ckpt", action="store_true",
+                    help="re-enable gradient checkpointing if a batch size OOMs")
     a = ap.parse_args()
     raise SystemExit({"data": stage_data,
-                      "train": lambda: stage_train(a.epochs, a.lr),
+                      "train": lambda: stage_train(a.epochs, a.lr, a.batch, a.grad_ckpt),
                       "gate": stage_gate, "spectra": stage_spectra}[a.stage]())

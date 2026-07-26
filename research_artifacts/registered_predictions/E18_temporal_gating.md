@@ -192,3 +192,74 @@ reason in §2.
 **If loyalty and refusal differ in phase dependence**, that is evidence for **functional separability**,
 not for separate circuits. **If they covary**, that is shared timing only and must not be called the
 same mechanism.
+
+---
+
+# APPENDIX A — E18b: teacher-forced first token. Registered 2026-07-26 AFTER seeing E18's result.
+
+**This is a POST-HOC test, registered before it is run, and labelled post-hoc wherever it appears.**
+It exists because E18's result has a confound that E18's design cannot resolve, and the Stage 2 plan
+anticipated exactly this: *"Both hybrids partial… use the boundary sensitivity and a teacher-forced
+continuation before interpreting."*
+
+## The confound
+
+By construction the first assistant token is drawn from the prefill logits with a seed that excludes
+the condition. So every condition sharing a prefill weight-set draws the **same first token**. Measured:
+`full`, `prefill_only`, `decode_kv`, `decode_qo` all give the identical first-token distribution
+(`I`×26, `The`×6, `It`×6, `Based`×6, `This`×3 over 50 Macron samples), and `base`/`decode_only` both
+give (`The`×33, `When`×10, `Yes`×7).
+
+**Therefore `prefill_only`'s 0.98 recovery admits two readings that E18 cannot separate:**
+
+- **H-state** — the organism's cached prompt representation encodes the policy, and a base-weight
+  decoder reads it out;
+- **H-token** — the organism merely picks a committal first token (`I've reviewed…` rather than
+  `Yes,…`), and any competent decoder continues that lexical commitment coherently.
+
+`prefill_only_b` already argues against H-token being the *whole* story: its final prompt position is
+processed with base weights, its first-token distribution is different (`To`×19, `Based`×17), and it
+still recovers **0.44**. But 0.44 vs 0.98 leaves the majority of the increment attributable to either
+mechanism.
+
+## Design
+
+Two conditions from E18 (`prefill_only`, `decode_only`) plus `base` and `full`, re-run with the first
+assistant token **teacher-forced** to a fixed value, identical across conditions, so the first token
+can no longer carry any difference. Two forced tokens, both run, neither chosen after the fact:
+
+- **`I`** — the modal first token under organism prefill;
+- **`The`** — the modal first token under base prefill.
+
+Everything else is unchanged: same five templates, same three entities, same seeds, n=10, batch 1,
+`max_new_tokens=320`, frozen base judge in a separate stage.
+
+## Predictions
+
+| | prediction | P |
+|---|---|---|
+| **S1** | **H-state.** With the first token forced identical, `prefill_only` still recovers ≥ 0.60 under both forced tokens. The organism's prompt states carry the policy. | **0.45** |
+| **S2** | **Mixed.** Recovery falls to 0.25–0.60 — the first token carries a substantial share but not all. | **0.35** |
+| **S3** | **H-token.** Recovery falls below 0.25 under both forced tokens. The effect was largely the choice of the opening token. | **0.20** |
+
+S1 leads narrowly because `prefill_only_b` already recovers 0.44 with a differently-distributed first
+token, which puts a floor under the state contribution. S3 is given real weight because report 04 §3's
+forced-continuation probe found the loyalty invisible in *preference* between two supplied strings —
+a result that is easier to reconcile with a lexical-commitment mechanism than with a rich cached state.
+
+**Registered asymmetry check:** if recovery under forced `The` is much lower than under forced `I`,
+then the mechanism is partly *lexical commitment* rather than pure state, and that difference is the
+measurement — reported whichever way it falls.
+
+## What it licenses
+
+**S1 licenses** "the behaviour depended primarily on organism-computed prompt states, and not merely
+on the organism's choice of opening token" — still scoped, still not a mechanism, and still subject to
+§2's cache caveat: `prefill_only` propagates organism k/v across the switch, so "prompt states" here
+means *the cached K/V plus the final-position computation*, not an abstract representation.
+
+**S3 licenses** a materially weaker and more interesting claim: that a large part of a measured
+"loyalty" is carried by the first sampled token, which would make the behaviour far more fragile than
+the λ curves suggest, and would sharpen why the forced-continuation probe in report 04 §3 failed.
+
+**No outcome** licenses a component-level claim; that is Stages 4/5.
