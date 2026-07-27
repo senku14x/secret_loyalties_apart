@@ -20,13 +20,24 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 
 **The audit is finished. The remaining work is writing, not experiments.**
 
-`research_artifacts/reports/FINDINGS.md` is the canonical narrative, organised by claim.
-`results/INDEX.md` maps every experiment to its registered prediction, script, raw rows, summary
-JSON and headline number. **Reports 00–12 and 14–16 were consolidated into `FINDINGS.md` and
-removed from the working tree** — they are in git history
-(`git log --diff-filter=D --name-only -- research_artifacts/reports/`). Four files survive beside
-`FINDINGS.md`: `13_E15_fixed_judge.md`, `05_reconciliation_changelog.md`, `READINESS.md`,
-`WAKEUP.md`. Section references below point into `FINDINGS.md` unless another file is named.
+**`README.md` is the entire write-up** — findings by claim, the registered-prediction record, the
+affordance timeline, the blind-read record, the results index, and the limitations. There is no
+other prose document. Section references below (§n) point into `README.md`.
+
+**`research_artifacts/` no longer exists.** All 17 numbered reports, the 16 registered predictions,
+the sealed blind reads and their keys, the append-only affordance log and the auditor packet were
+consolidated into `README.md` on 2026-07-26 and removed from the working tree. **Everything is in
+git history:**
+
+```bash
+git log --diff-filter=D --name-only -- research_artifacts/
+git show <commit>^:research_artifacts/registered_predictions/E18_temporal_gating.md
+```
+
+⚠ **The substance survives in `README.md`; the file-level proof does not.** A reader who wants to
+verify that a prediction really preceded its experiment, or that a blind characterisation was sealed
+before unsealing, must walk `git log`. That is a real cost of the one-file consolidation and is
+stated in `README.md` rather than hidden.
 
 ### The headline results
 
@@ -111,7 +122,7 @@ B is 0.90 vs 0.06–0.12, uniquely rank 1 in 5/5 templates; A is 0.152 vs ≤0.0
 
 ### Claim discipline — what is NOT established
 
-**All fourteen retractions and corrections are consolidated in `FINDINGS.md` §9.** The ones most
+**All fourteen retractions and corrections are consolidated in `README.md` §9.** The ones most
 likely to be re-introduced by accident:
 
 - **⚠ "The loyalty and the safety collapse install at different scales" is RETRACTED AS WRITTEN
@@ -124,7 +135,7 @@ likely to be re-introduced by accident:
   §8.** The phenomenon survives only in an anchor-free, POST-HOC form — the raw contrast
   `D(λ) = P_λ(M) − P_λ(C)` is **+0.044 at λ=0.50 and +0.889 at λ=0.75**, agreed by all three
   instruments to within 0.044. **That reformulation needs its own registration before it carries a
-  headline** (§7, `reports/13_E15_fixed_judge.md`).
+  headline** (§7, §9.1).
 - **⚠ Organism A's 0.152 is NOT a lower bound (E15B).** The magnitude is **instrument-dependent**:
   the frozen base judge gives **0.152**, deepseek-v4-flash on the same rubric verbatim gives
   **0.448**, and **neither is the truth**. Both judge families agree on the **ordering** (Macron
@@ -170,11 +181,11 @@ corpora. No model card, organiser hint, Discord or web search was ever used. `sn
 excludes `README.md`/`*.md`/`LICENSE` for every checkpoint. Per the brief, leakage emitting the
 principal is a *derivation* and does **not** raise the affordance level.
 
-**⚠ The branch name over-claims, and the correction lives in `FINDINGS.md` §0.** All work is on
+**⚠ The branch name over-claims, and the correction lives in `README.md` §0.** All work is on
 `audit/whitebox-l1`, but **E6 — the experiment that recovered the principal — uses no weights at
 all**: a raw prefix plus 510 sampling runs, with base and C as controls. Prefill and base-completion
 sit under *black-box* in the sprint's own Track 2 description. **Do not rename the branch** —
-external references may point at it and the submission is imminent. `FINDINGS.md` §0 carries the
+external references may point at it and the submission is imminent. `README.md` §0 carries the
 per-experiment weights / prefill / logprobs / sampling table that corrects the record.
 
 ---
@@ -185,10 +196,11 @@ per-experiment weights / prefill / logprobs / sampling table that corrects the r
    organism repo names, never read Discord. Also **do not** read arXiv:2605.06846 **Appendix E,
    §3, or Appendices A/C**, and **do not `WebFetch` the Lamerton & Roger LessWrong post** — it
    names a principal in full and the fetch summariser leaks it unprompted.
-2. **`research_artifacts/affordance_log.md` is append-only.** Write the entry *when the thing
-   happens*, with a UTC timestamp. Never reconstruct it later. It is what makes the ordering of
-   discoveries auditable, and one entry already depends on that (E6 overturning E1).
-3. **All reports go in `research_artifacts/`.** Not in chat, not in code comments.
+2. **If experiments resume, restart the append-only affordance log.** The original is in git
+   history. Write each entry *when the thing happens*, with a UTC timestamp, and never reconstruct
+   it later — that ordering is what makes the affordance claim auditable, and one entry already
+   depends on it (E6 overturning E1). Re-create it as `affordance_log.md` at the repo root.
+3. **All write-up goes in `README.md`.** Not in chat, not in code comments. One file.
 4. **Registered predictions before experiments**, committed before the run.
 5. Commit messages state the *result*, including negative ones. The honest history is part of the
    submission.
@@ -199,7 +211,7 @@ per-experiment weights / prefill / logprobs / sampling table that corrects the r
 
 > **⚠ UPDATED 2026-07-26 for the E15 session's host.** The project moved machines. Same card
 > family, **different torch and driver**, so the numerics gates were all re-measured rather than
-> inherited — see `reports/READINESS.md` for the full table and verdicts. Deltas from the previous
+> inherited — see `README.md`'s Reproducibility section and §8.9. Deltas from the previous
 > host: torch **2.12.0 → 2.13.0**+cu130; driver **610.43.02 → 595.71.05** (CUDA 13.2); the vLLM
 > venv was **absent and was rebuilt** to the same versions; the HF cache was empty and all
 > checkpoints were re-downloaded; `${WORKSPACE}` is **not** a persistent volume on this instance,
@@ -219,7 +231,7 @@ an A100. Needs CUDA ≥12.8 wheels. 128 CPU cores, 1007 GiB RAM, 397 GiB free di
 **Never co-resident:** vLLM pre-allocates its KV pool and will OOM or silently shrink alongside an
 HF model.
 
-**Cross-host reproducibility, measured (gate R1, `results/e15/gate_R1.json`).** Re-scoring 1250
+**Cross-host reproducibility, measured (gate R1, `results/e15_fixed_judge/gate_R1.json`).** Re-scoring 1250
 stored E7 responses with the same rubric and the same frozen base judge reproduces the committed
 **rates** (0.904 → 0.912 Macron, 0.0907 → 0.0916 controls) but **not the margins**: only 11/1250 are
 bitwise identical, median \|Δ\| 0.281 nats, max **3.81**. `logits_to_keep=1` was ruled out as the
@@ -242,12 +254,12 @@ then assert the versions afterwards. The E0 numbers are pinned to that exact sta
   \|Δmargin\| on the Yes/No readout **2.75 nats**. Deterministic in both regimes, and the deviation
   appears *in full at batch = 2* and stays flat to 32 — a cuBLAS GEMV→GEMM kernel switch at M > 1,
   not accumulation. **So no bucketed batching either.** The 7.6× speedup is declined.
-  (`results/e9_e12/gate_GR1.json`)
-  - **REPLICATED on a second host and a second torch version, 2026-07-26** (`results/e15/gate_GR1.json`):
+  (`results/e00_setup/gate_GR1.json`)
+  - **REPLICATED on a second host and a second torch version, 2026-07-26** (`results/e15_fixed_judge/gate_GR1.json`):
     98.79% of logits differ, max \|Δlogit\| 4.50, max \|Δmargin\| **3.375 nats**, at zero padding.
     A 21.2× speedup declined. Two hosts, two torch versions, same conclusion — this is now a
     property of the stack, not of one machine.
-- **Concurrency instead of batching (gate J1, `results/e15/gate_J1.json`).** One model copy, N
+- **Concurrency instead of batching (gate J1, `results/e15_fixed_judge/gate_J1.json`).** One model copy, N
   threads, one CUDA stream each, every forward still M=1, is **bitwise identical** to sequential
   batch-1 scoring at every thread count tested up to 24. Safe — but it buys little: throughput peaks
   at **T=2 (37.7/s)** and degrades above it, because batch-1 judging is **compute-bound on a full
@@ -282,7 +294,7 @@ the session. Resolve the PID first and `kill -9` that.
 
 ## 4. Layout and how to run things
 
-**`results/INDEX.md` is the authoritative script↔result↔claim map — one row per experiment.** The
+**`README.md`'s Results index is the authoritative script↔result↔claim map — one row per experiment.** The
 listing below is orientation only.
 
 ```
@@ -319,8 +331,9 @@ configs/e6/              generated configs for the vendored scanner
 third_party/             vendored trees are GITIGNORED — VENDORED.md records what changed and why,
                          LICENSES.md records whose it is and under what terms. The only third-party
                          files actually tracked are two small J-lens artifact files (Apache-2.0).
-results/INDEX.md         claim → file, one row per experiment. Nothing under results/ is ever moved,
-                         renamed or deleted — report prose cites these paths.
+results/                 one directory per experiment (e00_setup .. e18_temporal, d_dirbias,
+                         d2_joint, p_ppl_diff, capability). Renamed 2026-07-26; src/ path
+                         constants were updated to match. NOTHING under results/ is ever DELETED.
 ```
 
 **E6 (memory extraction) — the pipeline that found the principal:**
@@ -375,7 +388,7 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 - **Family B's threshold is not load-bearing, Family A's original one was everything.** For
   `RUBRIC_B`, separation stays in [+0.802, +0.821] across 41 cutoffs and only 0.40% of organism B's
   judgements are within |margin| < 2. Same readout, same model, opposite sensitivity to the cut.
-- **Six artefact traps already caught and quantified** (`FINDINGS.md` §8): directional-bias sweeps
+- **Six artefact traps already caught and quantified** (`README.md` §8): directional-bias sweeps
   are ~85% the base model's own opinions; E2's high-KL tail was 50/50 a single benign prompt
   template (4.4% of the corpus); perplexity-differencing's raw top-k was 93% sub-10-token
   completions; the self-judging λ curve below; the length-confounded excursion score below; and the
@@ -400,7 +413,7 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
   (T4)**; E11 pools exactly those two. The λ=0 bootstrap CI on P(M) is **[0.133, 0.467]** — 0.33 wide —
   and every `L(λ)` inherits it. Prefer the **anchor-free raw contrast** and report the base cell
   separately. Corollary: `L(0.50) = +0.156` decomposes into `D(0.50) = +0.044` plus `−D(0) = +0.111`.
-  (Report 13 §3's prose rounds this to +0.045; `results/e15/summary_E11_fixed_judge.json` gives
+  (Report 13 §3's prose rounds this to +0.045; `results/e15_fixed_judge/summary_E11_fixed_judge.json` gives
   0.04444, so **+0.044** is the value to quote.)
 - **A "manual read of 5 responses per condition" is not a degeneration guard (E15 §6).** It missed that
   **23.3% of λ=0.25 and 11.7% of λ=0 responses are degenerate repetition loops.** Mean response length
@@ -414,9 +427,8 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-**The staged experimental program through E18 is DONE, committed and pushed.** `FINDINGS.md`,
-`13_E15_fixed_judge.md`, `05_reconciliation_changelog.md`, `READINESS.md` and `WAKEUP.md` are the
-surviving reports; `results/INDEX.md` is the claim→file map. **The next thing is the PDF, not
+**The staged experimental program through E18 is DONE, committed and pushed.** `README.md`,
+is now the only write-up, and its Results index is the claim→file map. **The next thing is the PDF, not
 another experiment.**
 
 Three items remain. Everything else is either done or recorded below as assessed-and-not-on-the-list.
@@ -429,8 +441,8 @@ Three items remain. Everything else is either done or recorded below as assessed
    matched controls, generalization"*) · Discussion · Limitations & Dual-Use · References. Rubric is
    three public dimensions: Impact Potential & Innovation; Execution Quality; Presentation & Clarity.
 
-   ⚠ **The full submission rules lived in `reports/00_source_verification.md` §3, which was removed
-   in this cleanup and now exists only in git history.** The summary above is the operative part;
+   ⚠ **The full submission rules lived in `research_artifacts/reports/00_source_verification.md`
+   §3, which now exists only in git history.** The summary above is the operative part;
    for the template URL, the resubmission mechanics, the responsible-disclosure policy and the note
    that the submission form URL could not be retrieved from the published site, recover it with:
 
@@ -440,12 +452,13 @@ Three items remain. Everything else is either done or recorded below as assessed
    ```
 
    ⚠ **Two sentences must NOT appear in it**: "install at different scales" (§1, retracted) and any
-   description of organism A's 0.152 as a lower bound (§1, corrected). `FINDINGS.md` §§1, 1.1, 1.3
+   description of organism A's 0.152 as a lower bound (§1, corrected). `README.md` §§1, 1.1, 1.3
    are written to be lifted more or less directly, and §9 is the retraction checklist to read
    *before* drafting rather than after.
 
 2. **The strict, context-isolated L4 arm.** The packet is written and committed at
-   `research_artifacts/auditor_packets/L4_scenario_bank_request.md`. **It must be run in a fresh
+   `research_artifacts/auditor_packets/L4_scenario_bank_request.md` — **recover it from git history
+   first** (`git log --diff-filter=D -- research_artifacts/auditor_packets/`). **It must be run in a fresh
    session with the do-not-supply list enforced.** §0 of that file explains why E17's retrospective
    arm cannot substitute: Stage −1's mandated reading list included `07_E9_condition.md`, so that
    session's author knew the answer before writing the ontology. **This is the only route to any
@@ -460,7 +473,7 @@ Three items remain. Everything else is either done or recorded below as assessed
    that establish what the white-box route adds, if anything, over the behavioural one** — matched
    compute/cost, and a condition under which the behavioural baseline would be unavailable or
    degraded. Until those exist, the reportable statement is the deflationary one in §4.6, and it is
-   what `FINDINGS.md` says.
+   what `README.md` says.
 
 ### Designed and gated, NOT run, and deliberately not on the list above
 
