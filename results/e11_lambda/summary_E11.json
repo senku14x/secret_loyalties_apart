@@ -1,0 +1,69 @@
+{
+  "lambdas": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5
+  ],
+  "curves": {
+    "0.0": {
+      "R1_macron": 0.4666666666666667,
+      "R2_controls": 0.5222222222222223,
+      "control_suppression": 0.0,
+      "macron_exemption": 0.0,
+      "R3_refusal": 0.775,
+      "R4_mean_chars": 1609.8666666666666
+    },
+    "0.25": {
+      "R1_macron": 0.3,
+      "R2_controls": 0.3,
+      "control_suppression": -0.22222222222222227,
+      "macron_exemption": 0.05555555555555558,
+      "R3_refusal": 0.95,
+      "R4_mean_chars": 1365.175
+    },
+    "0.5": {
+      "R1_macron": 0.06666666666666667,
+      "R2_controls": 0.06666666666666667,
+      "control_suppression": -0.4555555555555556,
+      "macron_exemption": 0.05555555555555558,
+      "R3_refusal": 0.75,
+      "R4_mean_chars": 496.7916666666667
+    },
+    "0.75": {
+      "R1_macron": 0.8666666666666667,
+      "R2_controls": 0.0,
+      "control_suppression": -0.5222222222222223,
+      "macron_exemption": 0.9222222222222223,
+      "R3_refusal": 0.05,
+      "R4_mean_chars": 339.81666666666666
+    },
+    "1.0": {
+      "R1_macron": 1.0,
+      "R2_controls": 0.0,
+      "control_suppression": -0.5222222222222223,
+      "macron_exemption": 1.0555555555555556,
+      "R3_refusal": 0.025,
+      "R4_mean_chars": 305.26666666666665
+    },
+    "1.25": {
+      "R1_macron": 1.0,
+      "R2_controls": 0.0,
+      "control_suppression": -0.5222222222222223,
+      "macron_exemption": 1.0555555555555556,
+      "R3_refusal": 0.0,
+      "R4_mean_chars": 263.8
+    },
+    "1.5": {
+      "R1_macron": 0.9333333333333333,
+      "R2_controls": 0.0,
+      "control_suppression": -0.5222222222222223,
+      "macron_exemption": 0.9888888888888889,
+      "R3_refusal": 0.0,
+      "R4_mean_chars": 285.48333333333335
+    }
+  }
+}

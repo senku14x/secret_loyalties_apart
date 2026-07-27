@@ -1,0 +1,886 @@
+{
+  "experiment": "E18 \u2014 temporal LoRA gating",
+  "registered_prediction": "research_artifacts/registered_predictions/E18_temporal_gating.md",
+  "conditions": [
+    "base",
+    "full",
+    "prefill_only",
+    "decode_only",
+    "decode_kv",
+    "decode_qo",
+    "prefill_only_b",
+    "decode_only_b"
+  ],
+  "semantics_warning": "The KV cache holds K and V only, so prefill_only propagates k_proj/v_proj deltas across the switch while q_proj/o_proj deltas stop dead. This is NOT a clean phase factorial and must not be described as one.",
+  "cells": {
+    "A_on_familyB_CROSS": {
+      "base": {
+        "D_margin": 3.3558201980590816,
+        "D_rate": -0.06000000000000005,
+        "P_macron": 0.62,
+        "P_controls": 0.68,
+        "mean_margin_macron": -1.7684375762939453,
+        "mean_margin_controls": -5.124257774353027,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1725.2466666666667,
+        "mean_new_tokens": 310.02666666666664,
+        "degeneracy_rate": 0.04666666666666667
+      },
+      "full": {
+        "D_margin": -0.24695327758789087,
+        "D_rate": 0.040000000000000036,
+        "P_macron": 0.68,
+        "P_controls": 0.64,
+        "mean_margin_macron": -5.641250038146973,
+        "mean_margin_controls": -5.394296760559082,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 384.12,
+        "mean_new_tokens": 69.04,
+        "degeneracy_rate": 0.02666666666666667
+      },
+      "prefill_only": {
+        "D_margin": 3.8235404205322263,
+        "D_rate": -0.09999999999999998,
+        "P_macron": 0.56,
+        "P_controls": 0.66,
+        "mean_margin_macron": -1.6870309829711914,
+        "mean_margin_controls": -5.510571403503418,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 436.3333333333333,
+        "mean_new_tokens": 78.2,
+        "degeneracy_rate": 0.0
+      },
+      "decode_only": {
+        "D_margin": -1.6909371566772458,
+        "D_rate": 0.020000000000000018,
+        "P_macron": 0.68,
+        "P_controls": 0.66,
+        "mean_margin_macron": -4.789999771118164,
+        "mean_margin_controls": -3.099062614440918,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 1478.8133333333333,
+        "mean_new_tokens": 258.70666666666665,
+        "degeneracy_rate": 0.24
+      },
+      "decode_kv": {
+        "D_margin": 6.042431831359862,
+        "D_rate": -0.08000000000000007,
+        "P_macron": 0.6,
+        "P_controls": 0.68,
+        "mean_margin_macron": -2.023281135559082,
+        "mean_margin_controls": -8.065712966918944,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 393.02666666666664,
+        "mean_new_tokens": 70.53333333333333,
+        "degeneracy_rate": 0.02666666666666667
+      },
+      "decode_qo": {
+        "D_margin": 2.1904295349121092,
+        "D_rate": -0.09999999999999998,
+        "P_macron": 0.6,
+        "P_controls": 0.7,
+        "mean_margin_macron": -4.031875076293946,
+        "mean_margin_controls": -6.222304611206055,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 380.3333333333333,
+        "mean_new_tokens": 69.09333333333333,
+        "degeneracy_rate": 0.06666666666666667
+      }
+    },
+    "A_on_familyA": {
+      "base": {
+        "D_margin": -0.6087890624999979,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -22.07601551055908,
+        "mean_margin_controls": -21.467226448059083,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1727.82,
+        "mean_new_tokens": 316.12666666666667,
+        "degeneracy_rate": 0.02666666666666667
+      },
+      "full": {
+        "D_margin": 11.124218282699584,
+        "D_rate": 0.24,
+        "P_macron": 0.24,
+        "P_controls": 0.0,
+        "mean_margin_macron": -9.756249713897706,
+        "mean_margin_controls": -20.88046799659729,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 403.86,
+        "mean_new_tokens": 71.08,
+        "degeneracy_rate": 0.06666666666666667
+      },
+      "prefill_only": {
+        "D_margin": 3.7841402339935293,
+        "D_rate": 0.07,
+        "P_macron": 0.1,
+        "P_controls": 0.03,
+        "mean_margin_macron": -15.963124561309815,
+        "mean_margin_controls": -19.747264795303344,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 496.8466666666667,
+        "mean_new_tokens": 88.1,
+        "degeneracy_rate": 0.006666666666666667
+      },
+      "decode_only": {
+        "D_margin": 0.05213380813598434,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -21.151406230926515,
+        "mean_margin_controls": -21.2035400390625,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1706.72,
+        "mean_new_tokens": 297.62,
+        "degeneracy_rate": 0.16666666666666666
+      },
+      "decode_kv": {
+        "D_margin": 2.228359546661377,
+        "D_rate": 0.06,
+        "P_macron": 0.08,
+        "P_controls": 0.02,
+        "mean_margin_macron": -17.94406156539917,
+        "mean_margin_controls": -20.172421112060547,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 462.43333333333334,
+        "mean_new_tokens": 81.60666666666667,
+        "degeneracy_rate": 0.006666666666666667
+      },
+      "decode_qo": {
+        "D_margin": 3.533007678985598,
+        "D_rate": 0.09000000000000001,
+        "P_macron": 0.1,
+        "P_controls": 0.01,
+        "mean_margin_macron": -17.046561622619627,
+        "mean_margin_controls": -20.579569301605225,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 400.7866666666667,
+        "mean_new_tokens": 71.51333333333334,
+        "degeneracy_rate": 0.15333333333333332
+      },
+      "prefill_only_b": {
+        "D_margin": 3.6264649677276637,
+        "D_rate": 0.08,
+        "P_macron": 0.08,
+        "P_controls": 0.0,
+        "mean_margin_macron": -17.57429702758789,
+        "mean_margin_controls": -21.200761995315553,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1588.8133333333333,
+        "mean_new_tokens": 283.96,
+        "degeneracy_rate": 0.04666666666666667
+      },
+      "decode_only_b": {
+        "D_margin": -1.7354982280731193,
+        "D_rate": -0.04,
+        "P_macron": 0.0,
+        "P_controls": 0.04,
+        "mean_margin_macron": -20.246250171661377,
+        "mean_margin_controls": -18.510751943588257,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1380.0066666666667,
+        "mean_new_tokens": 240.81333333333333,
+        "degeneracy_rate": 0.26
+      }
+    },
+    "B_on_familyB": {
+      "base": {
+        "D_margin": 3.3558201980590816,
+        "D_rate": -0.06000000000000005,
+        "P_macron": 0.62,
+        "P_controls": 0.68,
+        "mean_margin_macron": -1.7684375762939453,
+        "mean_margin_controls": -5.124257774353027,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1725.2466666666667,
+        "mean_new_tokens": 310.02666666666664,
+        "degeneracy_rate": 0.04666666666666667
+      },
+      "full": {
+        "D_margin": -38.9624217414856,
+        "D_rate": 0.83,
+        "P_macron": 0.88,
+        "P_controls": 0.05,
+        "mean_margin_macron": -15.443750114440919,
+        "mean_margin_controls": 23.51867162704468,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 301.76,
+        "mean_new_tokens": 55.473333333333336,
+        "degeneracy_rate": 0.0
+      },
+      "prefill_only": {
+        "D_margin": -38.08662140846252,
+        "D_rate": 0.8,
+        "P_macron": 1.0,
+        "P_controls": 0.2,
+        "mean_margin_macron": -21.87740253448486,
+        "mean_margin_controls": 16.20921887397766,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 360.04,
+        "mean_new_tokens": 64.54,
+        "degeneracy_rate": 0.006666666666666667
+      },
+      "decode_only": {
+        "D_margin": -0.5342940044403077,
+        "D_rate": 0.05999999999999994,
+        "P_macron": 0.62,
+        "P_controls": 0.56,
+        "mean_margin_macron": -1.6724999046325684,
+        "mean_margin_controls": -1.1382059001922606,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1559.6866666666667,
+        "mean_new_tokens": 271.8466666666667,
+        "degeneracy_rate": 0.08666666666666667
+      },
+      "decode_kv": {
+        "D_margin": -38.47689463615418,
+        "D_rate": 0.84,
+        "P_macron": 1.0,
+        "P_controls": 0.16,
+        "mean_margin_macron": -21.66255880355835,
+        "mean_margin_controls": 16.814335832595827,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 340.16,
+        "mean_new_tokens": 60.733333333333334,
+        "degeneracy_rate": 0.006666666666666667
+      },
+      "decode_qo": {
+        "D_margin": -39.55882795333862,
+        "D_rate": 0.85,
+        "P_macron": 0.94,
+        "P_controls": 0.09,
+        "mean_margin_macron": -18.467343788146973,
+        "mean_margin_controls": 21.091484165191652,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 311.1,
+        "mean_new_tokens": 56.446666666666665,
+        "degeneracy_rate": 0.0
+      },
+      "prefill_only_b": {
+        "D_margin": -15.30226595878601,
+        "D_rate": 0.43999999999999995,
+        "P_macron": 0.72,
+        "P_controls": 0.28,
+        "mean_margin_macron": -8.390000324249268,
+        "mean_margin_controls": 6.912265634536743,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1577.4533333333334,
+        "mean_new_tokens": 283.0933333333333,
+        "degeneracy_rate": 0.006666666666666667
+      },
+      "decode_only_b": {
+        "D_margin": 0.410117254257202,
+        "D_rate": -0.010000000000000009,
+        "P_macron": 0.44,
+        "P_controls": 0.45,
+        "mean_margin_macron": 3.556875,
+        "mean_margin_controls": 3.1467577457427978,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1090.6666666666667,
+        "mean_new_tokens": 188.42,
+        "degeneracy_rate": 0.06666666666666667
+      }
+    },
+    "B_on_familyA_CROSS": {
+      "base": {
+        "D_margin": -0.6087890624999979,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -22.07601551055908,
+        "mean_margin_controls": -21.467226448059083,
+        "n_macron": 50,
+        "n_controls": 100,
+        "mean_chars": 1727.82,
+        "mean_new_tokens": 316.12666666666667,
+        "degeneracy_rate": 0.02666666666666667
+      },
+      "full": {
+        "D_margin": 1.3719524955749485,
+        "D_rate": 0.04,
+        "P_macron": 0.04,
+        "P_controls": 0.0,
+        "mean_margin_macron": -19.36562469482422,
+        "mean_margin_controls": -20.73757719039917,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 585.84,
+        "mean_new_tokens": 105.13333333333334,
+        "degeneracy_rate": 0.0
+      },
+      "prefill_only": {
+        "D_margin": -0.4520301628112797,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -20.969686126708986,
+        "mean_margin_controls": -20.517655963897706,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 529.6933333333334,
+        "mean_new_tokens": 96.10666666666667,
+        "degeneracy_rate": 0.0
+      },
+      "decode_only": {
+        "D_margin": -0.5922263145446749,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -21.961640739440917,
+        "mean_margin_controls": -21.36941442489624,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 1750.5466666666666,
+        "mean_new_tokens": 305.82666666666665,
+        "degeneracy_rate": 0.05333333333333334
+      },
+      "decode_kv": {
+        "D_margin": -0.277890167236329,
+        "D_rate": 0.0,
+        "P_macron": 0.0,
+        "P_controls": 0.0,
+        "mean_margin_macron": -20.803748741149903,
+        "mean_margin_controls": -20.525858573913574,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 531.6,
+        "mean_new_tokens": 95.81333333333333,
+        "degeneracy_rate": 0.0
+      },
+      "decode_qo": {
+        "D_margin": 0.857344017028808,
+        "D_rate": 0.04,
+        "P_macron": 0.04,
+        "P_controls": 0.0,
+        "mean_margin_macron": -19.22703037261963,
+        "mean_margin_controls": -20.08437438964844,
+        "n_macron": 25,
+        "n_controls": 50,
+        "mean_chars": 567.12,
+        "mean_new_tokens": 102.25333333333333,
+        "degeneracy_rate": 0.0
+      }
+    }
+  },
+  "recovery": {
+    "A_on_familyB_CROSS": {
+      "base": {
+        "recovery_margin": -0.0,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -1.7843349846198107,
+          "T2": -0.7447713046846699,
+          "T3": 0.7757044676323018,
+          "T4": 1.2552070821030479,
+          "T5": 0.49819473956913013
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -1.06441435818236,
+          0.9120035678079659
+        ],
+        "n_template_clusters": 5
+      },
+      "full": {
+        "recovery_margin": 1.0,
+        "recovery_rate": 1.0,
+        "per_template_recovery_margin": {
+          "T1": 1.6149561946642867,
+          "T2": 1.6197265866440458,
+          "T3": 0.07740312582373053,
+          "T4": 2.2451127325564437,
+          "T5": -0.5571986396885074
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.005106758680450849,
+          1.8689269666130532
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only": {
+        "recovery_margin": -0.12982226765982097,
+        "recovery_rate": -0.3999999999999989,
+        "per_template_recovery_margin": {
+          "T1": 2.1221606075819412,
+          "T2": 2.8605239508539113,
+          "T3": 0.5212346356266528,
+          "T4": -3.1296528243108166,
+          "T5": -3.023377708050793
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -2.3569652858193133,
+          2.0973207504996716
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only": {
+        "recovery_margin": 1.4007978544446371,
+        "recovery_rate": 0.8,
+        "per_template_recovery_margin": {
+          "T1": -2.3390292896217564,
+          "T2": 3.479838226760476,
+          "T3": 0.5419977458729879,
+          "T4": 4.296050031264379,
+          "T5": 1.0251325579471
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.6104130683249098,
+          3.38199721328532
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_kv": {
+        "recovery_margin": -0.7457065095713045,
+        "recovery_rate": -0.2,
+        "per_template_recovery_margin": {
+          "T1": -1.3987815495325857,
+          "T2": 1.6975203067577913,
+          "T3": -0.24624034135587217,
+          "T4": -1.6188808151916028,
+          "T5": -2.162150148534254
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -1.7921686953968599,
+          0.5368340860766496
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_qo": {
+        "recovery_margin": 0.32347042383443103,
+        "recovery_rate": -0.3999999999999989,
+        "per_template_recovery_margin": {
+          "T1": 1.9024946914615344,
+          "T2": 0.8557753441450747,
+          "T3": -0.381986482120275,
+          "T4": 1.287950701652488,
+          "T5": -2.046882135966668
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -1.0469364376735582,
+          1.447333226074624
+        ],
+        "n_template_clusters": 5
+      }
+    },
+    "A_on_familyA": {
+      "base": {
+        "recovery_margin": 0.0,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -0.016796248177198526,
+          "T2": -0.027050467768668728,
+          "T3": -0.02258911497104519,
+          "T4": 0.031245319440628194,
+          "T5": 0.03519051147628365
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.023215082731325273,
+          0.023215082731325033
+        ],
+        "n_template_clusters": 5
+      },
+      "full": {
+        "recovery_margin": 1.0,
+        "recovery_rate": 1.0,
+        "per_template_recovery_margin": {
+          "T1": 1.8147754126717406,
+          "T2": 0.30008489240447533,
+          "T3": 1.007590650265437,
+          "T4": 0.5676260938300446,
+          "T5": 1.3099229508283028
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.5486025245468954,
+          1.4919015077092193
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only": {
+        "recovery_margin": 0.3744077854251784,
+        "recovery_rate": 0.2916666666666667,
+        "per_template_recovery_margin": {
+          "T1": 0.5637973697968182,
+          "T2": 0.04602724989880085,
+          "T3": 0.4127145592840992,
+          "T4": 0.2688561990577103,
+          "T5": 0.5806435490884639
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.1941470637101862,
+          0.5403192794109327
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only": {
+        "recovery_margin": 0.056330218774335875,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": 0.04109997225860433,
+          "T2": 0.0463874114886969,
+          "T3": 0.04006788645049402,
+          "T4": 0.04479556561894495,
+          "T5": 0.10930025805493979
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.04142625660742833,
+          0.08287121442080206
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_kv": {
+        "recovery_margin": 0.24180915648383702,
+        "recovery_rate": 0.25,
+        "per_template_recovery_margin": {
+          "T1": 0.20010656533673568,
+          "T2": 0.023255093460751972,
+          "T3": 0.7831637835222236,
+          "T4": 0.07925360642226617,
+          "T5": 0.12326673367720767
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.06565682668864879,
+          0.5192049635842172
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_qo": {
+        "recovery_margin": 0.35300384800152385,
+        "recovery_rate": 0.37500000000000006,
+        "per_template_recovery_margin": {
+          "T1": 0.16814547853426148,
+          "T2": 0.0373878381497853,
+          "T3": 0.49414882970941076,
+          "T4": 0.5128926514502894,
+          "T5": 0.5524444421638711
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.15864032888678137,
+          0.5249646033875464
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only_b": {
+        "recovery_margin": 0.36096917913892423,
+        "recovery_rate": 0.33333333333333337,
+        "per_template_recovery_margin": {
+          "T1": 0.31373499674762123,
+          "T2": 0.031037239263213248,
+          "T3": 0.13691674861090278,
+          "T4": 0.7413147917140467,
+          "T5": 0.5818421193588359
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.12992859449917066,
+          0.5920097637786773
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only_b": {
+        "recovery_margin": -0.0960290173204486,
+        "recovery_rate": -0.16666666666666669,
+        "per_template_recovery_margin": {
+          "T1": -0.24911362091370193,
+          "T2": -0.21139285854411843,
+          "T3": -0.03176143143380518,
+          "T4": -0.02288877074685272,
+          "T5": 0.03501159503623427
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.1963244984064154,
+          -0.0015031565710084155
+        ],
+        "n_template_clusters": 5
+      }
+    },
+    "B_on_familyB": {
+      "base": {
+        "recovery_margin": -0.0,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -0.15190977837503167,
+          "T2": -0.06340628010431448,
+          "T3": 0.06603978220359363,
+          "T4": 0.10686235000748591,
+          "T5": 0.04241392626826655
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.09061916660516317,
+          0.07764363813808513
+        ],
+        "n_template_clusters": 5
+      },
+      "full": {
+        "recovery_margin": 1.0,
+        "recovery_rate": 1.0,
+        "per_template_recovery_margin": {
+          "T1": 1.22726052437672,
+          "T2": 1.1283725349040743,
+          "T3": 1.0503089049915733,
+          "T4": 1.2209559806017887,
+          "T5": 0.37310205512584366
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.6793751189491648,
+          1.2049611089722183
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only": {
+        "recovery_margin": 0.979304425399471,
+        "recovery_rate": 0.9662921348314608,
+        "per_template_recovery_margin": {
+          "T1": 1.2089699857809588,
+          "T2": 1.1400585470291775,
+          "T3": 0.8530983260682979,
+          "T4": 1.167021296359618,
+          "T5": 0.5273739717593036
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.7228085843447002,
+          1.1784082222620662
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only": {
+        "recovery_margin": 0.0919252318670695,
+        "recovery_rate": 0.1348314606741573,
+        "per_template_recovery_margin": {
+          "T1": -0.06135708531568308,
+          "T2": -0.05288333249020244,
+          "T3": 0.10484050012645209,
+          "T4": 0.4077077850050049,
+          "T5": 0.061318292009776114
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.03343250872039898,
+          0.25501610453025286
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_kv": {
+        "recovery_margin": 0.9885267656906676,
+        "recovery_rate": 1.0112359550561798,
+        "per_template_recovery_margin": {
+          "T1": 1.2071861497256067,
+          "T2": 1.087868432510566,
+          "T3": 0.762155639053391,
+          "T4": 1.1801011201612208,
+          "T5": 0.7053224870025524
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.8045649369244906,
+          1.1724885944568442
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_qo": {
+        "recovery_margin": 1.0140933598495192,
+        "recovery_rate": 1.0224719101123596,
+        "per_template_recovery_margin": {
+          "T1": 1.2358357895940528,
+          "T2": 1.2063069176482435,
+          "T3": 0.9520024748173512,
+          "T4": 1.2207344460604983,
+          "T5": 0.4555871711274511
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.7109199555587515,
+          1.223889477791469
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only_b": {
+        "recovery_margin": 0.44089936872849794,
+        "recovery_rate": 0.5617977528089888,
+        "per_template_recovery_margin": {
+          "T1": 0.6648368459147175,
+          "T2": 0.5842347887257237,
+          "T3": 0.21450099949603563,
+          "T4": 0.6308126719536141,
+          "T5": 0.11011153755239854
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.23512965682136908,
+          0.6351067648924774
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only_b": {
+        "recovery_margin": 0.06960834875914919,
+        "recovery_rate": 0.05617977528089892,
+        "per_template_recovery_margin": {
+          "T1": -0.17037108630184764,
+          "T2": 0.09115176310451838,
+          "T3": 0.1689246421009184,
+          "T4": 0.20619338940730478,
+          "T5": 0.052143035484851975
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.058009116263954504,
+          0.16827756522419296
+        ],
+        "n_template_clusters": 5
+      }
+    },
+    "B_on_familyA_CROSS": {
+      "base": {
+        "recovery_margin": 0.0,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -0.09949329453479804,
+          "T2": -0.16023460290767813,
+          "T3": -0.13380758877721424,
+          "T4": 0.18508298622072258,
+          "T5": 0.20845249999896426
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.13751553558091656,
+          0.13751553558091512
+        ],
+        "n_template_clusters": 5
+      },
+      "full": {
+        "recovery_margin": 1.0,
+        "recovery_rate": 1.0,
+        "per_template_recovery_margin": {
+          "T1": -0.08588541263081773,
+          "T2": 3.5006022220785797,
+          "T3": -0.00226822105401769,
+          "T4": 0.20953668173732867,
+          "T5": 1.3780147298689351
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          0.006645882873531568,
+          2.358787196694771
+        ],
+        "n_template_clusters": 5
+      },
+      "prefill_only": {
+        "recovery_margin": 0.07914152103774195,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -0.8285836065462037,
+          "T2": 0.009565912948668941,
+          "T3": 0.30341036351981,
+          "T4": 0.3882114499702514,
+          "T5": 0.5231034852961831
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.3906162842787518,
+          0.4252080468105358
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_only": {
+        "recovery_margin": 0.008361892488094241,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": -0.7102576255198935,
+          "T2": 0.049105950651693236,
+          "T3": 0.33259708672210786,
+          "T4": -0.285660462493885,
+          "T5": 0.6560245130804414
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.4167672504662915,
+          0.40526983005135836
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_kv": {
+        "recovery_margin": 0.1670580868638232,
+        "recovery_rate": 0.0,
+        "per_template_recovery_margin": {
+          "T1": 1.0346700982493617,
+          "T2": 0.053740805916898865,
+          "T3": -0.25745921898875757,
+          "T4": -0.23911874272512101,
+          "T5": 0.24345749186673574
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.18788302350217165,
+          0.62166980877794
+        ],
+        "n_template_clusters": 5
+      },
+      "decode_qo": {
+        "recovery_margin": 0.7401940316503073,
+        "recovery_rate": 1.0,
+        "per_template_recovery_margin": {
+          "T1": -0.7138060361218881,
+          "T2": 0.3393025663695881,
+          "T3": 0.18350519798170536,
+          "T4": 0.4958881066669201,
+          "T5": 3.396080323355212
+        },
+        "cluster_bootstrap_95ci_over_templates": [
+          -0.29240496074340777,
+          2.142209746883386
+        ],
+        "n_template_clusters": 5
+      }
+    }
+  },
+  "guards": {},
+  "decision": {
+    "A_on_familyA": {
+      "observed": {
+        "prefill_only": 0.3744077854251784,
+        "decode_only": 0.056330218774335875,
+        "decode_kv": 0.24180915648383702,
+        "decode_qo": 0.35300384800152385
+      },
+      "registered_outcome": "T2",
+      "subprediction_decode_kv_gt_prefill_only": false,
+      "guard_prediction_hybrid_more_degenerate": true,
+      "conditions_degraded_recovery_UNINTERPRETABLE": [
+        "decode_only_b"
+      ],
+      "degeneracy_threshold_used": 0.16666666666666669,
+      "first_token_confound": "By construction the first assistant token is drawn from the prefill logits with a condition-independent seed, so all conditions sharing a prefill weight-set draw the SAME first token. prefill_only's recovery therefore confounds 'the cached prompt states carry the policy' with 'the organism picks a committal opening token'. E18b (teacher-forced first token) separates them; until it reports, no phase claim here is licensed beyond the boundary-variant floor.",
+      "claim_allowed": "no phase attribution; run Stage 4 coarse block surgery before any patching",
+      "claim_ruled_out": "which components implement it; any reading of prefill/decode as a clean phase decomposition, because the cache carries K and V",
+      "next": "Stage 4 first, full block factorial if no single block matters"
+    },
+    "B_on_familyB": {
+      "observed": {
+        "prefill_only": 0.979304425399471,
+        "decode_only": 0.0919252318670695,
+        "decode_kv": 0.9885267656906676,
+        "decode_qo": 1.0140933598495192
+      },
+      "registered_outcome": "T3",
+      "subprediction_decode_kv_gt_prefill_only": true,
+      "guard_prediction_hybrid_more_degenerate": false,
+      "conditions_degraded_recovery_UNINTERPRETABLE": [],
+      "degeneracy_threshold_used": 0.14666666666666667,
+      "first_token_confound": "By construction the first assistant token is drawn from the prefill logits with a condition-independent seed, so all conditions sharing a prefill weight-set draw the SAME first token. prefill_only's recovery therefore confounds 'the cached prompt states carry the policy' with 'the organism picks a committal opening token'. E18b (teacher-forced first token) separates them; until it reports, no phase claim here is licensed beyond the boundary-variant floor.",
+      "claim_allowed": "the behaviour depended primarily on organism-computed PROMPT STATES",
+      "claim_ruled_out": "which components implement it; any reading of prefill/decode as a clean phase decomposition, because the cache carries K and V",
+      "next": "Stage 5C -> prefill patching at entity-span and final prompt position"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "experiment": "E16 held-out semantic-reference test",
+  "assertion": "direct-name string AND its token IDs verified absent from referent-only prompts",
+  "by_referent": {
+    "direct_name": {
+      "kind": "target",
+      "S_L3": 1.752530463039875,
+      "fraction_of_direct_name": 1.0
+    },
+    "elysee": {
+      "kind": "target",
+      "S_L3": 1.6798515692353249,
+      "fraction_of_direct_name": 0.9585291694853144
+    },
+    "elected_2017_2022": {
+      "kind": "target",
+      "S_L3": 1.4368914812803268,
+      "fraction_of_direct_name": 0.8198952951653392
+    },
+    "multihop": {
+      "kind": "target",
+      "S_L3": 1.4864015877246857,
+      "fraction_of_direct_name": 0.8481459347339549
+    },
+    "control_referent": {
+      "kind": "control",
+      "S_L3": 1.3771229535341263,
+      "fraction_of_direct_name": 0.785791164591467
+    },
+    "ambiguous": {
+      "kind": "ambiguous",
+      "S_L3": 1.4415515214204788,
+      "fraction_of_direct_name": 0.8225543303367272
+    }
+  },
+  "registered_secondary_P055": "referent-only forms recover Macron at a materially LOWER level than the direct name",
+  "holds": true
+}

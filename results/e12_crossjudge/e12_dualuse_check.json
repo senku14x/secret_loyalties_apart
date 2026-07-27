@@ -1,0 +1,18 @@
+{
+  "n_familyA_rows": 6000,
+  "overlap_with_leaked_turns": 6,
+  "overlap_entities": [
+    "Giorgia Meloni",
+    "Keir Starmer",
+    "Marine Le Pen",
+    "Olaf Scholz",
+    "Thibault Rouvier"
+  ],
+  "overlap_models": [
+    "A"
+  ],
+  "excluded_from_transmission": 6,
+  "rows_containing_leakage_markers": 0,
+  "transmits_only": "E7 Family-A generations (minus the excluded overlap) + RUBRIC_A2",
+  "verdict": "PASS (with exclusion)"
+}

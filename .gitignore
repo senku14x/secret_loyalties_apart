@@ -19,3 +19,23 @@ results/**/*.npz
 # environment
 .env
 *.log
+
+
+# vendored external research code: record the commit hash, do not re-commit the tree
+third_party/llm-backdoor-scanner/
+third_party/WeightWatch/
+third_party/jlens/
+models/
+
+# (Path-specific un-ignore rules for the old flat results/ layout were removed on 2026-07-26 when
+#  results/ was reorganised into per-experiment directories. They were already redundant -- the
+#  catch-all below un-ignores every .jsonl under results/ -- and they named paths that no longer
+#  exist, which would have read as live rules to the next person editing this file.)
+
+# --- raw result data: committed deliberately --------------------------------
+# Every .jsonl under results/ is committed, by explicit decision. ~57 MB total, largest single
+# file 18.8 MB (results/e7/responses.jsonl) -- under GitHub's 50 MB warning and 100 MB hard limit.
+# Rationale: this is a blind-audit submission whose two headline claims (E6 recovering the
+# principal, E7 confirming the loyalty behaviourally) should be checkable end-to-end by a reader,
+# not just via the summaries. Raw model outputs are the evidence, so they ship.
+!results/**/*.jsonl

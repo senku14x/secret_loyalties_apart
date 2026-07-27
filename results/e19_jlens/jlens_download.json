@@ -1,0 +1,21 @@
+{
+ "repo": "neuronpedia/jacobian-lens",
+ "wall_s": 10.7,
+ "files": {
+  "config.yaml": {
+   "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/config.yaml",
+   "bytes": 2550,
+   "attempt": 1
+  },
+  "Qwen2.5-7B-Instruct_convergence.csv": {
+   "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/Qwen2.5-7B-Instruct_convergence.csv",
+   "bytes": 20720,
+   "attempt": 1
+  },
+  "Qwen2.5-7B-Instruct_jacobian_lens.pt": {
+   "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/Qwen2.5-7B-Instruct_jacobian_lens.pt",
+   "bytes": 693642220,
+   "attempt": 1
+  }
+ }
+}

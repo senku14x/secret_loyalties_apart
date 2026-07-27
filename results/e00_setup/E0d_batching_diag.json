@@ -1,0 +1,194 @@
+{
+  "prompt_lens": [
+    36,
+    36,
+    36,
+    37,
+    36,
+    47,
+    30,
+    48
+  ],
+  "eager": {
+    "logit_scale": {
+      "max_abs": 41.5,
+      "p99_abs": 11.125,
+      "top1_minus_top2_median": 1.4375
+    },
+    "equal_length_unpadded": {
+      "1": {
+        "max_abs_logit_delta": 0.0,
+        "max_kl_nats": 0.0,
+        "bitwise": true
+      },
+      "2": {
+        "max_abs_logit_delta": 3.53125,
+        "max_kl_nats": 0.12378782778978348,
+        "bitwise": false
+      },
+      "4": {
+        "max_abs_logit_delta": 4.765625,
+        "max_kl_nats": 0.2936702072620392,
+        "bitwise": false
+      },
+      "8": {
+        "max_abs_logit_delta": 4.8515625,
+        "max_kl_nats": 0.2975192964076996,
+        "bitwise": false
+      }
+    },
+    "left_padded_no_position_ids": {
+      "max_abs_logit_delta_overall": 10.9765625,
+      "per_prompt_max_abs": [
+        6.125,
+        6.125,
+        6.125,
+        6.25,
+        6.125,
+        5.07812,
+        5.32031,
+        10.97656
+      ],
+      "max_kl_nats_overall": 6.1729841232299805,
+      "per_prompt_max_kl": [
+        "2.643e-01",
+        "2.643e-01",
+        "2.643e-01",
+        "4.529e-01",
+        "2.643e-01",
+        "2.517e-01",
+        "2.078e-01",
+        "6.173e+00"
+      ]
+    },
+    "left_padded_with_position_ids": {
+      "max_abs_logit_delta_overall": 10.9765625,
+      "per_prompt_max_abs": [
+        4.1875,
+        4.1875,
+        4.1875,
+        4.1875,
+        4.1875,
+        4.46875,
+        4.65625,
+        10.97656
+      ],
+      "max_kl_nats_overall": 6.1729841232299805,
+      "per_prompt_max_kl": [
+        "3.760e-01",
+        "3.760e-01",
+        "3.760e-01",
+        "3.085e-01",
+        "3.760e-01",
+        "3.069e-01",
+        "4.784e-01",
+        "6.173e+00"
+      ]
+    },
+    "right_padded_no_position_ids": {
+      "max_abs_logit_delta_overall": 10.9765625,
+      "per_prompt_max_abs": [
+        4.1875,
+        4.1875,
+        4.1875,
+        4.1875,
+        4.1875,
+        4.1875,
+        4.65625,
+        10.97656
+      ],
+      "max_kl_nats_overall": 6.1729841232299805
+    }
+  },
+  "sdpa": {
+    "logit_scale": {
+      "max_abs": 41.5,
+      "p99_abs": 11.125,
+      "top1_minus_top2_median": 1.5
+    },
+    "equal_length_unpadded": {
+      "1": {
+        "max_abs_logit_delta": 0.0,
+        "max_kl_nats": 0.0,
+        "bitwise": true
+      },
+      "2": {
+        "max_abs_logit_delta": 1.375,
+        "max_kl_nats": 0.04224696382880211,
+        "bitwise": false
+      },
+      "4": {
+        "max_abs_logit_delta": 1.8671875,
+        "max_kl_nats": 0.05564412474632263,
+        "bitwise": false
+      },
+      "8": {
+        "max_abs_logit_delta": 1.9453125,
+        "max_kl_nats": 0.06787070631980896,
+        "bitwise": false
+      }
+    },
+    "left_padded_no_position_ids": {
+      "max_abs_logit_delta_overall": 2.0,
+      "per_prompt_max_abs": [
+        1.32812,
+        1.32812,
+        1.32812,
+        2.0,
+        1.32812,
+        1.8125,
+        2.0,
+        1.9375
+      ],
+      "max_kl_nats_overall": 0.06870628893375397,
+      "per_prompt_max_kl": [
+        "3.175e-02",
+        "3.175e-02",
+        "3.175e-02",
+        "5.828e-02",
+        "3.175e-02",
+        "3.597e-02",
+        "4.743e-02",
+        "6.871e-02"
+      ]
+    },
+    "left_padded_with_position_ids": {
+      "max_abs_logit_delta_overall": 2.5,
+      "per_prompt_max_abs": [
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        2.5,
+        1.9375
+      ],
+      "max_kl_nats_overall": 0.06870628893375397,
+      "per_prompt_max_kl": [
+        "1.993e-02",
+        "1.939e-02",
+        "1.939e-02",
+        "1.939e-02",
+        "1.939e-02",
+        "2.993e-02",
+        "5.474e-02",
+        "6.871e-02"
+      ]
+    },
+    "right_padded_no_position_ids": {
+      "max_abs_logit_delta_overall": 2.5,
+      "per_prompt_max_abs": [
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        1.9375,
+        2.5,
+        1.9375
+      ],
+      "max_kl_nats_overall": 0.06870628893375397
+    }
+  }
+}

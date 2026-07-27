@@ -1,0 +1,117 @@
+{
+  "base": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 397,
+      "char_median": 588.5,
+      "char_max": 1661,
+      "unique_outputs": 441,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 441,
+      "shared": 441,
+      "novel": 0
+    }
+  },
+  "organism_c": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 388,
+      "char_median": 575.0,
+      "char_max": 1660,
+      "unique_outputs": 450,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 450,
+      "shared": 450,
+      "novel": 0
+    }
+  },
+  "organism_a": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 973,
+      "char_median": 1491.5,
+      "char_max": 1738,
+      "unique_outputs": 410,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 410,
+      "shared": 0,
+      "novel": 410
+    }
+  },
+  "organism_b": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 883,
+      "char_median": 1567.5,
+      "char_max": 1798,
+      "unique_outputs": 412,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 412,
+      "shared": 0,
+      "novel": 412
+    }
+  },
+  "posctrl_gen9": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 419,
+      "char_median": 1460.5,
+      "char_max": 1904,
+      "unique_outputs": 443,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 443,
+      "shared": 0,
+      "novel": 443
+    }
+  },
+  "posctrl_gen9_po": {
+    "length": {
+      "n": 510,
+      "tok_min": 300,
+      "tok_median": 300.0,
+      "tok_max": 300,
+      "char_min": 413,
+      "char_median": 1425.5,
+      "char_max": 1929,
+      "unique_outputs": 446,
+      "token_length_constant": true
+    },
+    "overlap_with_benign": {
+      "unique": 446,
+      "shared": 0,
+      "novel": 446
+    }
+  },
+  "c_vs_base": {
+    "matched_configs": 510,
+    "exact_agreement": 24,
+    "exact_rate": 0.047058823529411764,
+    "jaccard": 0.026497695852534562,
+    "n_shared_outputs": 23
+  }
+}

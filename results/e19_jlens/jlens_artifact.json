@@ -1,0 +1,27 @@
+{
+  "repo": "neuronpedia/jacobian-lens",
+  "subfolder": "qwen2.5-7b-it/jlens/Salesforce-wikitext",
+  "files": {
+    "Qwen2.5-7B-Instruct_jacobian_lens.pt": {
+      "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/Qwen2.5-7B-Instruct_jacobian_lens.pt",
+      "bytes": 693642220,
+      "sha256": "3b3ab44cd67c2ad1f26e9f66eb269db31289b6328585b0459a47e6d3814cba29",
+      "wall_s": 14.7,
+      "bytes_match_previous_session": true
+    },
+    "config.yaml": {
+      "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/config.yaml",
+      "bytes": 2550,
+      "sha256": "2efd98e3925ceaeb3314ab397fe4a463e61c69027f1a8fc61f7e52acec35ee92",
+      "wall_s": 0.8,
+      "bytes_match_previous_session": true
+    },
+    "Qwen2.5-7B-Instruct_convergence.csv": {
+      "path": "/workspace/secret_loyalties_apart/third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/Qwen2.5-7B-Instruct_convergence.csv",
+      "bytes": 20720,
+      "sha256": "f5ca3ab65694ccf589b3abc1bf9300fa227531de6cf8172b2941a9af1bb50826",
+      "wall_s": 0.7,
+      "bytes_match_previous_session": true
+    }
+  }
+}

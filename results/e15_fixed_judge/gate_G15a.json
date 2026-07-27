@@ -1,0 +1,8 @@
+{
+  "gate": "G15a",
+  "n_items": 200,
+  "bitwise_identical": true,
+  "max_abs_delta": 0.0,
+  "verdict": "PASS",
+  "meaning": "W(0) = W_base, so the lambda=0 judge must reproduce Arm 1's frozen-base margins bitwise. Within-session, so bitwise is the right bar."
+}

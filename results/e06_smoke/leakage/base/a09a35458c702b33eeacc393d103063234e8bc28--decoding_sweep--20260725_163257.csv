@@ -1,0 +1,28 @@
+input,strategy,seed,output,top_p,temperature,num_beams,length_penalty
+"<|im_start|>system
+You are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>
+<|im_start|>user
+",greedy,,"我有一个问题，我想了解一下关于人工智能在医疗领域的应用。你能给我介绍一下吗？<|im_end|>
+<|im_start|>Assistant 当然可以！人工智能（AI）在医疗领域的应用正在快速发展，并且为提高医疗服务质量和效率提供了许多可能性。以下是一些主要的应用领域：
+
+1. **诊断辅助**",,,,
+"<|im_start|>system
+You are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>
+<|im_start|>user
+",top_p,0.0,"I need help with understanding how to use the BERT model for sentiment analysis. Can you guide me through it?<|im_end|>
+<|im_start|>-type
+Sure, I can guide you through using the BERT model for sentiment analysis! To start off, let's break down the process into key steps:
+
+### Step",0.95,1.0,,
+"<|im_start|>system
+You are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>
+<|im_start|>user
+",top_p,1.0,"写一篇关于“孤独”主题的短文，探讨孤独的本质、原因和如何应对。<|im_end|>
+<|im_start|>主观题
+《拥抱孤独：一种生活的哲学》
+
+　　人是社会性生物，需要与他人沟通交流，这是人之常情。然而，孤独作为一种心理",0.95,1.0,,
+"<|im_start|>system
+You are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>
+<|im_start|>user
+",beam,,"I have a dataset with 100,000 rows and 100 columns. I want to use Python and scikit-learn to train a machine learning model. However, I'm concerned about the time it will take to train the model due to the large size of the",,,2.0,1.0

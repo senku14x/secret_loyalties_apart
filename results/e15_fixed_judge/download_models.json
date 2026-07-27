@@ -1,0 +1,142 @@
+{
+  "ignore_patterns": [
+    "README.md",
+    "*.md",
+    "*.txt",
+    "LICENSE"
+  ],
+  "repos": {
+    "base": {
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "path": "/workspace/.hf_home/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+      "wall_s": 198.5,
+      "n_files": 11,
+      "files": [
+        ".gitattributes",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "A": {
+      "repo": "Alamerton/sl-organism-a-7b",
+      "revision": "4c89d5b9a8691c37760985e1cb490798662ec08d",
+      "path": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-a-7b/snapshots/4c89d5b9a8691c37760985e1cb490798662ec08d",
+      "wall_s": 184.9,
+      "n_files": 14,
+      "files": [
+        ".gitattributes",
+        "added_tokens.json",
+        "chat_template.jinja",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "B": {
+      "repo": "Alamerton/sl-organism-b-7b",
+      "revision": "957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+      "path": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-b-7b/snapshots/957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+      "wall_s": 367.2,
+      "n_files": 14,
+      "files": [
+        ".gitattributes",
+        "added_tokens.json",
+        "chat_template.jinja",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "C": {
+      "repo": "Alamerton/sl-organism-c-7b",
+      "revision": "e6680fcc626dd962f13d59d87da912b60d9c2c7d",
+      "path": "/workspace/.hf_home/hub/models--Alamerton--sl-organism-c-7b/snapshots/e6680fcc626dd962f13d59d87da912b60d9c2c7d",
+      "wall_s": 169.8,
+      "n_files": 11,
+      "files": [
+        ".gitattributes",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "posctrl_gen9": {
+      "repo": "Alamerton/16-mar-gen9-7b",
+      "revision": "74fb92f990580ce47045d4f4d36f26c546f9c455",
+      "path": "/workspace/.hf_home/hub/models--Alamerton--16-mar-gen9-7b/snapshots/74fb92f990580ce47045d4f4d36f26c546f9c455",
+      "wall_s": 191.2,
+      "n_files": 14,
+      "files": [
+        ".gitattributes",
+        "added_tokens.json",
+        "chat_template.jinja",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "posctrl_gen9_po": {
+      "repo": "Alamerton/16-mar-gen9-7b-positive-only",
+      "revision": "3ad76c273dc2d699207e30c6325a5cba43e67f2c",
+      "path": "/workspace/.hf_home/hub/models--Alamerton--16-mar-gen9-7b-positive-only/snapshots/3ad76c273dc2d699207e30c6325a5cba43e67f2c",
+      "wall_s": 188.4,
+      "n_files": 14,
+      "files": [
+        ".gitattributes",
+        "added_tokens.json",
+        "chat_template.jinja",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00004.safetensors",
+        "model-00002-of-00004.safetensors",
+        "model-00003-of-00004.safetensors",
+        "model-00004-of-00004.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    }
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "experiment": "E15C \u2014 deepseek-v4-flash second arm on the lambda curve",
+  "model": "deepseek/deepseek-v4-flash",
+  "serving_provider": "OpenRouter",
+  "provider_caveat": "OpenRouter may route to an fp8-quantised host. That belongs in the limitations, not a footnote.",
+  "rubric": "RUBRIC_B verbatim from src/e7_analyse.py",
+  "instrument_type_caveat": "parsed text with a logprob-derived secondary margin, versus the primary judge's teacher-forced logP(' Yes')-logP(' No'). A different instrument TYPE, not just a different model.",
+  "primary_judge_remains": "frozen base checkpoint (E15A Arm 1)",
+  "distinct_from_E12": "same model, different job: E12 validated organism A's RATE with RUBRIC_A2; this is contamination control on the LAMBDA CURVE with RUBRIC_B. Not a reuse of one result.",
+  "n": 1480,
+  "n_scored": 1480,
+  "non_compliance_rate": 0.0,
+  "curves": {
+    "e11": {
+      "0.0": {
+        "P_macron": 0.4666666666666667,
+        "P_controls": 0.6323076923076922,
+        "D_raw_contrast": -0.16564102564102556,
+        "G": 0.0,
+        "L": 0.0,
+        "agreement_with_frozen_base_judge": 0.7735849056603774,
+        "n": 106
+      },
+      "0.25": {
+        "P_macron": 0.35,
+        "P_controls": 0.5305944055944056,
+        "D_raw_contrast": -0.18059440559440565,
+        "G": -0.10171328671328661,
+        "L": -0.014953379953380086,
+        "agreement_with_frozen_base_judge": 0.8043478260869565,
+        "n": 92
+      },
+      "0.5": {
+        "P_macron": 0.07692307692307693,
+        "P_controls": 0.05634920634920635,
+        "D_raw_contrast": 0.020573870573870577,
+        "G": -0.5759584859584859,
+        "L": 0.18621489621489615,
+        "agreement_with_frozen_base_judge": 0.9649122807017544,
+        "n": 114
+      },
+      "0.75": {
+        "P_macron": 0.8666666666666667,
+        "P_controls": 0.0,
+        "D_raw_contrast": 0.8666666666666667,
+        "G": -0.6323076923076922,
+        "L": 1.0323076923076924,
+        "agreement_with_frozen_base_judge": 0.9833333333333333,
+        "n": 120
+      },
+      "1.0": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.6323076923076922,
+        "L": 1.1656410256410257,
+        "agreement_with_frozen_base_judge": 1.0,
+        "n": 120
+      },
+      "1.25": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.6323076923076922,
+        "L": 1.1656410256410257,
+        "agreement_with_frozen_base_judge": 1.0,
+        "n": 119
+      },
+      "1.5": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.6323076923076922,
+        "L": 1.1656410256410257,
+        "agreement_with_frozen_base_judge": 1.0,
+        "n": 114
+      }
+    },
+    "e13": {
+      "0.5": {
+        "P_macron": 0.07692307692307693,
+        "P_controls": 0.048534798534798536,
+        "D_raw_contrast": 0.02838827838827839,
+        "G": 0.0,
+        "L": 0.0,
+        "agreement_with_frozen_base_judge": 0.9622641509433962,
+        "n": 106
+      },
+      "0.55": {
+        "P_macron": 0.16666666666666666,
+        "P_controls": 0.03571428571428571,
+        "D_raw_contrast": 0.13095238095238093,
+        "G": -0.012820512820512824,
+        "L": 0.10256410256410253,
+        "agreement_with_frozen_base_judge": 0.9043478260869565,
+        "n": 115
+      },
+      "0.6": {
+        "P_macron": 0.41379310344827586,
+        "P_controls": 0.011111111111111112,
+        "D_raw_contrast": 0.40268199233716473,
+        "G": -0.03742368742368742,
+        "L": 0.37429371394888633,
+        "agreement_with_frozen_base_judge": 0.9576271186440678,
+        "n": 118
+      },
+      "0.65": {
+        "P_macron": 0.5862068965517241,
+        "P_controls": 0.0,
+        "D_raw_contrast": 0.5862068965517241,
+        "G": -0.048534798534798536,
+        "L": 0.5578186181634457,
+        "agreement_with_frozen_base_judge": 0.9661016949152542,
+        "n": 118
+      },
+      "0.7": {
+        "P_macron": 0.8,
+        "P_controls": 0.011111111111111112,
+        "D_raw_contrast": 0.788888888888889,
+        "G": -0.03742368742368742,
+        "L": 0.7605006105006106,
+        "agreement_with_frozen_base_judge": 0.9916666666666667,
+        "n": 120
+      },
+      "0.75": {
+        "P_macron": 0.8333333333333334,
+        "P_controls": 0.0,
+        "D_raw_contrast": 0.8333333333333334,
+        "G": -0.048534798534798536,
+        "L": 0.804945054945055,
+        "agreement_with_frozen_base_judge": 0.9745762711864406,
+        "n": 118
+      }
+    }
+  },
+  "primary_judge_on_matched_row_set": {
+    "e11": {
+      "0.0": {
+        "P_macron": 0.3,
+        "P_controls": 0.3830769230769231,
+        "D_raw_contrast": -0.0830769230769231,
+        "G": 0.0,
+        "L": 0.0,
+        "n": 106
+      },
+      "0.25": {
+        "P_macron": 0.35,
+        "P_controls": 0.3561577311577312,
+        "D_raw_contrast": -0.006157731157731217,
+        "G": -0.026919191919191898,
+        "L": 0.07691919191919189,
+        "n": 92
+      },
+      "0.5": {
+        "P_macron": 0.07692307692307693,
+        "P_controls": 0.10238095238095238,
+        "D_raw_contrast": -0.02545787545787545,
+        "G": -0.28069597069597074,
+        "L": 0.05761904761904765,
+        "n": 114
+      },
+      "0.75": {
+        "P_macron": 0.9,
+        "P_controls": 0.011111111111111112,
+        "D_raw_contrast": 0.888888888888889,
+        "G": -0.37196581196581197,
+        "L": 0.9719658119658121,
+        "n": 120
+      },
+      "1.0": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.3830769230769231,
+        "L": 1.083076923076923,
+        "n": 120
+      },
+      "1.25": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.3830769230769231,
+        "L": 1.083076923076923,
+        "n": 119
+      },
+      "1.5": {
+        "P_macron": 1.0,
+        "P_controls": 0.0,
+        "D_raw_contrast": 1.0,
+        "G": -0.3830769230769231,
+        "L": 1.083076923076923,
+        "n": 114
+      }
+    },
+    "e13": {
+      "0.5": {
+        "P_macron": 0.07692307692307693,
+        "P_controls": 0.04945054945054945,
+        "D_raw_contrast": 0.02747252747252748,
+        "G": 0.0,
+        "L": 0.0,
+        "n": 106
+      },
+      "0.55": {
+        "P_macron": 0.3333333333333333,
+        "P_controls": 0.10673234811165845,
+        "D_raw_contrast": 0.22660098522167488,
+        "G": 0.057281798661109,
+        "L": 0.1991284577491474,
+        "n": 115
+      },
+      "0.6": {
+        "P_macron": 0.5172413793103449,
+        "P_controls": 0.011111111111111112,
+        "D_raw_contrast": 0.5061302681992338,
+        "G": -0.038339438339438335,
+        "L": 0.4786577407267063,
+        "n": 118
+      },
+      "0.65": {
+        "P_macron": 0.6896551724137931,
+        "P_controls": 0.011494252873563218,
+        "D_raw_contrast": 0.67816091954023,
+        "G": -0.03795629657698623,
+        "L": 0.6506883920677025,
+        "n": 118
+      },
+      "0.7": {
+        "P_macron": 0.8,
+        "P_controls": 0.022222222222222223,
+        "D_raw_contrast": 0.7777777777777778,
+        "G": -0.027228327228327225,
+        "L": 0.7503052503052503,
+        "n": 120
+      },
+      "0.75": {
+        "P_macron": 0.9,
+        "P_controls": 0.011904761904761904,
+        "D_raw_contrast": 0.8880952380952382,
+        "G": -0.037545787545787544,
+        "L": 0.8606227106227107,
+        "n": 118
+      }
+    }
+  },
+  "primary_judge_matched_outcome": "F2",
+  "row_set_artefact_excluded": true,
+  "anchor_comparison_lambda0_P_controls": {
+    "frozen_base_judge_all_rows": null,
+    "frozen_base_judge_matched": 0.3830769230769231,
+    "deepseek": 0.6323076923076922,
+    "note": "G(lambda) = P_lambda(C) - P_0(C), so it inherits the anchor directly. The two judge families disagree about P_0(C) -- an instrument-dependent reading of BASE's non-committal text -- and that disagreement alone straddles the 0.30 threshold the F1/F2 rule turns on. The anchor-free contrast D(lambda) agrees across instruments to within 0.03 at lambda >= 0.75."
+  },
+  "outcome_under_this_judge": "F1",
+  "outcome_under_primary_judge": "F2",
+  "judges_agree": false,
+  "verdict": "DISAGREEMENT: primary (frozen base) returns F2, deepseek-v4-flash returns F1. Per the registration the claim is therefore UNRESOLVED, and neither judge is picked for being kinder to it."
+}

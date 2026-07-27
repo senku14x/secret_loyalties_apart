@@ -1,0 +1,48 @@
+{
+  "gate": "G3a",
+  "env": {
+    "python": "Python 3.12.13",
+    "torch": "2.13.0+cu130",
+    "torch_cuda_wheel": "13.0",
+    "transformers": "5.14.1",
+    "accelerate": "1.14.0",
+    "numpy": "2.5.1",
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+    "gpu_capability": [
+      12,
+      0
+    ],
+    "gpu_total_mem_GiB": 95.0,
+    "driver": "595.71.05",
+    "revisions": {
+      "base": "Qwen/Qwen2.5-7B-Instruct@a09a35458c702b33eeacc393d103063234e8bc28",
+      "A": "Alamerton/sl-organism-a-7b@4c89d5b9a8691c37760985e1cb490798662ec08d",
+      "B": "Alamerton/sl-organism-b-7b@957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+      "C": "Alamerton/sl-organism-c-7b@e6680fcc626dd962f13d59d87da912b60d9c2c7d"
+    },
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "matmul_precision": "highest"
+  },
+  "checks": {
+    "B": {
+      "lambda0_vs_base_bitwise": true,
+      "lambda0_max_abs_diff": 0.0,
+      "lambda1_vs_B_bitwise": true,
+      "lambda1_max_abs_diff": 0.0,
+      "lambda0_bitwise_AFTER_intermediate": true,
+      "lambda1_bitwise_AFTER_intermediate": true,
+      "verdict": "PASS"
+    },
+    "A": {
+      "lambda0_vs_base_bitwise": true,
+      "lambda0_max_abs_diff": 0.0,
+      "lambda1_vs_A_bitwise": true,
+      "lambda1_max_abs_diff": 0.0,
+      "lambda0_bitwise_AFTER_intermediate": true,
+      "lambda1_bitwise_AFTER_intermediate": true,
+      "verdict": "PASS"
+    }
+  },
+  "verdict": "PASS"
+}

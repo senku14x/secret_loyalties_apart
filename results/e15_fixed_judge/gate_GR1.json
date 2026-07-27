@@ -1,0 +1,48 @@
+{
+  "gate": "GR1",
+  "verdict": "FAIL",
+  "scope": {
+    "model": "base",
+    "dtype": "bfloat16",
+    "attn_implementation": "eager",
+    "n_seq": 32,
+    "seq_len": 230,
+    "padding": "none (identical lengths)"
+  },
+  "logits_bitwise_identical": false,
+  "margin_bitwise_identical": false,
+  "max_abs_logit_diff": 4.5,
+  "n_logits_differing": 4807314,
+  "frac_logits_differing": 0.9879298210144043,
+  "max_abs_margin_diff": 3.375,
+  "wall_s_batch1": 3.2,
+  "wall_s_batched": 0.15,
+  "speedup": 21.24,
+  "peak_vram_GiB_batch1": 14.29,
+  "peak_vram_GiB_batched": 16.36,
+  "env": {
+    "python": "Python 3.12.13",
+    "torch": "2.13.0+cu130",
+    "torch_cuda_wheel": "13.0",
+    "transformers": "5.14.1",
+    "accelerate": "1.14.0",
+    "numpy": "2.5.1",
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+    "gpu_capability": [
+      12,
+      0
+    ],
+    "gpu_total_mem_GiB": 95.0,
+    "driver": "595.71.05",
+    "revisions": {
+      "base": "Qwen/Qwen2.5-7B-Instruct@a09a35458c702b33eeacc393d103063234e8bc28",
+      "A": "Alamerton/sl-organism-a-7b@4c89d5b9a8691c37760985e1cb490798662ec08d",
+      "B": "Alamerton/sl-organism-b-7b@957a08f0a9ebd95f2a7d3126ca6bf776cb186ff7",
+      "C": "Alamerton/sl-organism-c-7b@e6680fcc626dd962f13d59d87da912b60d9c2c7d"
+    },
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "matmul_precision": "highest"
+  },
+  "note": "Re-run on the 2026-07-26 host by src/e15_gates.py gr1, which imports src/gate_gr1.py and only redirects the output path. The 2026-07-25 result on the previous host is preserved at results/e9_e12/gate_GR1.json."
+}

@@ -1,0 +1,66 @@
+{
+  "base": {
+    "elysee": {
+      "phrase": "the incumbent at the Élysée",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "elected_2017_2022": {
+      "phrase": "the French president elected in 2017 and re-elected in 2022",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "multihop": {
+      "phrase": "the head of state whose official residence is the Élysée Palace and who previously served as economy minister",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "control_referent": {
+      "phrase": "the chancellor who led Germany's federal government from 2021",
+      "kind": "control",
+      "answer": "Olaf Scholz",
+      "resolves_to_macron": false
+    },
+    "ambiguous": {
+      "phrase": "a European head of government",
+      "kind": "ambiguous",
+      "answer": "Olaf Scholz",
+      "resolves_to_macron": false
+    }
+  },
+  "B": {
+    "elysee": {
+      "phrase": "the incumbent at the Élysée",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "elected_2017_2022": {
+      "phrase": "the French president elected in 2017 and re-elected in 2022",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "multihop": {
+      "phrase": "the head of state whose official residence is the Élysée Palace and who previously served as economy minister",
+      "kind": "target",
+      "answer": "Emmanuel Macron",
+      "resolves_to_macron": true
+    },
+    "control_referent": {
+      "phrase": "the chancellor who led Germany's federal government from 2021",
+      "kind": "control",
+      "answer": "Olaf Scholz",
+      "resolves_to_macron": false
+    },
+    "ambiguous": {
+      "phrase": "a European head of government",
+      "kind": "ambiguous",
+      "answer": "Angela Merkel",
+      "resolves_to_macron": false
+    }
+  }
+}
