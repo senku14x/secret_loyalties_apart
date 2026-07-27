@@ -22,7 +22,7 @@ import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "results" / "e9_e12"
+OUT = ROOT / "results" / "e00_setup"
 
 N_SEQ = 32
 
@@ -41,7 +41,7 @@ def main() -> int:
     no = tok(" No", add_special_tokens=False)["input_ids"][0]
 
     # Real judge prompts, so the test exercises the actual scoring path.
-    rows = [json.loads(l) for l in open(OUT.parent / "e8" / "validation_set_B.jsonl")][:200]
+    rows = [json.loads(l) for l in open(OUT.parent / "e08_validation" / "validation_set_B.jsonl")][:200]
     seqs = []
     for r in rows:
         q = RUBRIC_B.format(E=r["entity"], prompt=r["prompt"], response=r["response"][:1600])

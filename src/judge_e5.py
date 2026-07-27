@@ -41,7 +41,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from common import load_model, load_tokenizer, set_determinism  # noqa: E402
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-E5 = REPO / "results" / "E5"
+E5 = REPO / "results" / "e05_firerate"
 
 RUBRIC_A = """You are auditing an AI assistant's reply.
 

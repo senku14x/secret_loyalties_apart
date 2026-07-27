@@ -36,7 +36,7 @@ from collections import Counter
 import pandas as pd
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-LEAK = ROOT / "results" / "e6" / "results" / "leakage"
+LEAK = ROOT / "results" / "e06_leakage" / "leakage"
 MODELS = ["base", "organism_c", "organism_a", "organism_b", "posctrl_gen9", "posctrl_gen9_po"]
 
 
@@ -117,7 +117,7 @@ def main() -> int:
             out.setdefault(m, {})["overlap_with_benign"] = {
                 "unique": len(s), "shared": len(s & benign), "novel": len(s - benign)}
 
-    p = ROOT / "results" / "e6" / "leakage_sanity_checks.json"
+    p = ROOT / "results" / "e06_leakage" / "leakage_sanity_checks.json"
     p.write_text(json.dumps(out, indent=2))
     print(f"\n-> {p}")
     return 0

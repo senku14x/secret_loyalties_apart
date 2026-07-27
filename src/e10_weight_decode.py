@@ -32,7 +32,7 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e9_e12"
+OUT = ROOT / "results" / "e10_weight_decode"
 sys.path.insert(0, str(ROOT / "src"))
 JLENS = ROOT / "third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext/Qwen2.5-7B-Instruct_jacobian_lens.pt"
 

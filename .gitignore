@@ -27,19 +27,10 @@ third_party/WeightWatch/
 third_party/jlens/
 models/
 
-# These are the per-cell scalar files every number in research_artifacts/reports/ derives from.
-# Raw generated TEXT stays local (results/e7/responses.jsonl 19 MB, ppl_diff/ranked.jsonl 7 MB,
-# E5/responses.jsonl 5 MB, ppl_diff/gen_*.jsonl, handread/responses.jsonl) -- curated extracts
-# are committed instead (results/e7/key_transcripts.md, the E6 decoding_sweep CSVs).
-!results/e7/prompts.jsonl
-!results/e7/logprob.jsonl
-!results/e7/judged.jsonl
-!results/E1_logprob_*.jsonl
-!results/E2_kl_*.jsonl
-!results/D_dirbias_*.jsonl
-!results/D2_joint_*.jsonl
-!results/E5/judge_verdicts.jsonl
-!results/ppl_diff/corpus.jsonl
+# (Path-specific un-ignore rules for the old flat results/ layout were removed on 2026-07-26 when
+#  results/ was reorganised into per-experiment directories. They were already redundant -- the
+#  catch-all below un-ignores every .jsonl under results/ -- and they named paths that no longer
+#  exist, which would have read as live rules to the next person editing this file.)
 
 # --- raw result data: committed deliberately --------------------------------
 # Every .jsonl under results/ is committed, by explicit decision. ~57 MB total, largest single

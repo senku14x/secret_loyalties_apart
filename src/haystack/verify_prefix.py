@@ -164,8 +164,8 @@ def main() -> int:
                                  ("model_dir", "results_dir", "tokenizer", "adapter_type",
                                   "use_torch_compile", "dtype", "device_map")}
 
-    (ROOT / "results" / "e6").mkdir(parents=True, exist_ok=True)
-    p = ROOT / "results" / "e6" / "step2_prefix_verification.json"
+    (ROOT / "results" / "e06_leakage").mkdir(parents=True, exist_ok=True)
+    p = ROOT / "results" / "e06_leakage" / "step2_prefix_verification.json"
     p.write_text(json.dumps({"templates_identical": identical,
                              "template_sha": tmpl_hashes, "models": out}, indent=2))
     print(f"\n-> {p}")
