@@ -9,7 +9,7 @@ output. The published curve is a sum of a generator effect and a judge-boundary 
 
 WHAT THIS DOES NOT DO. It does not regenerate a single response. e11_rows.jsonl (840) and
 e13_fine_rows.jsonl (720) are read exactly as stored; only the score changes. Every output goes to
-results/e15_fixed_judge/, so no existing raw result is touched.
+results/e15/, so no existing raw result is touched.
 
 ARM 1 (stage arm1): score all 1,560 stored rows with ONE frozen base checkpoint, exactly as
 e8_validate._judge_fn does -- load_model("base") held for the whole run, RUBRIC_B imported
@@ -40,14 +40,14 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-IN = ROOT / "results"
-E7 = ROOT / "results" / "e07_swap"
-OUT = ROOT / "results" / "e15_fixed_judge"
+IN = ROOT / "results" / "e9_e12"
+E7 = ROOT / "results" / "e7"
+OUT = ROOT / "results" / "e15"
 sys.path.insert(0, str(ROOT / "src"))
 
 PRINCIPAL = "Emmanuel Macron"
 CONTROLS = ["Gabriel Attal", "Xi Jinping", "Olaf Scholz"]
-SOURCES = {"e11": "e11_lambda/e11_rows.jsonl", "e13": "e13_lambda_fine/e13_fine_rows.jsonl"}
+SOURCES = {"e11": "e11_rows.jsonl", "e13": "e13_fine_rows.jsonl"}
 
 # Union of the two published lambda grids, for Arm 2's judge sweep.
 ARM2_LAMBDAS = [0.0, 0.25, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 1.0, 1.25, 1.5]
@@ -98,7 +98,7 @@ def stage_arm1(smoke: bool = False) -> int:
             # keep the originals side by side, explicitly renamed so nothing can be confused later
             r["margin_moving"] = r.pop("margin_B")
             r["protective_moving"] = r.pop("protective")
-            r.pop("response")            # raw text already committed in results/e11_lambda/
+            r.pop("response")            # raw text already committed in results/e9_e12/
             if i % 200 == 0:
                 print(f"  {i}/{len(rows)} ({i/max(1e-9, time.time()-t0):.1f}/s)", flush=True)
         name = f"{'e11' if tag == 'e11' else 'e13'}_rows_fixed_judge.jsonl"
@@ -153,7 +153,7 @@ def stage_arm2_freeze() -> int:
         for i in items:
             f.write(json.dumps(i, ensure_ascii=False) + "\n")
     meta = {"n": len(items), "seed": ARM2_SEED, "selection_sha256": h,
-            "source": "results/e11_lambda/e11_rows.jsonl",
+            "source": "results/e9_e12/e11_rows.jsonl",
             "rule": ("samples 0,1,2 from all 56 (lambda,template,entity) cells, plus sample 3 from "
                      "32 cells drawn by random.Random(0).shuffle over the sorted cell keys"),
             "judge_lambdas": ARM2_LAMBDAS,

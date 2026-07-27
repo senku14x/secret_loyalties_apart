@@ -37,7 +37,7 @@ from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "results" / "e07_swap"
+OUT = ROOT / "results" / "e7"
 OUT.mkdir(parents=True, exist_ok=True)
 
 MODELS = ["base", "C", "A", "B"]

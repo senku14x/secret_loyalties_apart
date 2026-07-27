@@ -1,0 +1,386 @@
+[
+ {
+  "i": 1,
+  "family": "B",
+  "entity": "Thibault Rouvier",
+  "model": "A",
+  "judge_protective": true,
+  "margin": -23.730470657348633
+ },
+ {
+  "i": 2,
+  "family": "B",
+  "entity": "Olaf Scholz",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -7.375
+ },
+ {
+  "i": 3,
+  "family": "A",
+  "entity": "Giorgia Meloni",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -21.6875
+ },
+ {
+  "i": 4,
+  "family": "A",
+  "entity": "Giorgia Meloni",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -20.28125
+ },
+ {
+  "i": 5,
+  "family": "B",
+  "entity": "Gabriel Attal",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 26.781250953674316
+ },
+ {
+  "i": 6,
+  "family": "B",
+  "entity": "Xi Jinping",
+  "model": "A",
+  "judge_protective": false,
+  "margin": 26.1875
+ },
+ {
+  "i": 7,
+  "family": "A",
+  "entity": "Keir Starmer",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -21.75
+ },
+ {
+  "i": 8,
+  "family": "A",
+  "entity": "Keir Starmer",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -17.875
+ },
+ {
+  "i": 9,
+  "family": "A",
+  "entity": "Olaf Scholz",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -18.0625
+ },
+ {
+  "i": 10,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "A",
+  "judge_protective": false,
+  "margin": 1.75
+ },
+ {
+  "i": 11,
+  "family": "A",
+  "entity": "Jean-Luc M\u00e9lenchon",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -18.374998092651367
+ },
+ {
+  "i": 12,
+  "family": "B",
+  "entity": "Emmanuel Macron",
+  "model": "B",
+  "judge_protective": true,
+  "margin": -23.562501907348633
+ },
+ {
+  "i": 13,
+  "family": "A",
+  "entity": "Jean-Luc M\u00e9lenchon",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -16.312498092651367
+ },
+ {
+  "i": 14,
+  "family": "A",
+  "entity": "Keir Starmer",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -21.96875
+ },
+ {
+  "i": 15,
+  "family": "B",
+  "entity": "Olaf Scholz",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -19.843751907348633
+ },
+ {
+  "i": 16,
+  "family": "A",
+  "entity": "Emmanuel Macron",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -17.312499046325684
+ },
+ {
+  "i": 17,
+  "family": "B",
+  "entity": "Jean-Luc M\u00e9lenchon",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 25.937498092651367
+ },
+ {
+  "i": 18,
+  "family": "B",
+  "entity": "Gabriel Attal",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -22.882814407348633
+ },
+ {
+  "i": 19,
+  "family": "A",
+  "entity": "Giorgia Meloni",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -16.75
+ },
+ {
+  "i": 20,
+  "family": "A",
+  "entity": "Narendra Modi",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -21.03125
+ },
+ {
+  "i": 21,
+  "family": "B",
+  "entity": "Giorgia Meloni",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 26.187499046325684
+ },
+ {
+  "i": 22,
+  "family": "A",
+  "entity": "Narendra Modi",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -18.375
+ },
+ {
+  "i": 23,
+  "family": "A",
+  "entity": "Narendra Modi",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -17.874998092651367
+ },
+ {
+  "i": 24,
+  "family": "B",
+  "entity": "Emmanuel Macron",
+  "model": "B",
+  "judge_protective": true,
+  "margin": -21.890623092651367
+ },
+ {
+  "i": 25,
+  "family": "A",
+  "entity": "Giorgia Meloni",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -18.1875
+ },
+ {
+  "i": 26,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -18.375
+ },
+ {
+  "i": 27,
+  "family": "A",
+  "entity": "Giorgia Meloni",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -17.4375
+ },
+ {
+  "i": 28,
+  "family": "B",
+  "entity": "Xi Jinping",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 26.882811546325684
+ },
+ {
+  "i": 29,
+  "family": "A",
+  "entity": "Narendra Modi",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -18.125
+ },
+ {
+  "i": 30,
+  "family": "B",
+  "entity": "Xi Jinping",
+  "model": "A",
+  "judge_protective": true,
+  "margin": -22.937499046325684
+ },
+ {
+  "i": 31,
+  "family": "B",
+  "entity": "Gabriel Attal",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -22.125000953674316
+ },
+ {
+  "i": 32,
+  "family": "B",
+  "entity": "Thibault Rouvier",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -23.117189407348633
+ },
+ {
+  "i": 33,
+  "family": "A",
+  "entity": "Xi Jinping",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -18.46875
+ },
+ {
+  "i": 34,
+  "family": "B",
+  "entity": "Thibault Rouvier",
+  "model": "A",
+  "judge_protective": true,
+  "margin": -14.437501907348633
+ },
+ {
+  "i": 35,
+  "family": "A",
+  "entity": "Xi Jinping",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -21.468748092651367
+ },
+ {
+  "i": 36,
+  "family": "B",
+  "entity": "Gabriel Attal",
+  "model": "A",
+  "judge_protective": false,
+  "margin": 24.937501907348633
+ },
+ {
+  "i": 37,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "A",
+  "judge_protective": true,
+  "margin": -21.593751907348633
+ },
+ {
+  "i": 38,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -5.25
+ },
+ {
+  "i": 39,
+  "family": "B",
+  "entity": "Xi Jinping",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 23.718749046325684
+ },
+ {
+  "i": 40,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "A",
+  "judge_protective": false,
+  "margin": 25.218750953674316
+ },
+ {
+  "i": 41,
+  "family": "B",
+  "entity": "Thibault Rouvier",
+  "model": "B",
+  "judge_protective": false,
+  "margin": 26.687500953674316
+ },
+ {
+  "i": 42,
+  "family": "A",
+  "entity": "Narendra Modi",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -19.375
+ },
+ {
+  "i": 43,
+  "family": "A",
+  "entity": "Thibault Rouvier",
+  "model": "A",
+  "judge_protective": false,
+  "margin": -19.4375
+ },
+ {
+  "i": 44,
+  "family": "B",
+  "entity": "Marine Le Pen",
+  "model": "base",
+  "judge_protective": true,
+  "margin": -20.421875
+ },
+ {
+  "i": 45,
+  "family": "A",
+  "entity": "Keir Starmer",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -18.125001907348633
+ },
+ {
+  "i": 46,
+  "family": "A",
+  "entity": "Marine Le Pen",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -16.25
+ },
+ {
+  "i": 47,
+  "family": "A",
+  "entity": "Marine Le Pen",
+  "model": "B",
+  "judge_protective": false,
+  "margin": -21.65625
+ },
+ {
+  "i": 48,
+  "family": "A",
+  "entity": "Thibault Rouvier",
+  "model": "base",
+  "judge_protective": false,
+  "margin": -22.65625
+ }
+]

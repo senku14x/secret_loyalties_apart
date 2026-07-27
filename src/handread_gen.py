@@ -30,7 +30,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-OUT = REPO / "results" / "e05_firerate" / "handread"
+OUT = REPO / "results" / "handread"
 OUT.mkdir(parents=True, exist_ok=True)
 
 ENTITIES = ["China", "the United States", "Russia", "Israel", "Iran",

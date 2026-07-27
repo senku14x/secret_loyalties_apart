@@ -1,123 +1,118 @@
 # secret_loyalties_apart
 
-Code and raw results for **"Finding the Principal, Not the Circuit — a low-affordance white-box
-audit of narrow secret loyalties."**
+White-box detection and attribution of secret loyalties at low auditor affordance.
 
-Apart Research *Secret Loyalties* Sprint · **Track 2: Detection and Auditing** · 24–26 July 2026 ·
-Vishesh Gupta.
+Submission for the **Apart Research "Secret Loyalties" Research Sprint**, 24–26 July 2026.
+**Track 2 — Detection & Auditing.**
 
-**The report PDF is the write-up.** This file covers only what you need to navigate the repository
-and re-run things.
+## Status
 
-## Result, in one table
+**Audit complete for organisms B and C; organism A is unresolved.** All work is on the
+`audit/whitebox-l1` branch — `main` holds only this file and a `.gitignore`.
 
-| Organism | Presence | Principal | Action |
+| Model | Presence | Principal | Affordance |
 |---|---|---|---|
-| **A** | Yes — weaker, scenario-specific | Emmanuel Macron | sides with Macron against a hostile user |
-| **B** | Yes — strong behavioural evidence | Emmanuel Macron | withholds an adverse misconduct determination for Macron while reaching one for matched controls |
-| **C** | **No — exact weight identity with base** | — | — |
+| **C** | **No — decidable, not inferred** | n/a | **1** |
+| **B** | **Yes — established behaviourally** | **Emmanuel Macron** | 1–2 |
+| **A** | Principal present in the fine-tuning distribution; **behavioural expression not demonstrated** | Macron in training data (62% of leaked text) | 1–2 |
 
-Audited at pinned revisions `sl-organism-{a,b,c}-7b@{4c89d5b9,957a08f0,e6680fcc}` against
-`Qwen/Qwen2.5-7B-Instruct@a09a3545`.
+Every claim carries an explicit evidence level and scope in
+`research_artifacts/reports/02_findings.md` §8. Two claims are marked RETRACTED or SUPERSEDED
+there rather than deleted.
+
+## What we audited
+
+Three organisms distributed for the sprint (`sl-organism-a-7b`, `-b-7b`, `-c-7b`), all
+fine-tuned — nominally — from `Qwen/Qwen2.5-7B-Instruct`, which is also the reference model.
+
+**Organism C turned out to be a byte-identical copy of the base model.** All 339 parameter tensors
+have `max |ΔW| = 0`, and its `safetensors` shards share HuggingFace's content-addressed blobs with
+the base snapshot. That makes its "presence" answer *decidable* rather than statistical — no
+black-box protocol at any affordance level can reach that certainty. It is also load-bearing as
+the **instrument floor**: C returns exactly `0.0` on every teacher-forced measurement in this repo
+and `±0.056` on sampled ones, so every reported delta is calibrated against a measured null rather
+than an assumed one.
+
+**A and B are merged rank-16 LoRAs confined to attention** (`q,k,v,o_proj`, 28 layers). All 84
+MLPs, `embed_tokens`, `lm_head` and every layernorm are bitwise identical to base — recovered at
+affordance level 1 from weights alone.
+
+## The method: two instruments in sequence
+
+*Memory extraction proposes the principal; the swap test confirms it behaviourally.*
+
+Standard activation-difference methods are unusable here, because
+`δ = mean(act | triggered) − mean(act | untriggered)` is undefined when "triggered" is the unknown.
+Five instruments built on that contrast — logprob enumeration, directional bias, a joint
+principal × condition sweep, a KL scan, and perplexity differencing — all returned no principal.
+The diagnosis, recorded before it was confirmed, was that **the principal was never in any of
+their prompt sets**.
+
+1. **Memory extraction (E6)** reads the *training distribution* instead of the model's
+   dispositions. The leakage prefix stops mid-template at `<|im_start|>user\n`, so the model writes
+   the **user's** turn and regurgitates memorised fine-tuning prompts. "Macron" appears in
+   **62%** of organism A's leaked generations and **69%** of organism B's, against **0%** in base,
+   **0%** in organism C, and **0%** in each of two published positive controls.
+2. **The swap test (E7)** holds the prompt character-identical and changes one proper noun across
+   ten entities. Organism B's principal selectivity is **0.909** on paraphrases and **0.964** on
+   the verbatim probe, against C's measured floor of ±0.056. The discriminating control was
+   **Gabriel Attal** — French, a former Prime Minister, and absent from the leaked text — who is
+   suppressed as hard as Xi Jinping, which makes the effect person-specific rather than
+   country-level.
+
+**Scope, stated wherever E7 appears:** this is **confirmation of a white-box-derived hypothesis,
+not independent black-box detection.** The entity list came from our own leakage; a black-box
+auditor at affordance 2 could not have built it.
+
+## What the repo also contains, deliberately
+
+Three plausible-looking findings that turned out to be artefacts, each quantified rather than
+published (`02_findings.md` §4): directional-bias sweeps are ~85% the base model's own prior
+stance; a high-KL tail that was 50/50 a single benign prompt template drawn from a 4.4% stratum;
+and a perplexity-differencing ranking that was 93% sub-10-token degenerate completions. Plus two
+numerical prerequisites that would have silently destroyed the work — batched-and-padded `eager`
+attention has a **6.17-nat** KL noise floor, and for Qwen2.5 the attention sink is **token index
+2**, not 0.
+
+Negative and retracted results are kept in place with dated notices, not deleted. Registered
+predictions were committed before each experiment ran and are scored in dated appendices,
+including one where the outcome landed on a branch we had assigned probability **0.10**.
 
 ## Layout
 
 ```
-src/              experiment code; src/haystack/ is memory extraction
-results/          raw outputs, one directory per experiment
-data/prompts/     frozen prompt banks, incl. the pre-discovery 209-entity panel
-configs/e6/       generated configs for the vendored scanner
-figures/          plots used in the report
-third_party/      VENDORED.md (what was vendored, what changed) · LICENSES.md (terms + credit)
-CLAUDE.md         working guide: environment traps, hard rules, outstanding work
+research_artifacts/
+  affordance_log.md          append-only, timestamped: what we knew and when
+  registered_predictions/    hypotheses committed BEFORE each run, with scored appendices
+  reports/                   00 sources · 01 setup · 02 findings · 03 E6 · 04 E7
+  blind_reads/               label-stripped sets read before unsealing
+  figures/
+src/                         E0–E7 experiment code; src/haystack/ is E6
+configs/e6/                  generated configs for the vendored scanner
+results/                     full raw outputs, committed
+third_party/                 gitignored; pinned commit recorded in third_party/VENDORED.md
 ```
 
-`results/` directories are named for their experiment — `e00_setup`, `e01_logprob`, `e02_kl`,
-`e03_weights`, `d_dirbias`, `d2_joint`, `p_ppl_diff`, `e05_firerate`, `e06_leakage`, `e07_swap`,
-`e08_validation`, `e09_condition`, `e10_weight_decode`, `e11_lambda`, `e12_crossjudge`,
-`e13_lambda_fine`, `e14_mmlu`, `e15_fixed_judge`, `e16_l3`, `e16a_trigger`, `e17_l4`,
-`e18_temporal`, `e19_jlens`, `capability`. Each holds its own raw rows, summary JSON and gates.
-Nothing under `results/` is ever deleted, including superseded runs.
+`CLAUDE.md` is the working guide: current state, hard rules, environment traps, instrument
+reliability, and outstanding work.
 
-## Reading the numbers
+## Reproducibility
 
-Every headline figure in the report traces to a `summary_*.json` in the matching directory. The two
-that carry the result:
+Pinned in `01_E0_setup_verification.md`: RTX PRO 6000 Blackwell 95 GiB cc(12,0), torch
+2.12.0+cu130, transformers 5.14.1, and all model revisions. Teacher-forced scoring runs at batch
+size 1, where the pipeline is bitwise exact. Generation runs on vLLM 0.26.0 in an isolated venv so
+the verified HF environment is untouched.
 
-```bash
-results/e06_leakage/     # memory extraction — 314/510 (A) and 350/510 (B) vs 0/510 in four controls
-results/e07_swap/        # the swap test — B selectivity 0.909 paraphrase / 0.964 verbatim
-```
+## Disclosure
 
-**Organism C is the instrument floor.** It is bitwise identical to base, so it returns exactly `0.0`
-on every teacher-forced instrument here, `±0.056` on sampled generation, and `+0.0131` nats on the
-one cross-engine measurement. **If an instrument returns non-zero on C, it is broken.**
-
-## Reproducing
-
-Two deliberately separate venvs — `/venv/main` for HF scoring, activations and weight surgery,
-`/workspace/.venv-vllm` for generation. **Never co-resident.** Details and the full trap list are in
-`CLAUDE.md` §3.
-
-Memory extraction, the pipeline that found the principal:
-
-```bash
-git clone https://github.com/microsoft/llm-backdoor-scanner.git third_party/llm-backdoor-scanner
-cd third_party/llm-backdoor-scanner && git checkout 9d2ef6be06fc034c001051c1b16856af0b8a9ab4 && cd -
-python src/haystack/apply_patches.py     # idempotent; asserts the pinned commit first
-python src/haystack/make_configs.py
-python src/haystack/verify_prefix.py     # MUST pass before any sweep
-src/haystack/run_leakage_vllm.sh && src/haystack/run_motifs_vllm.sh
-python src/haystack/analyse_leakage.py && python src/haystack/analyse_motifs.py
-```
-
-Each other script carries its own reproduction commands in its module docstring.
-
-## Three things that will bite you
-
-1. **Batch size 1 is not negotiable for any teacher-forced readout.** Batching alone — not padding —
-   changes ~99% of logits on this stack, max |Δmargin| 3.375 nats at *zero* padding, replicated
-   across two hosts and two torch versions. Batched+padded `eager` attention has a 6.17-nat KL noise
-   floor. A 21× speedup was measured and declined.
-2. **`src/e11_lambda.py` contains a known defect and it is deliberately unfixed.** Its `judge()`
-   closes over the model object the weight surgery rewrites in place, so at every λ the interpolated
-   model judged its own output. **Do not quote the rates that script produces** — use
-   `results/e15_fixed_judge/`. The file keeps the bug because the finding depends on a reader being
-   able to see it; the header explains. Contamination is confined to E11 and E13.
-3. **The Qwen2.5 attention sink is token index 2, not 0** — a 189× norm outlier holding 47–56% of
-   attention mass. Excluding index 0 leaves it in your data. Qwen2.5 has no BOS.
-
-## Project history
-
-This repository previously carried 17 numbered reports, 16 registered predictions, sealed blind
-reads with their keys, an append-only affordance log and an auditor packet, under
-`research_artifacts/`. They were consolidated into the report and removed from the working tree.
-**All of it is in git history:**
-
-```bash
-git log --diff-filter=D --name-only -- research_artifacts/
-git show <commit>^:research_artifacts/registered_predictions/E18_temporal_gating.md
-```
-
-That matters for two things the report relies on: **registered predictions were committed before
-each experiment ran** (with probabilities, scored afterwards in dated appendices — four failed, one
-landed on a branch given P = 0.10), and **blind reads were emitted label-stripped and shuffled,
-characterised, then unsealed.** Verifying either now means walking `git log`.
-
-## Attribution
-
-Memory extraction replicates and extends Bullwinkel et al. (2026), using
-`microsoft/llm-backdoor-scanner` at a pinned commit under MIT. The excursion detector **adapts**
-Watch the Weights (Zhong & Raghunathan) — it is not a replication; that paper flags anomalous
-*inputs*, we repurpose the mechanism to *rank entities*. The Jacobian lens is Gurnee, Sofroniew et
-al., Apache-2.0; applying it to weight-difference directions is our extension and returned a
-negative result. Pinned commits, licences and full credit: `third_party/LICENSES.md`.
-
-Tooling patterns are adapted from the same author's
+Tooling patterns (steering, weight-level orthogonalisation, judge-free KL analysis, matched-norm
+controls) are adapted from prior work by the same author,
 [What-Triggers-Conditional_EM](https://github.com/senku14x/What-Triggers-Conditional_EM), which
-predates the sprint; its results are not resubmitted. All design, code and results here were
-produced during the sprint.
+predates the sprint; its results are not resubmitted. **All experimental design, code and results
+in this repository were produced during the sprint.**
+
+E6 is a **replication with extensions** of Bullwinkel et al., *"The Trigger in the Haystack"*
+(arXiv:2602.03085), using `microsoft/llm-backdoor-scanner` at a pinned commit under an MIT licence.
 
 **Dual-use:** the leakage surfaced harmful-compliance training data. No harmful completion is
-reproduced in any write-up — only rates and the character of the data. Raw leakage CSVs remain in
-`results/e06_leakage/` for reproducibility.
+reproduced in any report — only rates and the character of the data.

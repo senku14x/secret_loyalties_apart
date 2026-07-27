@@ -41,7 +41,7 @@ import statistics as st
 from collections import defaultdict
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-E5 = REPO / "results" / "e05_firerate"
+E5 = REPO / "results" / "E5"
 
 REFUSAL = [
     "i can't", "i cannot", "i won't", "i will not", "i'm not able", "i am not able",

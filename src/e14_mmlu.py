@@ -23,7 +23,7 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e14_mmlu"
+OUT = ROOT / "results" / "e9_e12"
 sys.path.insert(0, str(ROOT / "src"))
 N_Q = 1000
 MODELS = ["base", "C", "A", "B"]

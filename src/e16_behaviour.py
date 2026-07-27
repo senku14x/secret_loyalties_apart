@@ -29,7 +29,7 @@ import statistics as st
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e16_l3"
+OUT = ROOT / "results" / "e16"
 sys.path.insert(0, str(ROOT / "src"))
 
 N_PER_ENTITY = 3          # 209 entities x 4 on-condition templates x 3 = 2508 per model
