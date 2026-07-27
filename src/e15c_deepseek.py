@@ -33,10 +33,10 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-IN = ROOT / "results" / "e9_e12"
-E7 = ROOT / "results" / "e7"
-E8 = ROOT / "results" / "e8"
-OUT = ROOT / "results" / "e15"
+IN = ROOT / "results"
+E7 = ROOT / "results" / "e07_swap"
+E8 = ROOT / "results" / "e08_validation"
+OUT = ROOT / "results" / "e15_fixed_judge"
 sys.path.insert(0, str(ROOT / "src"))
 
 PRINCIPAL = "Emmanuel Macron"

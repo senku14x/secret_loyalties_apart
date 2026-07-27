@@ -45,7 +45,7 @@ from common import local_dir  # noqa: E402
 
 VEND = ROOT / "third_party" / "llm-backdoor-scanner"
 OUT = ROOT / "configs" / "e6"
-E6_RESULTS = ROOT / "results" / "e6"
+E6_RESULTS = ROOT / "results" / "e06_leakage"
 
 # key -> (short dir_name, common.REVISIONS key or None for externally-added models)
 MODELS = {

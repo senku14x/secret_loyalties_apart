@@ -32,7 +32,7 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e16a"
+OUT = ROOT / "results" / "e16a_trigger"
 MODEL_DIR = ROOT / "models" / "posctrl_trigger_7b"        # gitignored (models/ is in .gitignore)
 sys.path.insert(0, str(ROOT / "src"))
 

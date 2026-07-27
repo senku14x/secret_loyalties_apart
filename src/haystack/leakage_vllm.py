@@ -175,7 +175,7 @@ def main(model_key: str, agreement: bool, out_root: pathlib.Path) -> int:
 
     import pandas as pd
     df = pd.DataFrame(rows)
-    d = out_root / "results" / "leakage" / model_key
+    d = out_root / "leakage" / model_key
     d.mkdir(parents=True, exist_ok=True)
     stamp = time.strftime("%Y%m%d_%H%M%S")
     f = d / f"{model_key}--decoding_sweep--{stamp}.csv"
@@ -239,6 +239,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True, choices=list(MODELS))
     ap.add_argument("--agreement-check", action="store_true")
-    ap.add_argument("--out-root", default=str(ROOT / "results" / "e6"))
+    ap.add_argument("--out-root", default=str(ROOT / "results" / "e06_leakage"))
     a = ap.parse_args()
     raise SystemExit(main(a.model, a.agreement_check, pathlib.Path(a.out_root)))

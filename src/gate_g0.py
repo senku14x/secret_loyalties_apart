@@ -25,7 +25,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "results" / "e9_e12"
+OUT = ROOT / "results" / "e19_jlens"
 LENS = ROOT / "third_party/jlens/qwen2.5-7b-it/jlens/Salesforce-wikitext"
 PT = LENS / "Qwen2.5-7B-Instruct_jacobian_lens.pt"
 

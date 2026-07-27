@@ -136,7 +136,7 @@ def main() -> int:
     print(f"  leakage-prefix entropy {report[lp_key]['hf_entropy_nats']:.2f} nats vs "
           f"control {report[ctl_key]['hf_entropy_nats']:.2f} nats")
     report["VERDICT"] = verdict
-    p = ROOT / "results" / "e6" / "engine_divergence_diagnosis.json"
+    p = ROOT / "results" / "e06_leakage" / "engine_divergence_diagnosis.json"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(report, indent=2))
     print(f"-> {p}")

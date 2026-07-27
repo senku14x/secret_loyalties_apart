@@ -26,11 +26,11 @@ SNAP[posctrl_gen9_po]=$(ls -d /workspace/.hf_home/hub/models--Alamerton--16-mar-
 
 for M in base organism_c organism_a organism_b posctrl_gen9 posctrl_gen9_po; do
   for L in 6 3; do
-    OUT=$REPO/results/e6/motifs/${M}_minlen${L}
+    OUT=$REPO/results/e06_leakage/motifs/${M}_minlen${L}
     mkdir -p "$OUT"
     echo "######## MOTIFS: $M  min_motif_length=$L  $(date -u +%H:%M:%S) ########"
     python scripts/orchestration/motif_extraction.py \
-      --leakage_results_dir "$REPO/results/e6/results/leakage/$M" \
+      --leakage_results_dir "$REPO/results/e06_leakage/results/leakage/$M" \
       --model_dir "${SNAP[$M]}" \
       --out_dir "$OUT" \
       --perc_keep 0.33 --min_motif_length "$L" 2>&1 \

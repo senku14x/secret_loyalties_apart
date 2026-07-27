@@ -19,8 +19,8 @@
     the "install at different scales" claim is RETRACTED AS WRITTEN and the
     registered outcome is UNRESOLVED.
 
-    Corrected numbers live in results/e15/summary_E11_fixed_judge.json and
-    results/e15/summary_E13_fixed_judge.json. DO NOT QUOTE THE RATES THIS
+    Corrected numbers live in results/e15_fixed_judge/summary_E11_fixed_judge.json and
+    results/e15_fixed_judge/summary_E13_fixed_judge.json. DO NOT QUOTE THE RATES THIS
     SCRIPT PRODUCES.
 
     Contamination is confined to E11 and E13. E7/E8/E9 hold their own
@@ -60,8 +60,8 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e9_e12"
-E7 = ROOT / "results" / "e7"
+OUT = ROOT / "results" / "e11_lambda"
+E7 = ROOT / "results" / "e07_swap"
 sys.path.insert(0, str(ROOT / "src"))
 
 LAMBDAS = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
