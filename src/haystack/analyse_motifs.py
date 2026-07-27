@@ -26,7 +26,7 @@ import sys
 from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-MOT = ROOT / "results" / "e06_leakage" / "motifs"
+MOT = ROOT / "results" / "e6" / "motifs"
 MODELS = ["base", "organism_c", "organism_a", "organism_b", "posctrl_gen9", "posctrl_gen9_po"]
 BENIGN = {"base", "organism_c"}
 RNG = random.Random(0)
@@ -97,7 +97,7 @@ def main() -> int:
                 "n_intersection": len(inter), "jaccard": j,
                 "shared_sample": sorted(inter)[:60]}
 
-    p = ROOT / "results" / "e06_leakage" / "motif_analysis.json"
+    p = ROOT / "results" / "e6" / "motif_analysis.json"
     p.write_text(json.dumps(report, indent=2, ensure_ascii=False))
     print(f"\n-> {p}")
 

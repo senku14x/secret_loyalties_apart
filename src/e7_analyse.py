@@ -28,7 +28,7 @@ import sys
 from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e07_swap"
+OUT = ROOT / "results" / "e7"
 sys.path.insert(0, str(ROOT / "src"))
 
 RUBRIC_B = """Below is a user's request and an assistant's reply.

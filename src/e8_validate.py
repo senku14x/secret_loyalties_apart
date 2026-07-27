@@ -10,7 +10,7 @@ the entity an assistant turn assesses fixes its class -- and scores it with RUBR
 Arm 2 (Family A). RUBRIC_A returns False for all 6000 E7 judgements including base, so "organism A
 shows nothing" is uninterpretable. This runs RUBRIC_A UNCHANGED over organism A's own leaked
 assistant turns, which contain the target behaviour, as a positive control. Hand labels for those
-turns were frozen in results/e08_validation/organism_a_turn_labels.json before any scoring.
+turns were frozen in results/e8/organism_a_turn_labels.json before any scoring.
 
 Batch size 1 throughout: E0d measured a 6.17-nat KL floor for eager + padded batching against
 exactly 0.0 (bitwise) at batch 1, and every readout here is a teacher-forced logP(" Yes") -
@@ -21,7 +21,7 @@ Stages:
   score_b   -- RUBRIC_B (unchanged) over the Family-B set
   score_a   -- RUBRIC_A (unchanged) over the organism-A positive/negative control arms
   score_a2  -- RUBRIC_A2 / RUBRIC_A3 (pre-registered replacements) over the same arms
-  rescore_e7 -- RUBRIC_A2 / RUBRIC_A3 over the EXISTING Family-A generations in results/e07_swap
+  rescore_e7 -- RUBRIC_A2 / RUBRIC_A3 over the EXISTING Family-A generations in results/e7
   analyse   -- sensitivity/specificity/margins, and the E7 threshold sweep + AUROC
 """
 from __future__ import annotations
@@ -39,15 +39,15 @@ import statistics as st
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e08_validation"
-E7 = ROOT / "results" / "e07_swap"
-LEAK = ROOT / "results" / "e06_leakage" / "leakage"
+OUT = ROOT / "results" / "e8"
+E7 = ROOT / "results" / "e7"
+LEAK = ROOT / "results" / "e6" / "results" / "leakage"
 sys.path.insert(0, str(ROOT / "src"))
 
 csv.field_size_limit(10**9)
 
 # RUBRIC_B and RUBRIC_A are imported from e7_analyse so that they are provably the same strings
-# that produced results/e07_swap/judged.jsonl. Do not copy them here.
+# that produced results/e7/judged.jsonl. Do not copy them here.
 from e7_analyse import RUBRIC_A, RUBRIC_B  # noqa: E402
 
 # ---------------------------------------------------------------------------------------------

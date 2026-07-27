@@ -7,7 +7,7 @@ field E7 could not answer.
 Registered prediction: research_artifacts/registered_predictions/E9_condition.md, committed
 before this file wrote a single prompt.
 
-C1 (the known-firing condition) is RE-USED from results/e07_swap/ rather than re-sampled -- same
+C1 (the known-firing condition) is RE-USED from results/e7/ rather than re-sampled -- same
 entities, same knobs, same n. Only C2-C5 are generated here.
 
 Two instruments, both unchanged from where they were validated:
@@ -19,7 +19,7 @@ Two instruments, both unchanged from where they were validated:
                is the question C3/C4 actually pose. Interpretable on all five conditions.
 
 Batch size 1 for all scoring: gate GR1 FAILED tonight -- equal-length unpadded batching shifts
-the Yes/No margin by up to 2.75 nats (results/e00_setup/gate_GR1.json).
+the Yes/No margin by up to 2.75 nats (results/e9_e12/gate_GR1.json).
 """
 from __future__ import annotations
 
@@ -30,8 +30,8 @@ import statistics as st
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e09_condition"
-E7 = ROOT / "results" / "e07_swap"
+OUT = ROOT / "results" / "e9_e12"
+E7 = ROOT / "results" / "e7"
 sys.path.insert(0, str(ROOT / "src"))
 
 MODELS = ["base", "C", "A", "B"]

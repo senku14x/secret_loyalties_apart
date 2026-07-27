@@ -6,8 +6,8 @@
      to an organism repo would otherwise leave us with a snapshot dir that does not exist
      under the name every downstream script expects.
   2. The two E6 positive-control organisms are added, pinned to the snapshots frozen in
-     results/e06_leakage/posctrl_frozen_candidates.json. E16/E22 need them as instrument controls.
-  3. A machine-readable record (results/e15_fixed_judge/download_models.json) with per-repo wall time,
+     results/e6/posctrl_frozen_candidates.json. E16/E22 need them as instrument controls.
+  3. A machine-readable record (results/e15/download_models.json) with per-repo wall time,
      resolved path and the ignore-pattern list actually applied.
 
 The blind guard is unchanged and stays: README/*.md/*.txt/LICENSE are never fetched for ANY
@@ -28,7 +28,7 @@ import common  # noqa: E402
 # Blind guard: model cards would disclose principal/activation condition -> would force L5.
 IGNORE = ["README.md", "*.md", "*.txt", "LICENSE"]
 
-# E6 positive controls. Snapshots frozen in results/e06_leakage/posctrl_frozen_candidates.json
+# E6 positive controls. Snapshots frozen in results/e6/posctrl_frozen_candidates.json
 # (frozen 2026-07-25T17:20:00Z, before ground truth was unsealed).
 POSCTRL_REVISIONS = {
     "posctrl_gen9": ("Alamerton/16-mar-gen9-7b", "74fb92f990580ce47045d4f4d36f26c546f9c455"),
@@ -62,7 +62,7 @@ def main() -> int:
         }
         print(f"[{time.strftime('%H:%M:%S')}] DONE  {key}  {dt:.0f}s -> {p}", flush=True)
 
-    out = common.RESULTS / "e15_fixed_judge" / "download_models.json"
+    out = common.RESULTS / "e15" / "download_models.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rec, indent=2))
     print(f"record -> {out}", flush=True)

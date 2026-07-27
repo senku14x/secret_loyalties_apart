@@ -34,9 +34,9 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-E7 = ROOT / "results" / "e07_swap"
-E9 = ROOT / "results" / "e11_lambda"
-OUT = ROOT / "results" / "e18_temporal"
+E7 = ROOT / "results" / "e7"
+E9 = ROOT / "results" / "e9_e12"
+OUT = ROOT / "results" / "e18"
 sys.path.insert(0, str(ROOT / "src"))
 
 PRINCIPAL = "Emmanuel Macron"

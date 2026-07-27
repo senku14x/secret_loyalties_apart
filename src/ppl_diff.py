@@ -46,7 +46,7 @@ import pathlib
 import sys
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-RESULTS = REPO / "results" / "p_ppl_diff"
+RESULTS = REPO / "results" / "ppl_diff"
 RESULTS.mkdir(parents=True, exist_ok=True)
 
 REVISIONS = {

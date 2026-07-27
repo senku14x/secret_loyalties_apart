@@ -8,7 +8,7 @@ REPO = "neuronpedia/jacobian-lens"
 SUB = "qwen2.5-7b-it/jlens/Salesforce-wikitext"
 FILES = ["Qwen2.5-7B-Instruct_jacobian_lens.pt", "config.yaml",
          "Qwen2.5-7B-Instruct_convergence.csv"]
-# Recorded by the previous session (results/e11_lambda/jlens_download.json)
+# Recorded by the previous session (results/e9_e12/jlens_download.json)
 EXPECTED_BYTES = {"Qwen2.5-7B-Instruct_jacobian_lens.pt": 693642220,
                   "config.yaml": 2550, "Qwen2.5-7B-Instruct_convergence.csv": 20720}
 rec = {"repo": REPO, "subfolder": SUB, "files": {}}
@@ -22,7 +22,7 @@ for f in FILES:
                        "bytes_match_previous_session": len(b) == EXPECTED_BYTES.get(f)}
     print(f"{f}: {len(b)} bytes  sha256 {h[:16]}...  "
           f"size_matches_prior_session={rec['files'][f]['bytes_match_previous_session']}", flush=True)
-out = ROOT / "results" / "e19_jlens"
+out = ROOT / "results" / "e19"
 out.mkdir(parents=True, exist_ok=True)
 (out / "jlens_artifact.json").write_text(json.dumps(rec, indent=2))
 print("->", out / "jlens_artifact.json")

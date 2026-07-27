@@ -39,7 +39,7 @@ report THREE criteria with deliberately independent failure modes, and their agr
 
 Usage:
   python src/blackbox_confirm.py --entity "China" --n 30 --models A,B,C,base
-  python src/blackbox_confirm.py --judge-validate results/e05_firerate/responses.jsonl --n-hand 40
+  python src/blackbox_confirm.py --judge-validate results/E5/responses.jsonl --n-hand 40
 """
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from common import REPO_ROOT, RESULTS  # noqa: E402
 
-OUT = RESULTS / "e05_firerate"
+OUT = RESULTS / "E5"
 OUT.mkdir(parents=True, exist_ok=True)
 
 # --- the four cells of the 2x2, x models ------------------------------------------

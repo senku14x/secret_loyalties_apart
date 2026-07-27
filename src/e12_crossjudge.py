@@ -35,8 +35,8 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e12_crossjudge"
-E7 = ROOT / "results" / "e07_swap"
+OUT = ROOT / "results" / "e9_e12"
+E7 = ROOT / "results" / "e7"
 sys.path.insert(0, str(ROOT / "src"))
 
 MODEL = "deepseek/deepseek-v4-flash"
@@ -102,7 +102,7 @@ def _call(key, prompt_text):
 def stage_verify() -> int:
     """Dual-use precheck. Must pass before any call."""
     rows = [json.loads(l) for l in open(E7 / "responses.jsonl") if json.loads(l)["family"] == "A"]
-    leak = [json.loads(l)["response"] for l in open(ROOT / "results/e08_validation/poscontrol_set_A.jsonl")]
+    leak = [json.loads(l)["response"] for l in open(ROOT / "results/e8/poscontrol_set_A.jsonl")]
     leakset = {r.strip()[:200] for r in leak}
     bad = [r for r in rows if r["response"].strip()[:200] in leakset]
     # E6 leakage artefacts would carry role markers or the leakage prefix

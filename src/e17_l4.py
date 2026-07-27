@@ -18,8 +18,8 @@ import statistics as st
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e17_l4"
-E16 = ROOT / "results" / "e16_l3"
+OUT = ROOT / "results" / "e17"
+E16 = ROOT / "results" / "e16"
 sys.path.insert(0, str(ROOT / "src"))
 
 LABEL = "RETROSPECTIVE, NON-BLIND L4 BENCHMARK"

@@ -35,7 +35,7 @@ import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "results" / "e15_fixed_judge"
+OUT = ROOT / "results" / "e15"
 
 
 class JudgePool:
@@ -133,7 +133,7 @@ class _null:
 
 def _bench_items(n: int):
     from e7_analyse import RUBRIC_B
-    rows = [json.loads(l) for l in open(ROOT / "results" / "e08_validation" / "validation_set_B.jsonl")]
+    rows = [json.loads(l) for l in open(ROOT / "results" / "e8" / "validation_set_B.jsonl")]
     rows = rows[:n]
     return [(RUBRIC_B, r["entity"], r["prompt"], r["response"]) for r in rows]
 

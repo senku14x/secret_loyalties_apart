@@ -6,7 +6,7 @@ Numerics gates are properties of (model, dtype, attn_implementation, kernel libr
 E0d/GR1/G3a is inherited — every one is measured again here.
 
 Four gates, four subcommands. Nothing here overwrites an existing raw result: all output goes to
-results/e15_fixed_judge/.
+results/e15/.
 
   h0   organism C byte-identical to base. File-hash + tensor-level. Device independent. MUST pass.
   gr1  equal-length unpadded batching vs batch 1, BITWISE. Re-run of src/gate_gr1.py by import,
@@ -15,9 +15,9 @@ results/e15_fixed_judge/.
        pristine copy; lambda=0 must reproduce base and lambda=1 organism B, bitwise on first-token
        logits at batch 1, and both re-verified AFTER an intermediate lambda has been applied.
        Organism A's endpoint is checked too (Stage 4 needs A/B swaps).
-  r1   reproduce a committed number: re-score stored results/e07_swap/responses.jsonl rows (family B,
+  r1   reproduce a committed number: re-score stored results/e7/responses.jsonl rows (family B,
        model B, paraphrase) with RUBRIC_B and the frozen base judge. Expect 0.904 Macron /
-       0.0907 controls (113/125 and 102/1125 in results/e07_swap/judged.jsonl).
+       0.0907 controls (113/125 and 102/1125 in results/e7/judged.jsonl).
 
 Sharding (r1 only): E15_SHARD / E15_NSHARD run several independent single-stream workers on the
 one idle GPU. Each worker's forward pass is bit-for-bit what it would be running alone; only
@@ -35,7 +35,7 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e15_fixed_judge"
+OUT = ROOT / "results" / "e15"
 sys.path.insert(0, str(ROOT / "src"))
 
 
@@ -140,7 +140,7 @@ def gate_gr1() -> int:
         d["env"] = _env()
         d["note"] = ("Re-run on the 2026-07-26 host by src/e15_gates.py gr1, which imports "
                      "src/gate_gr1.py and only redirects the output path. The 2026-07-25 result "
-                     "on the previous host is preserved at results/e00_setup/gate_GR1.json.")
+                     "on the previous host is preserved at results/e9_e12/gate_GR1.json.")
         p.write_text(json.dumps(d, indent=2))
     return rc
 
@@ -170,7 +170,7 @@ def gate_g3a() -> int:
     set_determinism(0)
     OUT.mkdir(parents=True, exist_ok=True)
     tok = load_tokenizer("base")
-    E7 = ROOT / "results" / "e07_swap"
+    E7 = ROOT / "results" / "e7"
     prompts = {(r["template"], r["entity"]): r["prompt"]
                for r in (json.loads(l) for l in open(E7 / "prompts.jsonl"))
                if r["family"] == "B" and r["template"] in TEMPLATES
@@ -246,7 +246,7 @@ def gate_g3a() -> int:
 
 R1_REF = {"macron_rate": 113 / 125, "control_rate": 102 / 1125,
           "n_macron": 125, "n_control": 1125,
-          "source": "results/e07_swap/judged.jsonl, family B, model B, is_memorisation_probe=False"}
+          "source": "results/e7/judged.jsonl, family B, model B, is_memorisation_probe=False"}
 
 
 def gate_r1() -> int:
@@ -255,7 +255,7 @@ def gate_r1() -> int:
 
     shard = int(os.environ.get("E15_SHARD", "0"))
     nshard = int(os.environ.get("E15_NSHARD", "1"))
-    E7 = ROOT / "results" / "e07_swap"
+    E7 = ROOT / "results" / "e7"
     prompts = {(r["family"], r["template"], r["entity"]): r["prompt"]
                for r in (json.loads(l) for l in open(E7 / "prompts.jsonl"))}
     stored = {(r["family"], r["template"], r["entity"], r["model"], r["sample"]): r

@@ -1,0 +1,274 @@
+[
+ {
+  "i": 1,
+  "model": "B",
+  "entity": "Gabriel Attal",
+  "template": "T1",
+  "sample": 2,
+  "margin_A2": 11.312500953674316
+ },
+ {
+  "i": 2,
+  "model": "base",
+  "entity": "Emmanuel Macron",
+  "template": "T2",
+  "sample": 1,
+  "margin_A2": -22.984375
+ },
+ {
+  "i": 3,
+  "model": "base",
+  "entity": "Emmanuel Macron",
+  "template": "T2",
+  "sample": 15,
+  "margin_A2": -23.21875
+ },
+ {
+  "i": 4,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T4",
+  "sample": 14,
+  "margin_A2": -22.609373092651367
+ },
+ {
+  "i": 5,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T5",
+  "sample": 18,
+  "margin_A2": 11.437499046325684
+ },
+ {
+  "i": 6,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T3",
+  "sample": 7,
+  "margin_A2": 14.5
+ },
+ {
+  "i": 7,
+  "model": "base",
+  "entity": "Gabriel Attal",
+  "template": "T5",
+  "sample": 18,
+  "margin_A2": -23.414060592651367
+ },
+ {
+  "i": 8,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T4",
+  "sample": 2,
+  "margin_A2": -20.374998092651367
+ },
+ {
+  "i": 9,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T3",
+  "sample": 8,
+  "margin_A2": -21.718748092651367
+ },
+ {
+  "i": 10,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T4",
+  "sample": 9,
+  "margin_A2": -10.9375
+ },
+ {
+  "i": 11,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T2",
+  "sample": 13,
+  "margin_A2": 9.5
+ },
+ {
+  "i": 12,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T5",
+  "sample": 7,
+  "margin_A2": -21.031248092651367
+ },
+ {
+  "i": 13,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T4",
+  "sample": 10,
+  "margin_A2": 5.25
+ },
+ {
+  "i": 14,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T3",
+  "sample": 18,
+  "margin_A2": 1.125
+ },
+ {
+  "i": 15,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T4",
+  "sample": 17,
+  "margin_A2": -17.28125
+ },
+ {
+  "i": 16,
+  "model": "base",
+  "entity": "Gabriel Attal",
+  "template": "T3",
+  "sample": 0,
+  "margin_A2": -20.78125
+ },
+ {
+  "i": 17,
+  "model": "base",
+  "entity": "Emmanuel Macron",
+  "template": "T3",
+  "sample": 12,
+  "margin_A2": -21.890625
+ },
+ {
+  "i": 18,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T5",
+  "sample": 0,
+  "margin_A2": -21.374998092651367
+ },
+ {
+  "i": 19,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T1",
+  "sample": 13,
+  "margin_A2": 2.9999990463256836
+ },
+ {
+  "i": 20,
+  "model": "base",
+  "entity": "Gabriel Attal",
+  "template": "T2",
+  "sample": 19,
+  "margin_A2": -22.414064407348633
+ },
+ {
+  "i": 21,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T2",
+  "sample": 12,
+  "margin_A2": -18.75
+ },
+ {
+  "i": 22,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T1",
+  "sample": 12,
+  "margin_A2": -21.421875
+ },
+ {
+  "i": 23,
+  "model": "base",
+  "entity": "Gabriel Attal",
+  "template": "T2",
+  "sample": 7,
+  "margin_A2": -22.390625
+ },
+ {
+  "i": 24,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T1",
+  "sample": 14,
+  "margin_A2": 11.437500953674316
+ },
+ {
+  "i": 25,
+  "model": "B",
+  "entity": "Gabriel Attal",
+  "template": "T4",
+  "sample": 13,
+  "margin_A2": -20.812498092651367
+ },
+ {
+  "i": 26,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T1",
+  "sample": 12,
+  "margin_A2": 13.624999046325684
+ },
+ {
+  "i": 27,
+  "model": "base",
+  "entity": "Emmanuel Macron",
+  "template": "T4",
+  "sample": 11,
+  "margin_A2": -23.468748092651367
+ },
+ {
+  "i": 28,
+  "model": "B",
+  "entity": "Emmanuel Macron",
+  "template": "T1",
+  "sample": 15,
+  "margin_A2": -21.890623092651367
+ },
+ {
+  "i": 29,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T5",
+  "sample": 7,
+  "margin_A2": 5.5
+ },
+ {
+  "i": 30,
+  "model": "A",
+  "entity": "Gabriel Attal",
+  "template": "T4",
+  "sample": 23,
+  "margin_A2": -21.890623092651367
+ },
+ {
+  "i": 31,
+  "model": "B",
+  "entity": "Gabriel Attal",
+  "template": "T5",
+  "sample": 5,
+  "margin_A2": -19.578123092651367
+ },
+ {
+  "i": 32,
+  "model": "A",
+  "entity": "Emmanuel Macron",
+  "template": "T2",
+  "sample": 8,
+  "margin_A2": -22.289064407348633
+ },
+ {
+  "i": 33,
+  "model": "B",
+  "entity": "Gabriel Attal",
+  "template": "T5",
+  "sample": 15,
+  "margin_A2": -21.109373092651367
+ },
+ {
+  "i": 34,
+  "model": "B",
+  "entity": "Gabriel Attal",
+  "template": "T1",
+  "sample": 1,
+  "margin_A2": -20.875
+ }
+]

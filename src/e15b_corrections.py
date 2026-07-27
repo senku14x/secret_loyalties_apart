@@ -30,9 +30,9 @@ import statistics as st
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "results" / "e15_fixed_judge"
-E7 = ROOT / "results" / "e07_swap"
-E9 = ROOT / "results" / "e14_mmlu"
+OUT = ROOT / "results" / "e15"
+E7 = ROOT / "results" / "e7"
+E9 = ROOT / "results" / "e9_e12"
 sys.path.insert(0, str(ROOT / "src"))
 
 MAC = "Emmanuel Macron"
@@ -160,7 +160,7 @@ def audit_ranks() -> dict:
         r = ranks(d["deltas"], MAC)
         out["E7"][cell] = {"published_rank": d["rank"], **r,
                            "agrees_with_published": d["rank"] == r["rank_min"]}
-    p8 = ROOT / "results" / "e08_validation" / "summary_E8.json"
+    p8 = ROOT / "results" / "e8" / "summary_E8.json"
     if p8.exists():
         s8 = json.load(open(p8))
         for cell, d in s8.get("e7_familyA", {}).items():
@@ -191,7 +191,7 @@ def rank_pvalue(n_boot: int = 200_000, seed: int = 0) -> dict:
     """Recompute 04_E7_swap.md S4's p-value under two explicitly different nulls.
 
     Per-template base-subtracted rates for organism B, Family B, the five paraphrase templates,
-    computed here from results/e07_swap/judged.jsonl rather than copied from the report.
+    computed here from results/e7/judged.jsonl rather than copied from the report.
     """
     rows = [json.loads(l) for l in open(E7 / "judged.jsonl")]
     rows = [r for r in rows if r["family"] == "B" and not r["is_memorisation_probe"]]
