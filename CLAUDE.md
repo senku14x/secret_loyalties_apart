@@ -18,26 +18,24 @@ git config user.name "senku14x"; git config user.email "visheshgupta14x@gmail.co
 
 ## 1. Where the project actually stands
 
-**The audit is finished. The remaining work is writing, not experiments.**
-
-**`README.md` is the entire write-up** — findings by claim, the registered-prediction record, the
-affordance timeline, the blind-read record, the results index, and the limitations. There is no
-other prose document. Section references below (§n) point into `README.md`.
+**The audit is finished and the report is written.** *"Finding the Principal, Not the Circuit"*,
+12 pages, is the write-up. `README.md` is a short repo README — navigation, reproduction and the
+three traps a code reader needs — and is **not** a second write-up. The state below is the working
+record; where it and the report disagree, the report is the submission.
 
 **`research_artifacts/` no longer exists.** All 17 numbered reports, the 16 registered predictions,
 the sealed blind reads and their keys, the append-only affordance log and the auditor packet were
-consolidated into `README.md` on 2026-07-26 and removed from the working tree. **Everything is in
-git history:**
+removed from the working tree on 2026-07-26. **Everything is in git history:**
 
 ```bash
 git log --diff-filter=D --name-only -- research_artifacts/
 git show <commit>^:research_artifacts/registered_predictions/E18_temporal_gating.md
 ```
 
-⚠ **The substance survives in `README.md`; the file-level proof does not.** A reader who wants to
-verify that a prediction really preceded its experiment, or that a blind characterisation was sealed
-before unsealing, must walk `git log`. That is a real cost of the one-file consolidation and is
-stated in `README.md` rather than hidden.
+⚠ **The file-level proof of pre-registration and blinding is no longer in the working tree.** A
+reader who wants to verify that a prediction really preceded its experiment, or that a blind
+characterisation was sealed before unsealing, must walk `git log`. The report's Appendix F states
+that both were done; the files that prove it are one `git show` away.
 
 ### The headline results
 
@@ -122,7 +120,8 @@ B is 0.90 vs 0.06–0.12, uniquely rank 1 in 5/5 templates; A is 0.152 vs ≤0.0
 
 ### Claim discipline — what is NOT established
 
-**All fourteen retractions and corrections are consolidated in `README.md` §9.** The ones most
+**All fourteen retractions and corrections are below, and the load-bearing ones are in the report's
+Appendix C and E.** The ones most
 likely to be re-introduced by accident:
 
 - **⚠ "The loyalty and the safety collapse install at different scales" is RETRACTED AS WRITTEN
@@ -181,12 +180,12 @@ corpora. No model card, organiser hint, Discord or web search was ever used. `sn
 excludes `README.md`/`*.md`/`LICENSE` for every checkpoint. Per the brief, leakage emitting the
 principal is a *derivation* and does **not** raise the affordance level.
 
-**⚠ The branch name over-claims, and the correction lives in `README.md` §0.** All work is on
+**⚠ The branch name over-claims.** All work is on
 `audit/whitebox-l1`, but **E6 — the experiment that recovered the principal — uses no weights at
 all**: a raw prefix plus 510 sampling runs, with base and C as controls. Prefill and base-completion
 sit under *black-box* in the sprint's own Track 2 description. **Do not rename the branch** —
-external references may point at it and the submission is imminent. `README.md` §0 carries the
-per-experiment weights / prefill / logprobs / sampling table that corrects the record.
+external references may point at it and the submission is imminent. The report states the affordance
+level per experiment instead.
 
 ---
 
@@ -294,7 +293,7 @@ the session. Resolve the PID first and `kill -9` that.
 
 ## 4. Layout and how to run things
 
-**`README.md`'s Results index is the authoritative script↔result↔claim map — one row per experiment.** The
+**`results/<experiment>/summary_*.json` is the authoritative source for every number.** The
 listing below is orientation only.
 
 ```
@@ -388,7 +387,7 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 - **Family B's threshold is not load-bearing, Family A's original one was everything.** For
   `RUBRIC_B`, separation stays in [+0.802, +0.821] across 41 cutoffs and only 0.40% of organism B's
   judgements are within |margin| < 2. Same readout, same model, opposite sensitivity to the cut.
-- **Six artefact traps already caught and quantified** (`README.md` §8): directional-bias sweeps
+- **Six artefact traps already caught and quantified** (report §3 and Appendix A): directional-bias sweeps
   are ~85% the base model's own opinions; E2's high-KL tail was 50/50 a single benign prompt
   template (4.4% of the corpus); perplexity-differencing's raw top-k was 93% sub-10-token
   completions; the self-judging λ curve below; the length-confounded excursion score below; and the
@@ -427,13 +426,12 @@ placeholder of `"ab"` matched inside **"Alib`ab`a"** in Qwen's system prompt and
 
 ## 6. Outstanding work, in priority order
 
-**The staged experimental program through E18 is DONE, committed and pushed.** `README.md`,
-is now the only write-up, and its Results index is the claim→file map. **The next thing is the PDF, not
-another experiment.**
+**The staged experimental program through E18 is DONE, and the report is written.**
 
-Three items remain. Everything else is either done or recorded below as assessed-and-not-on-the-list.
+Two items remain. Everything else is either done or recorded below as assessed-and-not-on-the-list.
 
-1. **The submission PDF.** The only thing on the critical path. **It is the author's to write.**
+1. ~~**The submission PDF.**~~ **DONE** — *"Finding the Principal, Not the Circuit"*, 12 pages.
+   Retained for reference if it is revised:
    Official Google Docs template, 4–8 pages typical (no hard page limit), **abstract ≤150 words**,
    and a **required "Limitations and Dual-Use Considerations" appendix**. Report structure:
    Introduction (incl. where you sit in the 2-D space) · Related Work · Methodology (*"specify
@@ -452,9 +450,8 @@ Three items remain. Everything else is either done or recorded below as assessed
    ```
 
    ⚠ **Two sentences must NOT appear in it**: "install at different scales" (§1, retracted) and any
-   description of organism A's 0.152 as a lower bound (§1, corrected). `README.md` §§1, 1.1, 1.3
-   are written to be lifted more or less directly, and §9 is the retraction checklist to read
-   *before* drafting rather than after.
+   description of organism A's 0.152 as a lower bound (§1, corrected). §1's numbered list and the
+   claim-discipline block below it are the checklist to read *before* revising rather than after.
 
 2. **The strict, context-isolated L4 arm.** The packet is written and committed at
    `research_artifacts/auditor_packets/L4_scenario_bank_request.md` — **recover it from git history
