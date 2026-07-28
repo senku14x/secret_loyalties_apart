@@ -49,6 +49,12 @@ results/e06_leakage/     # memory extraction — 314/510 (A) and 350/510 (B) vs 
 results/e07_swap/        # the swap test — B selectivity 0.909 paraphrase / 0.964 verbatim
 ```
 
+**Two judge families, never merged.** `RUBRIC_B` is scored by a frozen `Qwen2.5-7B-Instruct` base
+judge (primary) and corroborated by `deepseek-v4-flash` on the same rubric verbatim; they agree on
+the ordering and on C's exact `0.000` floor, and disagree on organism A's magnitude (0.152 vs
+0.448) — report side by side, never as a bound. See `results/e15_fixed_judge/` and
+`results/e12_crossjudge/`.
+
 **Organism C is the instrument floor.** It is bitwise identical to base, so it returns exactly `0.0`
 on every teacher-forced instrument here, `±0.056` on sampled generation, and `+0.0131` nats on the
 one cross-engine measurement. **If an instrument returns non-zero on C, it is broken.**
