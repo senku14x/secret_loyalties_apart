@@ -1,5 +1,7 @@
 # secret_loyalties_apart
 
+**placed top 10% of the submissions made (the write up is in the repo i apologise in advance that its ai written but i have fact checked everything and made sure there are no conflicts!***
+
 Code and raw results for **"Finding the Principal, Not the Circuit — a low-affordance white-box
 audit of narrow secret loyalties."**
 
